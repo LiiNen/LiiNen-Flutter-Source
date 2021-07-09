@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'navView/navItemView1.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,7 +9,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       home: MyNav(),
     );
   }
@@ -25,7 +25,7 @@ class _MyNav extends State<MyNav> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('title'),
+        title: Text('이건모임?'),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -54,6 +54,17 @@ class _MyNav extends State<MyNav> {
           )
         ],
       ),
+      body: Center(
+        child: _navItemView.elementAt(_selectedIndex),
+      ),
     );
   }
+
+  // navigation items view
+  List<Widget> _navItemView = <Widget>[
+    NavItemView1(),
+    NavItemView1(),
+    NavItemView1(),
+    NavItemView1(),
+  ];
 }
