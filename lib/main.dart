@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'navView/navItemView1.dart';
+import 'navView/navItemView2.dart';
 
 void main() => runApp(MyApp());
 
@@ -63,7 +64,7 @@ class _MyNav extends State<MyNav> {
   // navigation items view
   List<Widget> _navItemView = <Widget>[
     NavItemView1(),
-    NavItemView1(),
+    NavItemView2(),
     NavItemView1(),
     NavItemView1(),
   ];
