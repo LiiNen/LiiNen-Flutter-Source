@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'navView/navItemView1.dart';
 import 'navView/navItemView2.dart';
 import 'navView/navItemView3.dart';
+import 'navView/navItemView4.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +13,36 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyNav(),
+      home: LoginView(),
+    );
+  }
+}
+
+class LoginView extends StatefulWidget {
+  @override
+  State<LoginView> createState() => _LoginView();
+}
+class _LoginView extends State<LoginView> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: ElevatedButton(
+          child: Text('cannot go back'),
+          onLongPress: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MyNav())
+            );
+          },
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => MyNav())
+            );
+          },
+        )
+      )
     );
   }
 }
@@ -21,7 +51,6 @@ class MyNav extends StatefulWidget {
   @override
   State<MyNav> createState() => _MyNav();
 }
-
 class _MyNav extends State<MyNav> {
   int _selectedIndex = 0;
   @override
@@ -69,7 +98,7 @@ class _MyNav extends State<MyNav> {
     NavItemView1(),
     NavItemView2(),
     NavItemView3(),
-    NavItemView1(),
+    NavItemView4(),
   ];
 }
 
