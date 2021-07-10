@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'navView/navItemView1.dart';
 import 'navView/navItemView2.dart';
+import 'navView/navItemView3.dart';
 
 void main() => runApp(MyApp());
 
@@ -34,6 +36,7 @@ class _MyNav extends State<MyNav> {
         onTap: (int index){
           setState(() {
             _selectedIndex = index;
+            showToast('index $index');
           });
         },
         items: [
@@ -65,7 +68,13 @@ class _MyNav extends State<MyNav> {
   List<Widget> _navItemView = <Widget>[
     NavItemView1(),
     NavItemView2(),
-    NavItemView1(),
+    NavItemView3(),
     NavItemView1(),
   ];
+}
+
+void showToast(String message){
+  Fluttertoast.showToast(msg: message,
+    gravity: ToastGravity.BOTTOM
+  );
 }
