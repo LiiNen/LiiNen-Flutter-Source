@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NavItemView2 extends StatefulWidget {
   @override
@@ -46,12 +47,14 @@ class BannerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: GestureDetector(
-        onTap: null,
+        onTap: () => _launchURL(_imgSrc),
         child: Image.network(_imgSrc)
       )
     );
   }
 }
+
+void _launchURL(_srcURL) async => await canLaunch(_srcURL) ? await launch(_srcURL) : throw 'url \"$_srcURL\" error';
 
 final List<String> _imgSrcList = [
   'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView1.png',
