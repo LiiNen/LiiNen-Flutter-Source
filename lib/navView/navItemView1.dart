@@ -6,6 +6,7 @@ class NavItemView1 extends StatefulWidget {
 }
 
 class _NavItemView1 extends State<NavItemView1> {
+  Color inC = Colors.blue;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,16 +15,46 @@ class _NavItemView1 extends State<NavItemView1> {
         shrinkWrap: true,
         children: <Widget>[
           HorizontalContainer(),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 100,
-            color: Colors.lightGreen,
-            child: Center(
-              child: Text('middle')
-            )
-          ),
+          MiddleContainer(),
         ] + vertItemsList
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _inColorChange,
+        child: Icon(Icons.add),
+        backgroundColor: Colors.yellow,
+        foregroundColor: inC,
+        mini: true,
+      ),
+    );
+  }
+
+  void _inColorChange() {
+    setState(() {
+      inC = Colors.red;
+    });
+  }
+}
+
+class MiddleContainer extends StatefulWidget {
+  @override
+  State<MiddleContainer> createState() => _MiddleContainer();
+}
+
+class _MiddleContainer extends State<MiddleContainer> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 100,
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Container(
+          color: Colors.green,
+          child: Center(
+            child: Text('middlew')
+          )
+        )
+      ),
     );
   }
 }
@@ -47,7 +78,12 @@ final List<Widget> vertItemsList = List<Widget>.generate(horList.length, (index)
   );
 });
 
-class HorizontalContainer extends StatelessWidget {
+class HorizontalContainer extends StatefulWidget {
+  @override
+  State<HorizontalContainer> createState() => _HorizontalContainer();
+}
+
+class _HorizontalContainer extends State<HorizontalContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -63,20 +99,44 @@ class HorizontalContainer extends StatelessWidget {
   }
 }
 
-class HorizontalItem extends StatelessWidget {
+class HorizontalItem extends StatefulWidget {
   HorizontalItem(this._text, this._color);
-  final String _text;
+  String _text;
+  Color _color;
+  @override
+  State<HorizontalItem> createState() => _HorizontalItem(_text, _color);
+}
+
+class _HorizontalItem extends State<HorizontalItem> {
+  _HorizontalItem(this._text, this._color);
+  String _text;
   final Color _color;
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 100,
       height: 100,
-      color: _color,
       margin: EdgeInsets.all(25),
-      child: Center(
-        child: Text(_text)
+      child: GestureDetector(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(50)),
+            color: _color
+          ),
+          child: Center(
+           child: Text(_text)
+          ),
+        ),
+        onTap: _changeText,
       )
     );
+  }
+  void _changeText() {
+    setState(() {
+      if(this._text == 'clicked') {
+        this._text = 'once more';
+      }
+      else this._text = 'clicked';
+    });
   }
 }

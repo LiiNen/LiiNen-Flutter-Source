@@ -57,7 +57,7 @@ class _MyNav extends State<MyNav> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('이건모임?'),
+        title: Text('제목'),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -70,19 +70,19 @@ class _MyNav extends State<MyNav> {
         },
         items: [
           BottomNavigationBarItem(
-            label: 'first',
+            label: '스토리/피드',
             icon: Icon(Icons.favorite),
           ),
           BottomNavigationBarItem(
-            label: 'second',
+            label: '배너',
             icon: Icon(Icons.favorite),
           ),
           BottomNavigationBarItem(
-            label: 'third',
+            label: '제목없음',
             icon: Icon(Icons.favorite),
           ),
           BottomNavigationBarItem(
-            label: 'fourth',
+            label: '개인설정',
             icon: Icon(Icons.favorite),
           )
         ],
