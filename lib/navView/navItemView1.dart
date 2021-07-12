@@ -10,6 +10,9 @@ class _NavItemView1 extends State<NavItemView1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('제목'),
+      ),
       body: ListView(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
@@ -47,7 +50,7 @@ class _MiddleContainer extends State<MiddleContainer> {
       width: MediaQuery.of(context).size.width,
       height: 100,
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(0),
         child: Container(
           color: Colors.green,
           child: Center(
@@ -87,7 +90,7 @@ class _HorizontalContainer extends State<HorizontalContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: 100,
       child: new ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: horList.length,
@@ -101,8 +104,8 @@ class _HorizontalContainer extends State<HorizontalContainer> {
 
 class HorizontalItem extends StatefulWidget {
   HorizontalItem(this._text, this._color);
-  String _text;
-  Color _color;
+  final String _text;
+  final Color _color;
   @override
   State<HorizontalItem> createState() => _HorizontalItem(_text, _color);
 }
@@ -111,26 +114,6 @@ class _HorizontalItem extends State<HorizontalItem> {
   _HorizontalItem(this._text, this._color);
   String _text;
   final Color _color;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      height: 100,
-      margin: EdgeInsets.all(25),
-      child: GestureDetector(
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(50)),
-            color: _color
-          ),
-          child: Center(
-           child: Text(_text)
-          ),
-        ),
-        onTap: _changeText,
-      )
-    );
-  }
   void _changeText() {
     setState(() {
       if(this._text == 'clicked') {
@@ -138,5 +121,27 @@ class _HorizontalItem extends State<HorizontalItem> {
       }
       else this._text = 'clicked';
     });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 100,
+      height: 100,
+      child: Padding(
+        padding: EdgeInsets.all(0),
+        child: GestureDetector(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(50)),
+              color: _color
+            ),
+            child: Center(
+             child: Text(_text)
+            ),
+          ),
+          onTap: _changeText,
+        )
+      )
+    );
   }
 }

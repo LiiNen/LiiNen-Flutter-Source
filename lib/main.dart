@@ -56,9 +56,6 @@ class _MyNav extends State<MyNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('제목'),
-      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
@@ -69,22 +66,10 @@ class _MyNav extends State<MyNav> {
           });
         },
         items: [
-          BottomNavigationBarItem(
-            label: '스토리/피드',
-            icon: Icon(Icons.favorite),
-          ),
-          BottomNavigationBarItem(
-            label: '배너',
-            icon: Icon(Icons.favorite),
-          ),
-          BottomNavigationBarItem(
-            label: '제목없음',
-            icon: Icon(Icons.favorite),
-          ),
-          BottomNavigationBarItem(
-            label: '개인설정',
-            icon: Icon(Icons.favorite),
-          )
+          BottomNavigationBarItem(label: '스토리/피드', icon: Icon(Icons.home)),
+          BottomNavigationBarItem(label: '배너', icon: Icon(Icons.favorite)),
+          BottomNavigationBarItem(label: '제목없음', icon: Icon(Icons.search)),
+          BottomNavigationBarItem(label: '개인설정', icon: Icon(Icons.account_circle))
         ],
       ),
       body: Center(

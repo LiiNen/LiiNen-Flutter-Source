@@ -11,6 +11,9 @@ class _NavItemView2 extends State<NavItemView2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('제목'),
+      ),
       body: ListView(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,

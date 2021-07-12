@@ -11,6 +11,9 @@ class _NavItemView4 extends State<NavItemView4> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('개인 설정'),
+      ),
       body: Column(
         children: [
           Row(
@@ -18,13 +21,18 @@ class _NavItemView4 extends State<NavItemView4> {
               Container(
                 width: widthSize,
                 height: heightSize,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(mypict),
-                    fit: BoxFit.cover
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(widthSize/2))
-                ),
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(mypict),
+                        fit: BoxFit.cover
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(widthSize/2))
+                    ),
+                  )
+                )
               ),
               Container(
                 width: MediaQuery.of(context).size.width - widthSize,
