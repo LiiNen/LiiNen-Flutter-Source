@@ -13,6 +13,16 @@ class _NavItemView4 extends State<NavItemView4> {
     return Scaffold(
       appBar: AppBar(
         title: Text('개인 설정'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {}
+          )
+        ],
       ),
       body: Column(
         children: [
