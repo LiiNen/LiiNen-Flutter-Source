@@ -31,6 +31,7 @@ dependencies:
   flutter_swiper: ^1.1.6
   http: ^0.13.3
   url_launcher: ^6.0.9
+  shared_preferences: ^2.0.6
 
 dev_dependencies:
   flutter_test:

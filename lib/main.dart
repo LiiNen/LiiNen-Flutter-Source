@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'navView/navItemView1.dart';
 import 'navView/navItemView2.dart';
 import 'navView/navItemView3.dart';
 import 'navView/navItemView4.dart';
 
-void main() => runApp(MyApp());
+void main()=> runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -13,7 +15,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginView(),
+      // home: LoginView(),
+      home: MyNav(),
     );
   }
 }
@@ -30,15 +33,11 @@ class _LoginView extends State<LoginView> {
         child: ElevatedButton(
           child: Text('cannot go back'),
           onLongPress: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MyNav())
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MyNav())
             );
           },
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => MyNav())
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyNav())
             );
           },
         )
