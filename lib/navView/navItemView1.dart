@@ -42,7 +42,6 @@ class MiddleContainer extends StatefulWidget {
   @override
   State<MiddleContainer> createState() => _MiddleContainer();
 }
-
 class _MiddleContainer extends State<MiddleContainer> {
   @override
   Widget build(BuildContext context) {
@@ -85,7 +84,6 @@ class HorizontalContainer extends StatefulWidget {
   @override
   State<HorizontalContainer> createState() => _HorizontalContainer();
 }
-
 class _HorizontalContainer extends State<HorizontalContainer> {
   @override
   Widget build(BuildContext context) {
@@ -109,7 +107,6 @@ class HorizontalItem extends StatefulWidget {
   @override
   State<HorizontalItem> createState() => _HorizontalItem(_text, _color);
 }
-
 class _HorizontalItem extends State<HorizontalItem> {
   _HorizontalItem(this._text, this._color);
   String _text;

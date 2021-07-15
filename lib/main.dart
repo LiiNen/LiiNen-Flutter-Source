@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 import 'navView/navItemView1.dart';
 import 'navView/navItemView2.dart';
@@ -15,8 +16,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // home: LoginView(),
-      home: MyNav(),
+      home: LoginView(),
+      //   home: MyNav(),
     );
   }
 }
@@ -30,19 +31,23 @@ class _LoginView extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          child: Text('cannot go back'),
-          onLongPress: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => MyNav())
-            );
-          },
-          onPressed: () {
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyNav())
-            );
-          },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(bottom: 40),
+              child: Text('Login Page', style: TextStyle(fontWeight: FontWeight.bold))
+            ),
+            SignInButton(Buttons.Apple, onPressed: _loginSuccess),
+            SignInButton(Buttons.Google, onPressed: _loginSuccess),
+            SignInButton(Buttons.Facebook, onPressed: _loginSuccess),
+          ]
         )
       )
     );
+  }
+  void _loginSuccess() {
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyNav()));
   }
 }
 
@@ -52,6 +57,7 @@ class MyNav extends StatefulWidget {
 }
 class _MyNav extends State<MyNav> {
   int _selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

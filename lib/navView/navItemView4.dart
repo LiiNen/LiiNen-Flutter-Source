@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class NavItemView4 extends StatefulWidget {
   @override
@@ -8,6 +9,8 @@ class NavItemView4 extends StatefulWidget {
 }
 
 class _NavItemView4 extends State<NavItemView4> {
+  var _profileImage = NetworkImage(mypict);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,12 +37,19 @@ class _NavItemView4 extends State<NavItemView4> {
                 child: Padding(
                   padding: EdgeInsets.all(10),
                   child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(mypict),
-                        fit: BoxFit.cover
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(widthSize/2))
+                    child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: _profileImage,
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(widthSize/2))
+                          ),
+                        ),
+                        IconButton(onPressed: _modifyImage, icon: Icon(Icons.add))
+                      ]
                     ),
                   )
                 )
@@ -92,6 +102,13 @@ class _NavItemView4 extends State<NavItemView4> {
         ]
       )
     );
+  }
+
+  Future<void> _modifyImage() async {
+    var image = await ImagePicker().getImage(source: ImageSource.gallery);
+    setState(() {
+      _profileImage = image as NetworkImage;
+    });
   }
 }
 
