@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,7 +10,7 @@ class NavItemView4 extends StatefulWidget {
 }
 
 class _NavItemView4 extends State<NavItemView4> {
-  var _profileImage = NetworkImage(mypict);
+  late File _profileImage = File.fromUri(Uri.parse(mypict));
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class _NavItemView4 extends State<NavItemView4> {
                         Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: _profileImage,
+                              image: FileImage(_profileImage),
                               fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.all(Radius.circular(widthSize/2))
@@ -105,9 +106,10 @@ class _NavItemView4 extends State<NavItemView4> {
   }
 
   Future<void> _modifyImage() async {
-    var image = await ImagePicker().getImage(source: ImageSource.gallery);
+    await Future.delayed(Duration(milliseconds: 500));
+    var image = await ImagePicker().getImage(source: ImageSource.camera);
     setState(() {
-      _profileImage = image as NetworkImage;
+      _profileImage = File(image!.path);
     });
   }
 }
