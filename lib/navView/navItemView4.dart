@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+// import 'package:permission_handler/permission_handler.dart';
 
 class NavItemView4 extends StatefulWidget {
   @override
@@ -60,6 +61,16 @@ class PersonalComponent extends StatefulWidget{
   State<PersonalComponent> createState() => _PersonalComponent();
 }
 class _PersonalComponent extends State<PersonalComponent> {
+
+  @override
+  initState() {
+    super.initState();
+    _loadProfile();
+  }
+  _loadProfile() async {
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -129,10 +140,17 @@ class _PersonalComponent extends State<PersonalComponent> {
     );
   }
 
-  void _modifyImage() {
-    setState(() {
+  void _modifyImage() async{
+    final ImagePicker _imagePicker = ImagePicker();
+    try {
+      final _pickedImage = await _imagePicker.getImage(source: ImageSource.gallery);
 
-    });
+    } catch(e) {
+      print(e);
+      setState(() {
+
+      });
+    }
   }
 }
 
