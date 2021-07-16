@@ -7,11 +7,11 @@ import 'navView/navItemView3.dart';
 import 'navView/navItemView4.dart';
 
 
-class MyNav extends StatefulWidget {
+class NavView extends StatefulWidget {
   @override
-  State<MyNav> createState() => _MyNav();
+  State<NavView> createState() => _NavView();
 }
-class _MyNav extends State<MyNav> {
+class _NavView extends State<NavView> {
   int _selectedIndex = 0;
 
   @override
