@@ -1,9 +1,9 @@
 import 'dart:ui';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../searchView.dart';
 
 class NavItemView4 extends StatefulWidget {
   @override
@@ -49,10 +49,14 @@ class _PersonalAppBar extends State<PersonalAppBar> {
         ),
         IconButton(
           icon: Icon(Icons.search),
-          onPressed: () {}
+          onPressed: _loadSearchView
         )
       ]
     );
+  }
+
+  void _loadSearchView() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SearchView()));
   }
 }
 
@@ -62,13 +66,24 @@ class PersonalComponent extends StatefulWidget{
 }
 class _PersonalComponent extends State<PersonalComponent> {
 
+  var _profileImage;
+  
   @override
   initState() {
     super.initState();
     _loadProfile();
   }
   _loadProfile() async {
-
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final _image = pref.get("profile") ?? null;
+    setState(() {
+      if(_image != null) {
+        _profileImage = _image;
+      }
+      else {
+        _profileImage = NetworkImage('mypict');
+      }
+    });
   }
 
   @override
