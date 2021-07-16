@@ -10,91 +10,13 @@ class NavItemView4 extends StatefulWidget {
 }
 
 class _NavItemView4 extends State<NavItemView4> {
-  late File _profileImage = File.fromUri(Uri.parse(mypict));
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('개인 설정'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {}
-          )
-        ],
-      ),
+      appBar: PersonalAppBar(),
       body: Column(
         children: [
-          Row(
-            children: [
-              Container(
-                width: widthSize,
-                height: heightSize,
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Container(
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: FileImage(_profileImage),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(widthSize/2))
-                          ),
-                        ),
-                        IconButton(onPressed: _modifyImage, icon: Icon(Icons.add))
-                      ]
-                    ),
-                  )
-                )
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width - widthSize,
-                height: heightSize,
-                child: Column(
-                  children: [
-                    Container(
-                      height: heightSize / 3,
-                      child: Center(
-                        child: Text('myName')
-                      )
-                    ),
-                    Container(
-                      child: Row(
-                        children: [
-                          Container(
-                            width: (MediaQuery.of(context).size.width - widthSize) / 2,
-                            height: heightSize / 3,
-                            child: Center(
-                              child: Text('left')
-                            )
-                          ),
-                          Container(
-                            width: (MediaQuery.of(context).size.width - widthSize) / 2,
-                            height: heightSize / 3,
-                            child: Center(
-                              child: Text('right')
-                            )
-                          )
-                        ],
-                      )
-                    ),
-                    Container(
-                      height: heightSize / 3,
-                      child: Image.asset('asset/image/sample2.jpeg')
-                    )
-                  ],
-                )
-              )
-            ],
-          ),
+          PersonalComponent(),
           Container(
             height: heightSize,
             width: MediaQuery.of(context).size.width,
@@ -104,12 +26,112 @@ class _NavItemView4 extends State<NavItemView4> {
       )
     );
   }
+}
 
-  Future<void> _modifyImage() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    var image = await ImagePicker().getImage(source: ImageSource.camera);
+class PersonalAppBar extends StatefulWidget implements PreferredSizeWidget{
+  PersonalAppBar() : preferredSize = Size.fromHeight(kToolbarHeight);
+  @override
+  final Size preferredSize;
+
+  @override
+  State<PersonalAppBar> createState() => _PersonalAppBar();
+}
+class _PersonalAppBar extends State<PersonalAppBar> {
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      title: Text('개인 설정'),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {},
+        ),
+        IconButton(
+          icon: Icon(Icons.search),
+          onPressed: () {}
+        )
+      ]
+    );
+  }
+}
+
+class PersonalComponent extends StatefulWidget{
+  @override
+  State<PersonalComponent> createState() => _PersonalComponent();
+}
+class _PersonalComponent extends State<PersonalComponent> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+            width: widthSize,
+            height: heightSize,
+            child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Container(
+                  child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(mypict),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.all(Radius.circular(widthSize/2))
+                          ),
+                        ),
+                        IconButton(onPressed: _modifyImage, icon: Icon(Icons.add))
+                      ]
+                  ),
+                )
+            )
+        ),
+        Container(
+            width: MediaQuery.of(context).size.width - widthSize,
+            height: heightSize,
+            child: Column(
+              children: [
+                Container(
+                    height: heightSize / 3,
+                    child: Center(
+                        child: Text('myName')
+                    )
+                ),
+                Container(
+                    child: Row(
+                      children: [
+                        Container(
+                            width: (MediaQuery.of(context).size.width - widthSize) / 2,
+                            height: heightSize / 3,
+                            child: Center(
+                                child: Text('left')
+                            )
+                        ),
+                        Container(
+                            width: (MediaQuery.of(context).size.width - widthSize) / 2,
+                            height: heightSize / 3,
+                            child: Center(
+                                child: Text('right')
+                            )
+                        )
+                      ],
+                    )
+                ),
+                Container(
+                    height: heightSize / 3,
+                    child: Image.asset('asset/image/sample2.jpeg')
+                )
+              ],
+            )
+        )
+      ],
+    );
+  }
+
+  void _modifyImage() {
     setState(() {
-      _profileImage = File(image!.path);
+
     });
   }
 }
