@@ -14,6 +14,7 @@ class _NavItemView4 extends State<NavItemView4> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: NavDrawer(),
       appBar: PersonalAppBar(),
       body: Column(
         children: [
@@ -22,6 +23,42 @@ class _NavItemView4 extends State<NavItemView4> {
             height: heightSize,
             width: MediaQuery.of(context).size.width,
             child: Image.network(mybanner, fit: BoxFit.fill)
+          )
+        ]
+      )
+    );
+  }
+}
+
+class NavDrawer extends StatefulWidget {
+  @override
+  State<NavDrawer> createState() => _NavDrawer();
+}
+class _NavDrawer extends State<NavDrawer> {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.all(10),
+        children: [
+          DrawerHeader(
+            child: Text('side menu', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: NetworkImage(mybanner)
+              )
+            )
+          ),
+          ListTile(
+            leading: Icon(Icons.person),
+            title: Text('list 1'),
+            onTap: () => {},
+          ),
+          ListTile(
+            leading: Icon(Icons.person_add),
+            title: Text('list 2'),
+            onTap: () => {},
           )
         ]
       )
@@ -42,15 +79,15 @@ class _PersonalAppBar extends State<PersonalAppBar> {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text('개인 설정'),
+      leading: IconButton(
+          icon: Icon(Icons.search),
+          onPressed: _loadSearchView
+      ),
       actions: [
         IconButton(
           icon: Icon(Icons.menu),
-          onPressed: () {},
+          onPressed: Scaffold.of(context).openEndDrawer,
         ),
-        IconButton(
-          icon: Icon(Icons.search),
-          onPressed: _loadSearchView
-        )
       ]
     );
   }
