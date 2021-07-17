@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../searchView.dart';
+import '../infoView.dart';
 
 class NavItemView4 extends StatefulWidget {
   @override
@@ -53,7 +54,7 @@ class _NavDrawer extends State<NavDrawer> {
           ListTile(
             leading: Icon(Icons.person),
             title: Text('list 1'),
-            onTap: () => {},
+            onTap: () => _loadList1View('test'),
           ),
           ListTile(
             leading: Icon(Icons.person_add),
@@ -63,6 +64,10 @@ class _NavDrawer extends State<NavDrawer> {
         ]
       )
     );
+  }
+  void _loadList1View(String _infoSrc) {
+    Navigator.pop(context);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => InfoView(_infoSrc)));
   }
 }
 
@@ -102,9 +107,7 @@ class PersonalComponent extends StatefulWidget{
   State<PersonalComponent> createState() => _PersonalComponent();
 }
 class _PersonalComponent extends State<PersonalComponent> {
-
   var _profileImage;
-  
   @override
   initState() {
     super.initState();

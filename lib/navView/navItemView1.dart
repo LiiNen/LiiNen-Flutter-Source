@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_source/navView1/mainBannerContainer.dart';
 
+import '../infoView.dart';
+
 class NavItemView1 extends StatefulWidget {
   @override
   State<NavItemView1> createState() => _NavItemView1();
@@ -112,14 +114,10 @@ class _HorizontalItem extends State<HorizontalItem> {
   _HorizontalItem(this._text, this._color);
   String _text;
   final Color _color;
-  void _changeText() {
-    setState(() {
-      if(this._text == 'clicked') {
-        this._text = 'once more';
-      }
-      else this._text = 'clicked';
-    });
+  void _loadInfoView() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => InfoView(_text)));
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -137,7 +135,7 @@ class _HorizontalItem extends State<HorizontalItem> {
              child: Text(_text)
             ),
           ),
-          onTap: _changeText,
+          onTap: () => _loadInfoView(),
         )
       )
     );
