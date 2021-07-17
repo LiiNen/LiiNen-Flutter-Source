@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_flutter_source/navView1/mainBannerContainer.dart';
 
 class NavItemView1 extends StatefulWidget {
   @override
@@ -17,6 +18,7 @@ class _NavItemView1 extends State<NavItemView1> {
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         children: <Widget>[
+          MainBannerContainer(),
           HorizontalContainer(),
           MiddleContainer(),
         ] + vertItemsList
@@ -30,7 +32,6 @@ class _NavItemView1 extends State<NavItemView1> {
       ),
     );
   }
-
   void _inColorChange() {
     setState(() {
       inC = Colors.red;
