@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_flutter_source/searchResult/categoryResultView.dart';
 
 class NavItemView3 extends StatefulWidget {
   @override
@@ -38,8 +39,8 @@ class _NavItemView3 extends State<NavItemView3> {
             decoration: InputDecoration(
               border: InputBorder.none,
               icon: Padding(
-                  padding: EdgeInsets.only(left: 10, right: 0),
-                  child: Icon(Icons.search)
+                padding: EdgeInsets.only(left: 10, right: 0),
+                child: Icon(Icons.search)
               )
             ),
             onChanged: (_text) {_textChangedListner(_text);},
@@ -94,17 +95,20 @@ void _textReturnListener(_text) {
 
 final List<String> categoryList = ['축구', '농구', '배구', '공부', '코딩', '취업', '뜨개질', '등산', '사이클', '노래', '댄스'];
 Widget categoryContainerGenerator(bool _empty, int _index, BuildContext context) {
+  String _category = categoryList[_index];
+
   return Container(
     padding: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
     width: MediaQuery.of(context).size.width / 2,
     height: 80,
-    child: Container(
-      decoration: _empty ? null : BoxDecoration(
-        border: Border.all(width: 2, color: Colors.black),
-        borderRadius: BorderRadius.all(Radius.circular(5))
-      ),
-      child: _empty ? null : Center(
-        child: Text(categoryList[_index])
+    child: _empty ? null : GestureDetector(
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryResultView(_category))),
+      child: Container(
+        decoration:  BoxDecoration(
+          border: Border.all(width: 2, color: Colors.black),
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+        ),
+        child: Center(child: Text(_category)),
       )
     )
   );
