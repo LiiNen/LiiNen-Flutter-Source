@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class NavItemView2 extends StatefulWidget {
   @override
@@ -8,62 +10,59 @@ class NavItemView2 extends StatefulWidget {
 }
 
 class _NavItemView2 extends State<NavItemView2> {
+  late Future<TestPost> post;
+
+  @override
+  void initState() {
+    super.initState();
+    post = testPost();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('제목'),
       ),
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        children: <Widget>[
-          BannerContainer(),
-        ],
-      ),
-    );
-  }
-}
-
-class BannerContainer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 500,
-      child: Swiper(
-        autoplay: true,
-        control: SwiperControl(),
-        itemCount: _imgSrcList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return BannerItem(_imgSrcList[index]);
-        },
+      body: Container(
+        child: FutureBuilder<TestPost>(
+          future: post,
+          builder: (context, snapshot) {
+            if(snapshot.hasData) {
+              print(snapshot.data!.freeOld.toString());
+              print(snapshot.data!.freeNew.toString());
+              print(snapshot.data!.level.toString());
+              return Container(child: Text(snapshot.data!.level.toString()));
+            }
+            else if(snapshot.hasError) {
+              print(snapshot.error);
+            }
+            return CircularProgressIndicator();
+          },
+        )
       )
     );
   }
 }
 
-class BannerItem extends StatelessWidget {
-  BannerItem(this._imgSrc);
-  final String _imgSrc;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: GestureDetector(
-        onTap: () => _launchURL(_imgSrc),
-        child: Image.network(_imgSrc)
-      )
-    );
+Future<TestPost> testPost() async {
+  await dotenv.load();
+  String key = dotenv.env['RIOT_API_KEY']!;
+  final response = await http.get(Uri.parse('https://kr.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=$key'));
+  if (response.statusCode == 200) {
+    return TestPost.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to load post');
   }
 }
 
-void _launchURL(_srcURL) async => await canLaunch(_srcURL) ? await launch(_srcURL) : throw 'url \"$_srcURL\" error';
+class TestPost {
+  final List<int> freeOld;
+  final List<int> freeNew;
+  final int level;
+  TestPost({required this.freeOld, required this.freeNew, required this.level});
 
-final List<String> _imgSrcList = [
-  'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView1.png',
-  'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView2.png',
-  'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView3.png',
-  'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView4.png',
-  'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView5.png',
-  'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView6.png'
-];
+  factory TestPost.fromJson(Map<String, dynamic> json) {
+    return TestPost(freeOld: json['freeChampionIds'].cast<int>(), freeNew: json['freeChampionIdsForNewPlayers'].cast<int>(), level: json['maxNewPlayerLevel']);
+  }
+}

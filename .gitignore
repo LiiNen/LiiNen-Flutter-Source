@@ -49,3 +49,6 @@ app.*.map.json
 *.png
 *.jpg
 *.jpeg
+
+# .env
+*.env
