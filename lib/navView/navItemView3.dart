@@ -17,12 +17,18 @@ class _NavItemView3 extends State<NavItemView3> {
   Widget build(BuildContext context) {
     List<Widget> _searchByText = [
       Container(
+        height: 50,
         width: MediaQuery.of(context).size.width,
         child: Text('검색하기', textAlign: TextAlign.left,),
       ),
       Container(
+        height: 10,
+        color: Colors.black,
+      ),
+      Container(
         child: TextField(
           focusNode: focusNode,
+          autofocus: true,
           textInputAction: TextInputAction.search,
           decoration: InputDecoration(
             border: InputBorder.none,
@@ -39,16 +45,16 @@ class _NavItemView3 extends State<NavItemView3> {
 
     List<Widget> _searchByCategory = [
       Container(
+        height: 50,
         width: MediaQuery.of(context).size.width,
         child: Text('카테고리', textAlign: TextAlign.left,)
       ),
       Container(
-        child: GridView.count(
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(20),
-          crossAxisCount: 2,
-          children: categoryContainerList,
-        )
+        height: 10,
+        color: Colors.black,
+      ),
+      Container(
+        child: categoryContainer(context)
       )
     ];
 
@@ -79,19 +85,30 @@ void _textReturnListener(_text) {
 }
 
 final List<String> categoryList = ['축구', '농구', '배구', '공부', '코딩', '취업', '뜨개질', '등산', '사이클', '노래', '댄스'];
-final List<Widget> categoryContainerList = List<Widget>.generate(categoryList.length, (index) {
+Widget categoryContainerGenerator(bool _empty, int _index, BuildContext context) {
   return Container(
-    padding: const EdgeInsets.all(50),
-    height: 150,
+    padding: const EdgeInsets.all(20),
+    width: MediaQuery.of(context).size.width / 2,
+    height: 100,
     child: Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 2,
-          color: Colors.black,
-        ),
-        borderRadius: BorderRadius.all(Radius.circular(5))
+      decoration: _empty ? null : BoxDecoration(
+          border: Border.all(width: 2, color: Colors.black),
+          borderRadius: BorderRadius.all(Radius.circular(5))
       ),
-      child: Text(categoryList[index])
+      child: _empty ? null : Center(
+        child: Text(categoryList[_index])
+      )
     )
   );
-});
+}
+Widget categoryContainer(BuildContext context) {
+  return Column(
+    children: List<Widget>.generate((categoryList.length / 2).ceil() , (_index) {
+      var _leftComponent = categoryContainerGenerator(false, _index*2, context);
+      var _rightComponent = (_index*2)+1 < categoryList.length ? categoryContainerGenerator(false, _index*2+1, context) : categoryContainerGenerator(true, 0, context);
+      return Row(
+        children: [_leftComponent, _rightComponent],
+      );
+    })
+  ) ;
+}
