@@ -18,27 +18,33 @@ class _NavItemView3 extends State<NavItemView3> {
     List<Widget> _searchByText = [
       Container(
         height: 50,
-        width: MediaQuery.of(context).size.width,
-        child: Text('검색하기', textAlign: TextAlign.left,),
+        child: Center(child: Container(
+          padding: EdgeInsets.only(left: 10),
+          width: MediaQuery.of(context).size.width,
+          child: Text('검색하기', textAlign: TextAlign.left,)
+        ))
       ),
       Container(
-        height: 10,
-        color: Colors.black,
-      ),
-      Container(
-        child: TextField(
-          focusNode: focusNode,
-          autofocus: true,
-          textInputAction: TextInputAction.search,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            icon: Padding(
-                padding: EdgeInsets.zero,
-                child: Icon(Icons.search)
-            )
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            border: Border.all(width: 2, color: Colors.black),
+            borderRadius: BorderRadius.all(Radius.circular(5))
           ),
-          onChanged: (_text) {_textChangedListner(_text);},
-          onSubmitted: (_text) {_textReturnListener(_text);},
+          child: TextField(
+            focusNode: focusNode,
+            autofocus: true,
+            textInputAction: TextInputAction.search,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              icon: Padding(
+                  padding: EdgeInsets.only(left: 10, right: 0),
+                  child: Icon(Icons.search)
+              )
+            ),
+            onChanged: (_text) {_textChangedListner(_text);},
+            onSubmitted: (_text) {_textReturnListener(_text);},
+          )
         )
       )
     ];
@@ -46,12 +52,11 @@ class _NavItemView3 extends State<NavItemView3> {
     List<Widget> _searchByCategory = [
       Container(
         height: 50,
-        width: MediaQuery.of(context).size.width,
-        child: Text('카테고리', textAlign: TextAlign.left,)
-      ),
-      Container(
-        height: 10,
-        color: Colors.black,
+        child: Center(child: Container(
+          padding: EdgeInsets.only(left: 10),
+          width: MediaQuery.of(context).size.width,
+          child: Text('카테고리', textAlign: TextAlign.left,)
+        ))
       ),
       Container(
         child: categoryContainer(context)
@@ -62,10 +67,13 @@ class _NavItemView3 extends State<NavItemView3> {
       appBar: AppBar(
         title: Text('검색하기')
       ),
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        children: <Widget>[] + _searchByText + _searchByCategory
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: ListView(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          children: <Widget>[] + _searchByText + _searchByCategory
+        )
       )
     );
   }
@@ -87,13 +95,13 @@ void _textReturnListener(_text) {
 final List<String> categoryList = ['축구', '농구', '배구', '공부', '코딩', '취업', '뜨개질', '등산', '사이클', '노래', '댄스'];
 Widget categoryContainerGenerator(bool _empty, int _index, BuildContext context) {
   return Container(
-    padding: const EdgeInsets.all(20),
+    padding: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
     width: MediaQuery.of(context).size.width / 2,
-    height: 100,
+    height: 80,
     child: Container(
       decoration: _empty ? null : BoxDecoration(
-          border: Border.all(width: 2, color: Colors.black),
-          borderRadius: BorderRadius.all(Radius.circular(5))
+        border: Border.all(width: 2, color: Colors.black),
+        borderRadius: BorderRadius.all(Radius.circular(5))
       ),
       child: _empty ? null : Center(
         child: Text(categoryList[_index])
