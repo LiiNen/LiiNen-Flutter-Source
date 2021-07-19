@@ -36,19 +36,30 @@ class _CategoryAppBar extends State<CategoryAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Row(
-
+      title: Center(child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [DropdownButton<String>(
-          dropdownColor: Colors.white,
-          underline: SizedBox(height: 0,),
-          value: _currentCategory,
-          items: categoryItemList.toList(),
-          focusColor: Colors.yellow,
-          onChanged: (value) {Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CategoryResultView(value!)));},
+        children: [Container(
+          width: 80,
+          child: DropdownButton<String>(
+            dropdownColor: Colors.white,
+            underline: SizedBox(height: 0,),
+            value: _currentCategory,
+            items: categoryItemList.toList(),
+            focusColor: Colors.yellow,
+            onChanged: (value) {Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CategoryResultView(value!)));},
+          )
         )],
-      ),
+      )),
+      actions: [
+        IconButton(
+          icon: Opacity(
+            opacity: 0.0,
+            child: Icon(Icons.arrow_back_ios)
+          ),
+          onPressed: null
+        ),
+      ],
     );
   }
 }
@@ -59,7 +70,7 @@ List<DropdownMenuItem<String>> categoryItemList = List<DropdownMenuItem<String>>
     value: categoryList[index],
     child: SizedBox(
       height: 20,
-      child: Center(child: Text(categoryList[index], style: TextStyle(color: Colors.black)))
+      child: Text(categoryList[index], style: TextStyle(color: Colors.black), textAlign: TextAlign.center,)
     ),
   );
 });

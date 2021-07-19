@@ -34,7 +34,7 @@ class _NavItemView3 extends State<NavItemView3> {
           ),
           child: TextField(
             focusNode: focusNode,
-            autofocus: true,
+            autofocus: false,
             textInputAction: TextInputAction.search,
             decoration: InputDecoration(
               border: InputBorder.none,
@@ -66,7 +66,7 @@ class _NavItemView3 extends State<NavItemView3> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('검색하기')
+        title: Center(child: Text('검색하기'))
       ),
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -102,7 +102,10 @@ Widget categoryContainerGenerator(bool _empty, int _index, BuildContext context)
     width: MediaQuery.of(context).size.width / 2,
     height: 80,
     child: _empty ? null : GestureDetector(
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryResultView(_category))),
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+        Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryResultView(_category)));
+      },
       child: Container(
         decoration:  BoxDecoration(
           border: Border.all(width: 2, color: Colors.black),
@@ -117,7 +120,9 @@ Widget categoryContainer(BuildContext context) {
   return Column(
     children: List<Widget>.generate((categoryList.length / 2).ceil() , (_index) {
       var _leftComponent = categoryContainerGenerator(false, _index*2, context);
-      var _rightComponent = (_index*2)+1 < categoryList.length ? categoryContainerGenerator(false, _index*2+1, context) : categoryContainerGenerator(true, 0, context);
+      var _rightComponent = (_index*2)+1 < categoryList.length ?
+        categoryContainerGenerator(false, _index*2+1, context) :
+        categoryContainerGenerator(true, 0, context);
       return Row(
         children: [_leftComponent, _rightComponent],
       );

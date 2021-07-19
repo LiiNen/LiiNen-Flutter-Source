@@ -6,7 +6,6 @@ class MainBannerContainer extends StatefulWidget {
   State<MainBannerContainer> createState() => _MainBannerContainer();
 }
 class _MainBannerContainer extends State<MainBannerContainer> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,12 +26,6 @@ class _MainBannerContainer extends State<MainBannerContainer> {
   }
 }
 
-class BannerItem {
-  final String imgSrc;
-  final String launchSrc;
-  BannerItem({required this.imgSrc, required this.launchSrc});
-}
-
 final List<String> _tempSrcList = [
   'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView1.png',
   'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView2.png',
@@ -41,6 +34,11 @@ final List<String> _tempSrcList = [
   'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView5.png',
   'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView6.png'
 ];
+class BannerItem {
+  final String imgSrc;
+  final String launchSrc;
+  BannerItem({required this.imgSrc, required this.launchSrc});
+}
 
 final List<BannerItem> _bannerItemList = List<BannerItem>.generate(_tempSrcList.length, (index) {
   return BannerItem(
