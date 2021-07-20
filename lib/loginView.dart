@@ -11,8 +11,15 @@ class LoginView extends StatefulWidget {
 }
 class _LoginView extends State<LoginView> with TickerProviderStateMixin{
 
+  bool _loginVisible = false;
+
   late final AnimationController _logoAnimationController = AnimationController(vsync: this, duration: const Duration(seconds: 1));
-  late final Animation<Offset> _logoAnimation = Tween<Offset>(begin: Offset.zero, end: const Offset(0, -0.5)).animate(_logoAnimationController);
+  late final Animation<Offset> _logoAnimation = Tween<Offset>(begin: Offset.zero, end: const Offset(0, -0.5)).animate(_logoAnimationController)
+    ..addListener(() {
+      new Future.delayed(Duration(seconds: 1), () => setState(() {
+        _loginVisible = true;
+      }));
+    });
 
   @override
   void initState() {
@@ -22,8 +29,8 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
 
   @override
   void dispose() {
-    super.dispose();
     _logoAnimationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -39,14 +46,18 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
               )
             ))),
             Center(
-              child: Padding(padding: EdgeInsets.only(top: 200), child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SignInButton(Buttons.Apple, onPressed: _loginSuccess),
-                    SignInButton(Buttons.Google, onPressed: _loginSuccess),
-                    SignInButton(Buttons.Facebook, onPressed: _loginSuccess),
-                  ]
-              ))
+              child: AnimatedOpacity(
+                opacity: _loginVisible ? 1 : 0,
+                duration: Duration(milliseconds: 500),
+                child: Padding(padding: EdgeInsets.only(top: 200), child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SignInButton(Buttons.Apple, onPressed: _loginSuccess),
+                      SignInButton(Buttons.Google, onPressed: _loginSuccess),
+                      SignInButton(Buttons.Facebook, onPressed: _loginSuccess),
+                    ]
+                ))
+              ),
             )
           ],
         )
