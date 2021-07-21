@@ -34,7 +34,6 @@ class _MainRouter extends State<MainRouter> {
     final pref = await SharedPreferences.getInstance();
     setState(() {
       _loginState = pref.getBool('login') ?? false;
-      print(_loginState);
     });
   }
 
@@ -52,7 +51,7 @@ class _MainRouter extends State<MainRouter> {
     }
     return Scaffold(
       body: Center(
-        child: Text('메인 로딩 페이지...', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),)
+        child: FlutterLogo(size: 180)
       )
     );
   }

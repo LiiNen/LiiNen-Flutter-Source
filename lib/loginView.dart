@@ -12,12 +12,14 @@ class LoginView extends StatefulWidget {
 class _LoginView extends State<LoginView> with TickerProviderStateMixin{
 
   bool _loginVisible = false;
+  bool _isInit = false;
 
   late final AnimationController _logoAnimationController = AnimationController(vsync: this, duration: const Duration(seconds: 1));
   late final Animation<Offset> _logoAnimation = Tween<Offset>(begin: Offset.zero, end: const Offset(0, -0.5)).animate(_logoAnimationController)
     ..addListener(() {
       new Future.delayed(Duration(seconds: 1), () => setState(() {
         _loginVisible = true;
+        _isInit = true;
       }));
     });
 
@@ -42,7 +44,12 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
             Center(child: (Container(width: MediaQuery.of(context).size.width, height: 200,
               child: SlideTransition(
                 position: _logoAnimation,
-                child: Center(child: Text('메인 로딩 페이지...', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),))
+                child: Center(child: AnimatedContainer(
+                  height: _isInit ? 140 : 180,
+                  width: _isInit ? 140 : 180,
+                  duration: Duration(seconds: 1),
+                  child: FlutterLogo(),
+                ))
               )
             ))),
             Center(
@@ -71,5 +78,15 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
       pref.setBool('login', true);
     });
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavView()));
+  }
+
+  void _loginApple() async {
+
+  }
+  void _loginGoogle() async {
+
+  }
+  void _loginFacebook() async {
+
   }
 }
