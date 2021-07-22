@@ -3,15 +3,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../searchView.dart';
-import '../infoView.dart';
+import '../../infoView.dart';
 
-class NavItemView4 extends StatefulWidget {
+class ProfileView extends StatefulWidget {
   @override
-  State<NavItemView4> createState() => _NavItemView4();
+  State<ProfileView> createState() => _ProfileView();
 }
 
-class _NavItemView4 extends State<NavItemView4> {
+class _ProfileView extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +85,7 @@ class _PersonalAppBar extends State<PersonalAppBar> {
       title: Text('개인 설정'),
       leading: IconButton(
           icon: Icon(Icons.search),
-          onPressed: _loadSearchView
+          onPressed: _loadNothing
       ),
       actions: [
         IconButton(
@@ -97,8 +96,7 @@ class _PersonalAppBar extends State<PersonalAppBar> {
     );
   }
 
-  void _loadSearchView() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SearchView()));
+  void _loadNothing() {
   }
 }
 

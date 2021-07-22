@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'navView/navItemView1.dart';
-import 'navView/navItemView2.dart';
-import 'navView/navItemView3.dart';
-import 'navView/navItemView4.dart';
+import 'homeView/homeView.dart';
+import 'clubView/clubView.dart';
+import 'searchView/searchView.dart';
+import 'profileView/profileView.dart';
 
 
 class NavView extends StatefulWidget {
@@ -41,10 +41,10 @@ class _NavView extends State<NavView> {
 
   // navigation items view
   List<Widget> _navItemView = <Widget>[
-    NavItemView1(),
-    NavItemView2(),
-    NavItemView3(),
-    NavItemView4(),
+    HomeView(),
+    SearchView(),
+    ClubView(),
+    ProfileView(),
   ];
 }
 

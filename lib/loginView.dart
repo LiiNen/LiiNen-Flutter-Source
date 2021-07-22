@@ -3,7 +3,7 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/animation.dart';
 
-import 'navView.dart';
+import 'navView/navView.dart';
 
 class LoginView extends StatefulWidget {
   @override

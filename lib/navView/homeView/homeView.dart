@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter_source/navView1/mainBannerContainer.dart';
+import 'package:my_flutter_source/navView/homeView/homeBannerContainer.dart';
 
-import '../infoView.dart';
+import '../../infoView.dart';
 
-class NavItemView1 extends StatefulWidget {
+class HomeView extends StatefulWidget {
   @override
-  State<NavItemView1> createState() => _NavItemView1();
+  State<HomeView> createState() => _HomeView();
 }
 
-class _NavItemView1 extends State<NavItemView1> {
+class _HomeView extends State<HomeView> {
   Color inC = Colors.blue;
   @override
   Widget build(BuildContext context) {

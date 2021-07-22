@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class NavItemView2 extends StatefulWidget {
+class ClubView extends StatefulWidget {
   @override
-  State<NavItemView2> createState() => _NavItemView2();
+  State<ClubView> createState() => _ClubView();
 }
 
-class _NavItemView2 extends State<NavItemView2> {
+class _ClubView extends State<ClubView> {
   late Future<TestPost> post;
 
   @override

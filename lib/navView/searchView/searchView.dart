@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter_source/searchResult/categoryResultView.dart';
+import 'searchResult/categoryResultView.dart';
 
-class NavItemView3 extends StatefulWidget {
+class SearchView extends StatefulWidget {
   @override
-  State<NavItemView3> createState() => _NavItemView3();
+  State<SearchView> createState() => _SearchView();
 }
 
-class _NavItemView3 extends State<NavItemView3> {
+class _SearchView extends State<SearchView> {
   FocusNode focusNode = FocusNode();
 
   @override
