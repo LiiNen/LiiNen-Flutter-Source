@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ClubView extends StatefulWidget {
   @override
@@ -10,38 +11,84 @@ class ClubView extends StatefulWidget {
 }
 
 class _ClubView extends State<ClubView> {
-  late Future<TestPost> post;
-
+  bool? _hasClub;
+  bool _loadComplete = false;
   @override
   void initState() {
     super.initState();
-    post = testPost();
+    _checkClub();
+  }
+  void _checkClub() async {
+    final pref = await SharedPreferences.getInstance();
+    setState(() {
+      _hasClub = pref.getBool('hasClub') ?? false;
+      _loadComplete = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('제목'),
+        title: Center(child: Text('내 모임')),
       ),
       body: Container(
-        child: FutureBuilder<TestPost>(
-          future: post,
-          builder: (context, snapshot) {
-            if(snapshot.hasData) {
-              print(snapshot.data!.freeOld.toString());
-              print(snapshot.data!.freeNew.toString());
-              print(snapshot.data!.level.toString());
-              return Container(child: Text(snapshot.data!.level.toString()));
-            }
-            else if(snapshot.hasError) {
-              print(snapshot.error);
-            }
-            return CircularProgressIndicator();
-          },
+        child: (
+          _loadComplete ? (_hasClub! ? ClubExist() : ClubNotExist()) : Center(child: CircularProgressIndicator())
         )
       )
     );
+  }
+}
+
+class ClubExist extends StatefulWidget {
+  @override
+  State<ClubExist> createState() => _ClubExist();
+}
+class _ClubExist extends State<ClubExist> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: Center(
+          child: Column(
+            children: [
+              Text('모임이 존재합니다'),
+              TextButton(
+                child: Text('모임 삭제하기'),
+                onPressed: _removeClub,
+              )
+            ],
+          )
+        )
+    );
+  }
+
+  void _removeClub() async {
+    final pref = await SharedPreferences.getInstance();
+    pref.setBool('hasClub', false);
+  }
+}
+
+class ClubNotExist extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Column(
+          children: [
+            Text('모임이 존재하지 않아요'),
+            TextButton(
+              child: Text('모임 추가하기'),
+              onPressed: _addClub,
+            )
+          ],
+        )
+      )
+    );
+  }
+  void _addClub() async {
+    final pref = await SharedPreferences.getInstance();
+    pref.setBool('hasClub', true);
   }
 }
 
