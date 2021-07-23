@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:my_flutter_source/clubObject.dart';
 
 class ClubView extends StatefulWidget {
   @override
@@ -48,24 +49,54 @@ class ClubExist extends StatefulWidget {
 class _ClubExist extends State<ClubExist> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Center(
-          child: Column(
-            children: [
-              Text('모임이 존재합니다'),
-              TextButton(
-                child: Text('모임 삭제하기'),
-                onPressed: _removeClub,
-              )
-            ],
-          )
-        )
+    return ListView(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      children: [
+        Column(
+          children: [
+            Text('모임이 존재합니다'),
+            TextButton(
+              child: Text('모임 삭제하기'),
+              onPressed: _removeClub,
+            )
+        ]),
+        MyClubListContainer(),
+      ],
     );
   }
-
   void _removeClub() async {
     final pref = await SharedPreferences.getInstance();
     pref.setBool('hasClub', false);
+  }
+}
+class MyClubListContainer extends StatefulWidget {
+  @override
+  State<MyClubListContainer> createState() => _MyClubListContainer();
+}
+class _MyClubListContainer extends State<MyClubListContainer> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.only(left: 15),
+          height: 30,
+          width: MediaQuery.of(context).size.width,
+          child: Text('내 모임들', textAlign: TextAlign.left,)
+        ),
+        Container(
+          height: 100,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: clubObjectList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ClubObjectItem(clubObjectList[index]);
+            },
+          )
+        )
+      ]
+    );
   }
 }
 
@@ -89,27 +120,5 @@ class ClubNotExist extends StatelessWidget {
   void _addClub() async {
     final pref = await SharedPreferences.getInstance();
     pref.setBool('hasClub', true);
-  }
-}
-
-Future<TestPost> testPost() async {
-  await dotenv.load();
-  String key = dotenv.env['RIOT_API_KEY']!;
-  final response = await http.get(Uri.parse('https://kr.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=$key'));
-  if (response.statusCode == 200) {
-    return TestPost.fromJson(json.decode(response.body));
-  } else {
-    throw Exception('Failed to load post');
-  }
-}
-
-class TestPost {
-  final List<int> freeOld;
-  final List<int> freeNew;
-  final int level;
-  TestPost({required this.freeOld, required this.freeNew, required this.level});
-
-  factory TestPost.fromJson(Map<String, dynamic> json) {
-    return TestPost(freeOld: json['freeChampionIds'].cast<int>(), freeNew: json['freeChampionIdsForNewPlayers'].cast<int>(), level: json['maxNewPlayerLevel']);
   }
 }
