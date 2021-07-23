@@ -18,7 +18,7 @@ class _SearchView extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _searchByText = [
-      ComponentTitleContainer('검색하기'),
+      TitleContainer('검색하기'),
       Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: DecoratedBox(
@@ -45,7 +45,7 @@ class _SearchView extends State<SearchView> {
     ];
 
     List<Widget> _searchByCategory = [
-      ComponentTitleContainer('카테고리'),
+      TitleContainer('카테고리'),
       Container(
         child: categoryContainer(context)
       )

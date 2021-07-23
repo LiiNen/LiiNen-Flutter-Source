@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class ComponentTitleContainer extends StatelessWidget {
+class TitleContainer extends StatelessWidget {
   final String _title;
-  ComponentTitleContainer(this._title);
+  TitleContainer(this._title);
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -65,6 +65,7 @@ class _ClubExist extends State<ClubExist> {
         ]),
         MyClubListContainer(),
         MyQuestListContainer(),
+        MyFeedListContainer(),
       ],
     );
   }
@@ -73,6 +74,7 @@ class _ClubExist extends State<ClubExist> {
     pref.setBool('hasClub', false);
   }
 }
+
 class MyClubListContainer extends StatefulWidget {
   @override
   State<MyClubListContainer> createState() => _MyClubListContainer();
@@ -82,7 +84,7 @@ class _MyClubListContainer extends State<MyClubListContainer> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ComponentTitleContainer('내 모임들'),
+        TitleContainer('내 모임들'),
         Container(
           height: 160,
           child: ListView.builder(
@@ -97,6 +99,7 @@ class _MyClubListContainer extends State<MyClubListContainer> {
     );
   }
 }
+
 class MyQuestListContainer extends StatefulWidget {
   @override
   State<MyQuestListContainer> createState() => _MyQuestListContainer();
@@ -106,15 +109,66 @@ class _MyQuestListContainer extends State<MyQuestListContainer> {
   Widget build(BuildContext context) {
     return Column(
       children:[
-        ComponentTitleContainer('내 퀘스트 목록'),
+        TitleContainer('내 퀘스트 목록'),
         Container(
           padding: EdgeInsets.all(10),
           width: MediaQuery.of(context).size.width,
-          height: 100,
           child: DecoratedBox(
             decoration: BoxDecoration(
               border: Border.all(),
             ),
+            child: Column(
+              children: [
+                Text('퀘1'),
+                Text('퀘2'),
+                Text('퀘3'),
+                Text('퀘4'),
+                Text('퀘5'),
+                Text('퀘6'),
+              ],
+            )
+          )
+        )
+      ]
+    );
+  }
+}
+
+class MyFeedListContainer extends StatefulWidget {
+  @override
+  State<MyFeedListContainer> createState() => _MyFeedListContainer();
+}
+class _MyFeedListContainer extends State<MyFeedListContainer> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TitleContainer('피드'),
+        Container(
+          padding: EdgeInsets.all(10),
+          width: MediaQuery.of(context).size.width,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              border: Border.all(),
+            ),
+            child: Column(
+              children: [
+                Text('피드1'),
+                Text('피드2'),
+                Text('피드3'),
+                Text('피드4'),
+                Text('피드5'),
+                Text('피드6'),
+                Text('피드7'),
+                Text('피드8'),
+                FeedObjectItem(),
+                FeedObjectItem(),
+                FeedObjectItem(),
+                FeedObjectItem(),
+                FeedObjectItem(),
+                FeedObjectItem(),
+              ]
+            )
           )
         )
       ]

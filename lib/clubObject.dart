@@ -63,3 +63,39 @@ class _ClubObjectItem extends State<ClubObjectItem> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => InfoView(_temp)));
   }
 }
+
+class FeedObjectItem extends StatefulWidget {
+  @override
+  State<FeedObjectItem> createState() => _FeedObjectItem();
+}
+class _FeedObjectItem extends State<FeedObjectItem> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      width: MediaQuery.of(context).size.width,
+      height: 120,
+      child: GestureDetector(
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(),
+            borderRadius: BorderRadius.all(Radius.circular(5))
+          ),
+          child: Row(
+            children: [
+              FlutterLogo(size: 40),
+              Flexible(
+                child: Text(
+                  '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890',
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
+                )
+              )
+            ]
+          )
+        ),
+        onTap: () => {},
+      )
+    );
+  }
+}
