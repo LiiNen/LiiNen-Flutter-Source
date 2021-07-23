@@ -6,6 +6,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_flutter_source/clubObject.dart';
 
+import 'package:my_flutter_source/containerCollection.dart';
+
 class ClubView extends StatefulWidget {
   @override
   State<ClubView> createState() => _ClubView();
@@ -62,6 +64,7 @@ class _ClubExist extends State<ClubExist> {
             )
         ]),
         MyClubListContainer(),
+        MyQuestListContainer(),
       ],
     );
   }
@@ -79,20 +82,39 @@ class _MyClubListContainer extends State<MyClubListContainer> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        ComponentTitleContainer('내 모임들'),
         Container(
-          padding: EdgeInsets.only(left: 15),
-          height: 30,
-          width: MediaQuery.of(context).size.width,
-          child: Text('내 모임들', textAlign: TextAlign.left,)
-        ),
-        Container(
-          height: 100,
+          height: 160,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: clubObjectList.length,
             itemBuilder: (BuildContext context, int index) {
               return ClubObjectItem(clubObjectList[index]);
             },
+          )
+        )
+      ]
+    );
+  }
+}
+class MyQuestListContainer extends StatefulWidget {
+  @override
+  State<MyQuestListContainer> createState() => _MyQuestListContainer();
+}
+class _MyQuestListContainer extends State<MyQuestListContainer> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children:[
+        ComponentTitleContainer('내 퀘스트 목록'),
+        Container(
+          padding: EdgeInsets.all(10),
+          width: MediaQuery.of(context).size.width,
+          height: 100,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              border: Border.all(),
+            ),
           )
         )
       ]

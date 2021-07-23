@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'searchResult/categoryResultView.dart';
+import 'package:my_flutter_source/containerCollection.dart';
 
 class SearchView extends StatefulWidget {
   @override
@@ -17,14 +18,7 @@ class _SearchView extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _searchByText = [
-      Container(
-        height: 50,
-        child: Center(child: Container(
-          padding: EdgeInsets.only(left: 10),
-          width: MediaQuery.of(context).size.width,
-          child: Text('검색하기', textAlign: TextAlign.left,)
-        ))
-      ),
+      ComponentTitleContainer('검색하기'),
       Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
         child: DecoratedBox(
@@ -51,14 +45,7 @@ class _SearchView extends State<SearchView> {
     ];
 
     List<Widget> _searchByCategory = [
-      Container(
-        height: 50,
-        child: Center(child: Container(
-          padding: EdgeInsets.only(left: 10),
-          width: MediaQuery.of(context).size.width,
-          child: Text('카테고리', textAlign: TextAlign.left,)
-        ))
-      ),
+      ComponentTitleContainer('카테고리'),
       Container(
         child: categoryContainer(context)
       )

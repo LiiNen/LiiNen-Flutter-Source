@@ -25,24 +25,36 @@ class _ClubObjectItem extends State<ClubObjectItem> {
   double _size = 100;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: _size,
-      height: _size,
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: GestureDetector(
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(_size/2)),
-              border: Border.all()
-            ),
-            child: Center(
-              child: Text(_inputClubObject.clubName)
+    return Column(
+      children: [
+        Container(
+          width: _size,
+          height: _size,
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child: GestureDetector(
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(_size/2)),
+                    border: Border.all()
+                ),
+                child: Center(
+                    child: Text(_inputClubObject.clubName)
+                )
+              ),
+              onTap: () => _loadClubView(_inputClubObject.clubId)
             )
-          ),
-          onTap: () => _loadClubView(_inputClubObject.clubId)
+          )
+        ),
+        Container(
+          width: _size,
+          height: 20,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Center(child: Text(_inputClubObject.clubName))
+          )
         )
-      )
+      ]
     );
   }
 
