@@ -82,6 +82,7 @@ class _PersonalAppBar extends State<PersonalAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      centerTitle: true,
       title: Text('개인 설정'),
       leading: IconButton(
           icon: Icon(Icons.search),

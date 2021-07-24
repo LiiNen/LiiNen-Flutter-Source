@@ -53,7 +53,8 @@ class _SearchView extends State<SearchView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('검색하기'))
+        centerTitle: true,
+        title: Text('검색하기')
       ),
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),

@@ -14,7 +14,10 @@ class _InfoView extends State<InfoView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_infoSrc)),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(_infoSrc)
+      ),
     );
   }
 }

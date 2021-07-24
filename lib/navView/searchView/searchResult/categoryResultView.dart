@@ -36,30 +36,22 @@ class _CategoryAppBar extends State<CategoryAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Center(child: Row(
+      centerTitle: true,
+      title: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [Container(
           width: 80,
-          child: DropdownButton<String>(
+          child: Center(child: DropdownButton<String>(
             dropdownColor: Colors.white,
             underline: SizedBox(height: 0,),
             value: _currentCategory,
             items: categoryItemList.toList(),
             focusColor: Colors.yellow,
             onChanged: (value) {Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CategoryResultView(value!)));},
-          )
+          ))
         )],
-      )),
-      actions: [
-        IconButton(
-          icon: Opacity(
-            opacity: 0.0,
-            child: Icon(Icons.arrow_back_ios)
-          ),
-          onPressed: null
-        ),
-      ],
+      ),
     );
   }
 }
@@ -70,7 +62,7 @@ List<DropdownMenuItem<String>> categoryItemList = List<DropdownMenuItem<String>>
     value: categoryList[index],
     child: SizedBox(
       height: 20,
-      child: Text(categoryList[index], style: TextStyle(color: Colors.black), textAlign: TextAlign.center,)
+      child: Center(child: Text(categoryList[index], style: TextStyle(color: Colors.black), textAlign: TextAlign.center,))
     ),
   );
 });
