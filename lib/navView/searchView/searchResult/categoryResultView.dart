@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:my_flutter_source/navView/searchView/searchView.dart';
+
+import 'resultItemObject.dart';
 
 class CategoryResultView extends StatefulWidget {
   final String _category;
@@ -16,7 +19,13 @@ class _CategoryResultView extends State<CategoryResultView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CategoryAppBar(currentCategory: _category,),
-      body: Center(child: Text(_category))
+      body: ListView(
+       scrollDirection: Axis.vertical,
+       shrinkWrap: true,
+       children: [
+         ResultClubContainer()
+       ],
+      )
     );
   }
 }
