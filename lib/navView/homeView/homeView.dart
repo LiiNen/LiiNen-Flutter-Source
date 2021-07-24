@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter_source/navView/homeView/homeBannerContainer.dart';
+import 'package:my_flutter_source/clubObject.dart';
+import 'homeBannerContainer.dart';
+import 'clubSuggestionContainer.dart';
 
 import '../../infoView.dart';
+import '../../containerCollection.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -22,6 +25,9 @@ class _HomeView extends State<HomeView> {
         shrinkWrap: true,
         children: <Widget>[
           MainBannerContainer(),
+          TitleContainer('추천 모임'),
+          ClubSuggestionContainer(),
+          FeedListContainer(feedTitle: '최근 활동 중인 피드'),
           HorizontalContainer(),
           MiddleContainer(),
         ] + vertItemsList

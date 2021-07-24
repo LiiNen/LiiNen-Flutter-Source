@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'infoView.dart';
+import 'containerCollection.dart';
 
 class ClubObject {
   final int clubId;
@@ -61,6 +62,52 @@ class _ClubObjectItem extends State<ClubObjectItem> {
   void _loadClubView(int _inputClubId) {
     String _temp = _inputClubId.toString();
     Navigator.push(context, MaterialPageRoute(builder: (context) => InfoView(_temp)));
+  }
+}
+
+class FeedListContainer extends StatefulWidget {
+  final String feedTitle;
+  FeedListContainer({required this.feedTitle});
+  @override
+  State<FeedListContainer> createState() => _FeedListContainer(feedTitle: feedTitle);
+}
+class _FeedListContainer extends State<FeedListContainer> {
+  final String feedTitle;
+  _FeedListContainer({required this.feedTitle});
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        children: [
+          TitleContainer(feedTitle),
+          Container(
+              padding: EdgeInsets.all(10),
+              width: MediaQuery.of(context).size.width,
+              child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: Border.all(),
+                  ),
+                  child: Column(
+                      children: [
+                        Text('피드1'),
+                        Text('피드2'),
+                        Text('피드3'),
+                        Text('피드4'),
+                        Text('피드5'),
+                        Text('피드6'),
+                        Text('피드7'),
+                        Text('피드8'),
+                        FeedObjectItem(),
+                        FeedObjectItem(),
+                        FeedObjectItem(),
+                        FeedObjectItem(),
+                        FeedObjectItem(),
+                        FeedObjectItem(),
+                      ]
+                  )
+              )
+          )
+        ]
+    );
   }
 }
 
