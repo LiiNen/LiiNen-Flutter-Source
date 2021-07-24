@@ -1,8 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_flutter_source/clubObject.dart';
 
@@ -32,13 +28,50 @@ class _ClubView extends State<ClubView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: _loadComplete ? (_hasClub! ? AlarmDrawer() : null) : null,
       appBar: AppBar(
-        title: Center(child: Text('내 모임')),
+        centerTitle: true,
+        title: Text('내 모임', textAlign: TextAlign.center),
       ),
       body: Container(
         child: (
           _loadComplete ? (_hasClub! ? ClubExist() : ClubNotExist()) : Center(child: CircularProgressIndicator())
         )
+      )
+    );
+  }
+}
+
+class AlarmDrawer extends StatefulWidget {
+  @override
+  State<AlarmDrawer> createState() => _AlarmDrawer();
+}
+class _AlarmDrawer extends State<AlarmDrawer> {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.all(10),
+        children: [
+          DrawerHeader(
+            child: Text('알림', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
+          ),
+          ListTile(
+            leading: Icon(Icons.person),
+            title: Text('alarm 1'),
+            onTap: () => {},
+          ),
+          ListTile(
+            leading: Icon(Icons.person),
+            title: Text('alarm 2'),
+            onTap: () => {},
+          ),
+          ListTile(
+            leading: Icon(Icons.person),
+            title: Text('alarm 1'),
+            onTap: () => {},
+          ),
+        ],
       )
     );
   }
