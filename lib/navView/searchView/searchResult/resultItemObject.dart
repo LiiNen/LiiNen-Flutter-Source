@@ -51,9 +51,11 @@ class _ResultClubItem extends State<ResultClubItem> {
         Row(
           children: [
             FlutterLogo(size: 200),
-            Column(
-              children: [Text(_clubObject.clubTitle)]
-                + (_clubObject.clubContext != null ? [Text(_clubObject.clubContext!)] : [])
+            Expanded(
+              child: Column(
+                children: [Text(_clubObject.clubTitle)]
+                    + (_clubObject.clubContext != null ? [Text(_clubObject.clubContext!)] : [])
+              )
             )
           ],
         )

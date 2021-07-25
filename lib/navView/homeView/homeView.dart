@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_source/clubObject.dart';
+
 import 'homeBannerContainer.dart';
 import 'clubSuggestionContainer.dart';
 
@@ -12,6 +13,13 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeView extends State<HomeView> {
+  final _scrollController = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
   Color inC = Colors.blue;
   @override
   Widget build(BuildContext context) {
@@ -27,24 +35,15 @@ class _HomeView extends State<HomeView> {
           MainBannerContainer(),
           TitleContainer('추천 모임'),
           ClubSuggestionContainer(),
-          FeedListContainer(feedTitle: '최근 활동 중인 피드'),
-          HorizontalContainer(),
-          MiddleContainer(),
-        ] + vertItemsList
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _inColorChange,
-        child: Icon(Icons.add),
-        backgroundColor: Colors.yellow,
-        foregroundColor: inC,
-        mini: true,
+          FeedListContainer(feedTitle: '최근 활동 중인 피드')
+        ],
+        controller: _scrollController
       ),
     );
   }
-  void _inColorChange() {
-    setState(() {
-      inC = Colors.red;
-    });
+
+  void _onScroll() {
+    print(_scrollController.position.maxScrollExtent);
   }
 }
 
