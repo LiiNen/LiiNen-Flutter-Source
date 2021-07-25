@@ -82,6 +82,8 @@ class ClubExist extends StatefulWidget {
   State<ClubExist> createState() => _ClubExist();
 }
 class _ClubExist extends State<ClubExist> {
+  final _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -98,8 +100,9 @@ class _ClubExist extends State<ClubExist> {
         ]),
         MyClubListContainer(),
         MyQuestListContainer(),
-        FeedListContainer(feedTitle: '내 피드'),
+        FeedListContainer(feedTitle: '내 피드', scrollController: _scrollController,),
       ],
+      controller: _scrollController,
     );
   }
   void _removeClub() async {

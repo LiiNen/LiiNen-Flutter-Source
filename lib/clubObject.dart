@@ -67,17 +67,27 @@ class _ClubObjectItem extends State<ClubObjectItem> {
 
 class FeedListContainer extends StatefulWidget {
   final String feedTitle;
-  FeedListContainer({required this.feedTitle});
+  final ScrollController scrollController;
+  FeedListContainer({required this.feedTitle, required this.scrollController});
 
   @override
-  State<FeedListContainer> createState() => _FeedListContainer(feedTitle: feedTitle);
-  void scrollEnd() {
-    _FeedListContainer(feedTitle: feedTitle).scrollEnd();
-  }
+  State<FeedListContainer> createState() => _FeedListContainer(feedTitle: feedTitle, scrollController: scrollController);
 }
 class _FeedListContainer extends State<FeedListContainer> {
   final String feedTitle;
-  _FeedListContainer({required this.feedTitle});
+  final ScrollController scrollController;
+  _FeedListContainer({required this.feedTitle, required this.scrollController});
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(_onScroll);
+  }
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   int feedCount = 7;
   @override
@@ -99,8 +109,17 @@ class _FeedListContainer extends State<FeedListContainer> {
   }
 
   void scrollEnd() {
-    feedCount += 3;
-    print(feedCount);
+    if(this.mounted) setState((){
+      feedCount += 3;
+      print(feedCount);
+    });
+  }
+  void _onScroll() {
+    final maxScroll = scrollController.position.maxScrollExtent;
+    final currentScroll = scrollController.position.pixels;
+    if(maxScroll - currentScroll < 200) {
+      scrollEnd();
+    }
   }
 }
 

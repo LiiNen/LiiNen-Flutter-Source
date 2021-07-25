@@ -14,12 +14,10 @@ class HomeView extends StatefulWidget {
 
 class _HomeView extends State<HomeView> {
   final _scrollController = ScrollController();
-  FeedListContainer _feedListContainer = new FeedListContainer(feedTitle: '최근 활동 중인 피드');
 
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_onScroll);
   }
   @override
   void dispose() {
@@ -42,19 +40,11 @@ class _HomeView extends State<HomeView> {
           MainBannerContainer(),
           TitleContainer('추천 모임'),
           ClubSuggestionContainer(),
-          _feedListContainer
+          FeedListContainer(feedTitle: '최근 활동 중인 피드', scrollController: _scrollController)
         ],
         controller: _scrollController
       ),
     );
-  }
-
-  void _onScroll() {
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final currentScroll = _scrollController.position.pixels;
-    if(maxScroll - currentScroll < 200) {
-      setState((){_feedListContainer.scrollEnd();});
-    }
   }
 }
 
