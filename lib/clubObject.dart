@@ -68,12 +68,18 @@ class _ClubObjectItem extends State<ClubObjectItem> {
 class FeedListContainer extends StatefulWidget {
   final String feedTitle;
   FeedListContainer({required this.feedTitle});
+
   @override
   State<FeedListContainer> createState() => _FeedListContainer(feedTitle: feedTitle);
+  void scrollEnd() {
+    _FeedListContainer(feedTitle: feedTitle).scrollEnd();
+  }
 }
 class _FeedListContainer extends State<FeedListContainer> {
   final String feedTitle;
   _FeedListContainer({required this.feedTitle});
+
+  int feedCount = 7;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -83,34 +89,30 @@ class _FeedListContainer extends State<FeedListContainer> {
               padding: EdgeInsets.all(10),
               width: MediaQuery.of(context).size.width,
               child: Column(
-                children: [
-                  Text('피드1'),
-                  Text('피드2'),
-                  Text('피드3'),
-                  Text('피드4'),
-                  Text('피드5'),
-                  Text('피드6'),
-                  Text('피드7'),
-                  Text('피드8'),
-                  FeedObjectItem(),
-                  FeedObjectItem(),
-                  FeedObjectItem(),
-                  FeedObjectItem(),
-                  FeedObjectItem(),
-                  FeedObjectItem(),
-                ]
+                children: List<FeedObjectItem>.generate(feedCount, (index) {
+                  return FeedObjectItem(index);
+                })
               )
           )
         ]
     );
   }
+
+  void scrollEnd() {
+    feedCount += 3;
+    print(feedCount);
+  }
 }
 
 class FeedObjectItem extends StatefulWidget {
+  final int _testIndex;
+  FeedObjectItem(this._testIndex);
   @override
-  State<FeedObjectItem> createState() => _FeedObjectItem();
+  State<FeedObjectItem> createState() => _FeedObjectItem(_testIndex);
 }
 class _FeedObjectItem extends State<FeedObjectItem> {
+  int _testIndex;
+  _FeedObjectItem(this._testIndex);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -127,11 +129,14 @@ class _FeedObjectItem extends State<FeedObjectItem> {
             children: [
               FlutterLogo(size: 40),
               Flexible(
-                child: Text(
-                  '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890',
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                )
+                child: Column(children: [
+                  Text(_testIndex.toString()),
+                  Text(
+                    '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890',
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                  )
+                ])
               )
             ]
           )
