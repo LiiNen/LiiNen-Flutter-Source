@@ -198,7 +198,6 @@ class _PersonalComponent extends State<PersonalComponent> {
     final ImagePicker _imagePicker = ImagePicker();
     try {
       final _pickedImage = await _imagePicker.getImage(source: ImageSource.gallery);
-
     } catch(e) {
       print(e);
       setState(() {

@@ -15,16 +15,6 @@ class HomeView extends StatefulWidget {
 class _HomeView extends State<HomeView> {
   final _scrollController = ScrollController();
 
-  @override
-  void initState() {
-    super.initState();
-  }
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
   Color inC = Colors.blue;
   @override
   Widget build(BuildContext context) {

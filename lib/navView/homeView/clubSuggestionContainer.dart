@@ -17,11 +17,6 @@ class _ClubSuggestionContainer extends State<ClubSuggestionContainer> {
     super.initState();
     futureTestObject = new Future.delayed(Duration(seconds: 2), _loadTestSuggestion);
   }
-  @override
-  void dispose() {
-    // futureTestObject.cancel();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

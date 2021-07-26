@@ -11,11 +11,6 @@ class _SearchView extends State<SearchView> {
   FocusNode focusNode = FocusNode();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     List<Widget> _searchByText = [
       TitleContainer('검색하기'),
