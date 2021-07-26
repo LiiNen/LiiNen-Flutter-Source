@@ -93,18 +93,18 @@ class _FeedListContainer extends State<FeedListContainer> {
   @override
   Widget build(BuildContext context) {
     return Column(
-        children: [
-          TitleContainer(feedTitle),
-          Container(
-              padding: EdgeInsets.all(10),
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                children: List<FeedObjectItem>.generate(feedCount, (index) {
-                  return FeedObjectItem(index);
-                })
-              )
+      children: [
+        TitleContainer(feedTitle),
+        Container(
+          padding: EdgeInsets.all(10),
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: List<Widget>.generate(feedCount + 1, (index) {
+              return (index == feedCount ? CircularProgressIndicator() : FeedObjectItem(index));
+            })
           )
-        ]
+        )
+      ]
     );
   }
 
@@ -117,7 +117,7 @@ class _FeedListContainer extends State<FeedListContainer> {
   void _onScroll() {
     final maxScroll = scrollController.position.maxScrollExtent;
     final currentScroll = scrollController.position.pixels;
-    if(maxScroll - currentScroll < 200) {
+    if(maxScroll - currentScroll < 0) {
       scrollEnd();
     }
   }
