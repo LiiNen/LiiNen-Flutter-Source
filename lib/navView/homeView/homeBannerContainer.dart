@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:my_flutter_source/containerCollection.dart';
 
 class MainBannerContainer extends StatefulWidget {
   @override
@@ -54,7 +55,7 @@ class BannerItemBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: GestureDetector(
-        onTap: () => {print('he')},
+        onTap: () => {launchURL(_bannerItem.launchSrc)},
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(

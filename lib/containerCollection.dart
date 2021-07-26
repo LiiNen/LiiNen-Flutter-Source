@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TitleContainer extends StatelessWidget {
   final String _title;
@@ -15,3 +16,5 @@ class TitleContainer extends StatelessWidget {
     );
   }
 }
+
+void launchURL(_srcURL) async => await canLaunch(_srcURL) ? await launch(_srcURL) : throw 'url \"$_srcURL\" error';
