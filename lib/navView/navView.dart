@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'homeView/homeView.dart';
 import 'clubView/clubView.dart';
 import 'searchView/searchView.dart';
 import 'profileView/profileView.dart';
 
+import 'package:my_flutter_source/functionCollection.dart';
 
 class NavView extends StatefulWidget {
   @override
@@ -46,10 +46,4 @@ class _NavView extends State<NavView> {
     ClubView(),
     ProfileView(),
   ];
-}
-
-void showToast(String message){
-  Fluttertoast.showToast(msg: message,
-      gravity: ToastGravity.BOTTOM
-  );
 }

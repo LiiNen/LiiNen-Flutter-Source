@@ -32,7 +32,7 @@ class _SearchView extends State<SearchView> {
                 child: Icon(Icons.search)
               )
             ),
-            onChanged: (_text) {_textChangedListner(_text);},
+            onChanged: (_text) {_textChangedListener(_text);},
             onSubmitted: (_text) {_textReturnListener(_text);},
           )
         )
@@ -69,7 +69,7 @@ class _SearchView extends State<SearchView> {
   }
 }
 
-void _textChangedListner(_text) {
+void _textChangedListener(_text) {
   print(_text);
 }
 void _textReturnListener(_text) {

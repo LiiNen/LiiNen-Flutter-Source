@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:my_flutter_source/containerCollection.dart';
+import 'package:my_flutter_source/functionCollection.dart';
 
 class MainBannerContainer extends StatefulWidget {
   @override

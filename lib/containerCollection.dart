@@ -16,5 +16,3 @@ class TitleContainer extends StatelessWidget {
     );
   }
 }
-
-void launchURL(_srcURL) async => await canLaunch(_srcURL) ? await launch(_srcURL) : throw 'url \"$_srcURL\" error';
