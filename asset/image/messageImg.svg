@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="217" height="92" viewBox="0 0 217 92">
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g transform="translate(-21.000000, -122.000000) translate(21.000000, 122.000000)">
+                <rect width="217" height="87" y="5" fill="#E8EAEF" rx="20"/>
+                <rect width="217" height="87" fill="#FFF" rx="20"/>
+                <text fill="#000" font-family="AppleSDGothicNeo-SemiBold, Apple SD Gothic Neo" font-size="16" font-weight="500">
+                    <tspan x="22" y="34">이건모임을 통해서 목표를</tspan> <tspan x="22" y="58">달성해보아요.</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

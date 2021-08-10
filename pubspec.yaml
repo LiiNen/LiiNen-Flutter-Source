@@ -37,6 +37,7 @@ dependencies:
   permission_handler: ^8.1.2
   flutter_dotenv: ^5.0.0
   cached_network_image: ^3.1.0
+  flutter_svg: ^0.22.0
 
 dev_dependencies:
   flutter_test:
