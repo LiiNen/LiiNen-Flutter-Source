@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'loginView.dart';
+import 'loginView/loginView.dart';
 import 'navView/navView.dart';
 
 void main()=> runApp(MyApp());

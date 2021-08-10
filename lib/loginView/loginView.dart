@@ -4,7 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/animation.dart';
 
-import 'navView/navView.dart';
+import '../navView/navView.dart';
+import 'loginEmailView.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -55,7 +56,7 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
               SizedBox(height: 44),
               SignInButton(Buttons.Apple, onPressed: _loginSuccess),
               SignInButton(Buttons.Google, onPressed: _loginSuccess),
-              SignInButton(Buttons.Facebook, onPressed: _loginSuccess),
+              SignInButton(Buttons.Facebook, onPressed: _loginEmail),
             ],
           )
         )
@@ -69,6 +70,10 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
       pref.setBool('login', true);
     });
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavView()));
+  }
+
+  void _loginEmail() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginEmailView()));
   }
 
   void _loginApple() async {
