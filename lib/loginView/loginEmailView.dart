@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:my_flutter_source/functionCollection.dart';
+
 class LoginEmailView extends StatefulWidget {
   @override
   State<LoginEmailView> createState() => _LoginEmailView();
@@ -36,31 +38,44 @@ class _LoginEmailView extends State<LoginEmailView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('이메일 로그인',
-                    style: TextStyle(fontWeight: FontWeight.w700, fontFamily: "AppleSDGothicNeo",fontStyle:  FontStyle.normal, fontSize: 20.0),
+                    style: textStyle(weight: 700, size: 20.0),
                     textAlign: TextAlign.left,
                   ),
-                  Text('이메일', style: _itemTextStyle(), textAlign: TextAlign.left,),
+                  SizedBox(height: 24),
+                  Text('이메일', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,),
+                  SizedBox(height: 8),
                   TextField(
                     controller: emailController,
                     autofocus: false,
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
                       border: OutlineInputBorder(),
-                      labelText: '이메일',
+                      hintText: '이메일을 입력해주세요'
                     ),
+                    style: textStyle(weight: 600, size: 12.0),
                     onChanged: (value) {setState(() {});},
                   ),
-                  Text('비밀번호', style: _itemTextStyle(), textAlign: TextAlign.left,),
+                  SizedBox(height: 20),
+                  Text('비밀번호', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,),
+                  SizedBox(height: 8),
                   TextField(
                     controller: passwordController,
                     obscureText: true,
                     autofocus: false,
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
                       border: OutlineInputBorder(),
-                      labelText: '비밀번호',
+                      hintText: '비밀번호를 입력해주세요'
                     ),
+                    style: textStyle(weight: 600, size: 12.0),
                     onChanged: (value) {setState(() {});},
                   ),
-                  Text('아이디/비밀번호 찾기'),
+                  SizedBox(height: 20),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Text('아이디/비밀번호 찾기', style: textStyle(weight: 600, size: 12.0), textAlign: TextAlign.right),
+                  ),
+                  SizedBox(height: 36),
                   Container(
                       height: 52,
                       decoration: BoxDecoration(
@@ -69,7 +84,7 @@ class _LoginEmailView extends State<LoginEmailView> {
                           ),
                           color: emailController.text != '' && passwordController.text != '' ? Color(0xff0958c5) : Color(0xffd1d5d9)
                       ),
-                      child: Center(child: Text('로그인', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontFamily: "AppleSDGothicNeo", fontStyle:  FontStyle.normal, fontSize: 16.0)))
+                      child: Center(child: Text('로그인', style: textStyle(color: Colors.white, weight: 600, size: 16.0)))
                   ),
                 ]
               ),
@@ -81,9 +96,9 @@ class _LoginEmailView extends State<LoginEmailView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('아직 계정이 없으신가요?', style: TextStyle(fontWeight: FontWeight.w400, fontFamily: "AppleSDGothicNeo", fontStyle:  FontStyle.normal, fontSize: 16.0)),
+                        Text('아직 계정이 없으신가요? ', style: textStyle(weight: 400, size: 16.0)),
                         Container(
-                            child: Text('회원가입', style: TextStyle(fontWeight: FontWeight.w600, fontFamily: "AppleSDGothicNeo", fontStyle:  FontStyle.normal, fontSize: 16.0))
+                            child: Text('회원가입', style: textStyle(weight: 600, size: 16.0))
                         )
                       ]
                     )
@@ -102,28 +117,5 @@ class _LoginEmailView extends State<LoginEmailView> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
-  }
-
-  TextStyle _itemTextStyle() {
-    return TextStyle(
-      fontWeight: FontWeight.w700,
-      fontFamily: "AppleSDGothicNeo",
-      fontStyle:  FontStyle.normal,
-      fontSize: 14.0
-    );
-  }
-  Container _inputBox() {
-    return Container(
-      height: 46,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(
-              Radius.circular(2)
-          ),
-          border: Border.all(
-              color: const Color(0xffe4e4e4),
-              width: 1
-          )
-      )
-    );
   }
 }
