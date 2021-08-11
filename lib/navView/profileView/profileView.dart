@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../infoView.dart';
 
 class ProfileView extends StatefulWidget {
@@ -106,22 +105,13 @@ class PersonalComponent extends StatefulWidget{
   State<PersonalComponent> createState() => _PersonalComponent();
 }
 class _PersonalComponent extends State<PersonalComponent> {
-  var _profileImage;
   @override
   initState() {
     super.initState();
     _loadProfile();
   }
   _loadProfile() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    final _image = pref.get("profile") ?? null;
     setState(() {
-      if(_image != null) {
-        _profileImage = _image;
-      }
-      else {
-        _profileImage = NetworkImage('mypict');
-      }
     });
   }
 

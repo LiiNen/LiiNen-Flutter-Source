@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:my_flutter_source/navView/searchView/searchView.dart';
-
 import 'resultItemObject.dart';
 
 class CategoryResultView extends StatefulWidget {
