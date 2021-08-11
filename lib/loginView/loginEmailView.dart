@@ -42,7 +42,7 @@ class _LoginEmailView extends State<LoginEmailView> {
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
                       border: OutlineInputBorder(),
-                      hintText: '이메일을 입력해주세요'
+                      hintText: '이메일을 입력해주세요',
                     ),
                     style: textStyle(weight: 600, size: 12.0),
                     onChanged: (value) {setState(() {});},

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/loginView/profileSetupView.dart';
 
 class SignUpView extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class _SignUpView extends State<SignUpView> {
   final emailController = TextEditingController();
   final pwFirstController = TextEditingController();
   final pwSecondController = TextEditingController();
-
+  //TODO: 오류 색상 변경
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,11 +53,11 @@ class _SignUpView extends State<SignUpView> {
                 obscureText: true,
                 autofocus: false,
                 decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: pwFirstConfirm ? Color(0xff0958c5) : Color(0xffd93826), width: 1)
-                    ),
-                    hintText: '비밀번호를 입력해주세요'
+                  contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: pwFirstConfirm ? Color(0xff0958c5) : Color(0xffd93826), width: 1)
+                  ),
+                  hintText: '비밀번호를 입력해주세요'
                 ),
                 style: textStyle(weight: 600, size: 12.0),
                 onChanged: (value) {setState(() {});},
@@ -86,15 +87,18 @@ class _SignUpView extends State<SignUpView> {
                 });},
               ),
               SizedBox(height: 36),
-              Container(
+              GestureDetector(
+                onTap: _nextStep,
+                child: Container(
                   height: 52,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(4)
-                      ),
-                      color: emailController.text != '' && pwFirstController.text != '' ? Color(0xff0958c5) : Color(0xffd1d5d9)
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(4)
+                    ),
+                    color: pwSecondConfirm ? Color(0xff0958c5) : Color(0xffd1d5d9)
                   ),
                   child: Center(child: Text('회원가입', style: textStyle(color: Colors.white, weight: 600, size: 16.0)))
+                )
               ),
             ]
           )
@@ -109,5 +113,9 @@ class _SignUpView extends State<SignUpView> {
     pwFirstController.dispose();
     pwSecondController.dispose();
     super.dispose();
+  }
+
+  void _nextStep() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileSetupView()));
   }
 }

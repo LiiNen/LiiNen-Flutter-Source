@@ -67,7 +67,7 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
               ),
               SizedBox(height: 8 * responsiveScale),
               GestureDetector(
-                  onTap: _loginSuccess,
+                  onTap: _loginEmail,
                   child: Image.asset('asset/image/emailBtn.png', width: 333 * responsiveScale, height: 52 * responsiveScale)
               )
             ],
