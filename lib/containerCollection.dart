@@ -15,3 +15,23 @@ class TitleContainer extends StatelessWidget {
     );
   }
 }
+
+class LoginViewAppBar extends StatelessWidget implements PreferredSizeWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      leading: IconButton(
+        padding: EdgeInsets.only(left: 0),
+        icon: Icon(Icons.arrow_back, color: Colors.black,),
+        onPressed: () {Navigator.pop(context);},
+      ),
+      elevation: 0,
+      brightness: Brightness.light,
+      backgroundColor: const Color(0xffffffff)
+    );
+  }
+
+  LoginViewAppBar() : preferredSize = Size.fromHeight(48.0);
+  @override
+  final Size preferredSize;
+}

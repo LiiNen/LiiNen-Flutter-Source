@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/loginView/signUpView.dart';
 
 class LoginEmailView extends StatefulWidget {
   @override
@@ -13,30 +14,20 @@ class _LoginEmailView extends State<LoginEmailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          padding: EdgeInsets.only(left: 21),
-          icon: Icon(Icons.arrow_back, color: Colors.black,),
-          onPressed: () {Navigator.pop(context);},
-        ),
-        elevation: 0,
-        brightness: Brightness.light,
-        backgroundColor: const Color(0xffffffff)
-      ),
+      appBar: LoginViewAppBar(),
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 21),
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            color: Colors.white,
-          ),
+          decoration: BoxDecoration(color: Colors.white,),
           child: Stack(
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 24),
                   Text('이메일 로그인',
                     style: textStyle(weight: 700, size: 20.0),
                     textAlign: TextAlign.left,
@@ -97,8 +88,9 @@ class _LoginEmailView extends State<LoginEmailView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text('아직 계정이 없으신가요? ', style: textStyle(weight: 400, size: 16.0)),
-                        Container(
-                            child: Text('회원가입', style: textStyle(weight: 600, size: 16.0))
+                        GestureDetector(
+                          child: Text('회원가입', style: textStyle(weight: 600, size: 16.0)),
+                          onTap: _signUpBtnClick,
                         )
                       ]
                     )
@@ -117,5 +109,9 @@ class _LoginEmailView extends State<LoginEmailView> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  void _signUpBtnClick() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpView()));
   }
 }

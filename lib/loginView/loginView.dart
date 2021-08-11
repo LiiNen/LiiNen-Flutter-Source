@@ -66,7 +66,7 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
   void _loginSuccess() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
-      pref.setBool('login', true);
+      // pref.setBool('login', true);
     });
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavView()));
   }
