@@ -7,6 +7,8 @@ import 'navView/navView.dart';
 
 void main()=> runApp(MyApp());
 
+double responsiveScale = 1.0;
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   // This widget is the root of your application.
@@ -30,7 +32,9 @@ class _MainRouter extends State<MainRouter> {
   initState() {
     super.initState();
     new Future.delayed(new Duration(seconds: 2), _checkLogin);
+    print(double.infinity);
   }
+  
   _checkLogin() async {
     final pref = await SharedPreferences.getInstance();
     setState(() {
@@ -40,6 +44,9 @@ class _MainRouter extends State<MainRouter> {
 
   @override
   Widget build(BuildContext context) {
+    var a = MediaQuery.of(context).size.width / 375;
+    var b = MediaQuery.of(context).size.height / 812;
+    responsiveScale = a < b ? a : b;
     if(_loginState != null && _loginState!){
       return MaterialApp(
         home: NavView()

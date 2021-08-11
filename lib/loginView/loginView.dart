@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_flutter_source/functionCollection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../navView/navView.dart';
 import 'loginEmailView.dart';
+import 'package:my_flutter_source/main.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -22,6 +24,7 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
     super.dispose();
   }
 
+  //TODO: 반응형
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +33,7 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 40),
+              SizedBox(height: 40 * responsiveScale),
               Text(
                 "환영합니다 🙌",
                 style: const TextStyle(
@@ -41,7 +44,7 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
                     fontSize: 28.0
                 )
               ),
-              SizedBox(height: 12),
+              SizedBox(height: 12 * responsiveScale),
               Text(
                 "이건모임에서 목표를 달성해보세요!",
                 style: const TextStyle(
@@ -52,10 +55,21 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
                     fontSize: 14.0
                 ),
               ),
-              SizedBox(height: 44),
-              SignInButton(Buttons.Apple, onPressed: _loginSuccess),
-              SignInButton(Buttons.Google, onPressed: _loginSuccess),
-              SignInButton(Buttons.Facebook, onPressed: _loginEmail),
+              SizedBox(height: 44 * responsiveScale),
+              GestureDetector(
+                onTap: _loginSuccess,
+                child: Image.asset('asset/image/appleBtn.png', width: 333 * responsiveScale, height: 52 * responsiveScale)
+              ),
+              SizedBox(height: 8 * responsiveScale),
+              GestureDetector(
+                  onTap: _loginSuccess,
+                  child: Image.asset('asset/image/kakaoBtn.png', width: 333 * responsiveScale, height: 52 * responsiveScale)
+              ),
+              SizedBox(height: 8 * responsiveScale),
+              GestureDetector(
+                  onTap: _loginSuccess,
+                  child: Image.asset('asset/image/emailBtn.png', width: 333 * responsiveScale, height: 52 * responsiveScale)
+              )
             ],
           )
         )
@@ -87,7 +101,7 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
 }
 
 class MaskAppBar extends StatefulWidget implements PreferredSizeWidget {
-  MaskAppBar() : preferredSize = Size.fromHeight(384.0);
+  MaskAppBar() : preferredSize = Size.fromHeight(384.0 * responsiveScale);
   @override
   final Size preferredSize;
 
@@ -98,7 +112,7 @@ class _MaskAppBar extends State<MaskAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      toolbarHeight: 384.0,
+      toolbarHeight: 384.0 * responsiveScale,
       elevation: 0,
       brightness: Brightness.light, // this makes status bar text color black
       backgroundColor: const Color(0xffedf2f8),
@@ -109,10 +123,10 @@ class _MaskAppBar extends State<MaskAppBar> {
             child: SvgPicture.asset('asset/image/messageImg.svg', width: 217, height: 92)
           ),
           Container(
-            padding: EdgeInsets.only(top: 192),
+            padding: EdgeInsets.only(top: 192 * responsiveScale),
             child: Center(
               child: Container(
-                width: 165, height: 192,
+                width: 165 * responsiveScale, height: 192 * responsiveScale,
                 child: Image.asset('asset/image/bannerImg.png', fit:BoxFit.fill)
               ),
             )
