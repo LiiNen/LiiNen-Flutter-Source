@@ -35,3 +35,18 @@ class LoginViewAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;
 }
+
+class ColumnVerticalDivider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 1,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: const Color(0xffd1d5d9),
+          width: 1
+        )
+      )
+    );
+  }
+}

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
-import 'package:my_flutter_source/loginView/signUpView.dart';
+
+import 'policyView.dart';
 
 class LoginEmailView extends StatefulWidget {
   @override
@@ -112,6 +113,6 @@ class _LoginEmailView extends State<LoginEmailView> {
   }
 
   void _signUpBtnClick() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpView()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => PolicyView()));
   }
 }
