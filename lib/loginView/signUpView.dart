@@ -60,7 +60,9 @@ class _SignUpView extends State<SignUpView> {
                   hintText: '비밀번호를 입력해주세요'
                 ),
                 style: textStyle(weight: 600, size: 12.0),
-                onChanged: (value) {setState(() {});},
+                onChanged: (value) {setState(() {
+                  pwSecondConfirm = (pwFirstController.text == pwSecondController.text ? true : false);
+                });},
               ),
               SizedBox(height: 4),
               Text('영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.',
@@ -95,7 +97,7 @@ class _SignUpView extends State<SignUpView> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(4)
                     ),
-                    color: pwSecondConfirm ? Color(0xff0958c5) : Color(0xffd1d5d9)
+                    color: emailController.text != '' && pwSecondConfirm ? Color(0xff0958c5) : Color(0xffd1d5d9)
                   ),
                   child: Center(child: Text('회원가입', style: textStyle(color: Colors.white, weight: 600, size: 16.0)))
                 )
@@ -116,6 +118,6 @@ class _SignUpView extends State<SignUpView> {
   }
 
   void _nextStep() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileSetupView()));
+    if(emailController.text != '' && pwSecondConfirm) Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileSetupView()));
   }
 }

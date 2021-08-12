@@ -32,7 +32,6 @@ class _MainRouter extends State<MainRouter> {
   initState() {
     super.initState();
     new Future.delayed(new Duration(seconds: 2), _checkLogin);
-    print(double.infinity);
   }
   
   _checkLogin() async {
