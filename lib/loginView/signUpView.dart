@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/loginView/profileSetupView.dart';
+import 'package:my_flutter_source/main.dart';
 
 class SignUpView extends StatefulWidget {
   @override
@@ -22,18 +23,18 @@ class _SignUpView extends State<SignUpView> {
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 21),
+          padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(color: Colors.white),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 24),
+              SizedBox(height: 24 * responsiveScale),
               Text('이메일로 회원가입', style: textStyle(weight: 700, size: 20.0), textAlign: TextAlign.left,),
-              SizedBox(height: 24),
+              SizedBox(height: 24 * responsiveScale),
               Text('이메일', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left),
-              SizedBox(height: 8),
+              SizedBox(height: 8 * responsiveScale),
               TextField(
                 controller: emailController,
                 autofocus: false,
@@ -45,15 +46,15 @@ class _SignUpView extends State<SignUpView> {
                 style: textStyle(weight: 600, size: 12.0),
                 onChanged: (value) {setState(() {});},
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 20 * responsiveScale),
               Text('비밀번호', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,),
-              SizedBox(height: 8),
+              SizedBox(height: 8 * responsiveScale),
               TextField(
                 controller: pwFirstController,
                 obscureText: true,
                 autofocus: false,
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 14.0 * responsiveScale),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: pwFirstConfirm ? Color(0xff0958c5) : Color(0xffd93826), width: 1)
                   ),
@@ -64,20 +65,20 @@ class _SignUpView extends State<SignUpView> {
                   pwSecondConfirm = (pwFirstController.text == pwSecondController.text ? true : false);
                 });},
               ),
-              SizedBox(height: 4),
+              SizedBox(height: 4 * responsiveScale),
               Text('영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.',
                 style: textStyle(color: Color(0xff636c73), weight: 400, size: 12.0),
                 textAlign: TextAlign.left,
               ),
-              SizedBox(height: 24),
+              SizedBox(height: 24 * responsiveScale),
               Text('비밀번호 확인', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,),
-              SizedBox(height: 8),
+              SizedBox(height: 8 * responsiveScale),
               TextField(
                 controller: pwSecondController,
                 obscureText: true,
                 autofocus: false,
                 decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 14.0 * responsiveScale),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(color: pwSecondConfirm ? Color(0xff0958c5) : Color(0xffd93826), width: 1),
                     ),
@@ -88,11 +89,11 @@ class _SignUpView extends State<SignUpView> {
                   pwSecondConfirm = (pwFirstController.text == pwSecondController.text ? true : false);
                 });},
               ),
-              SizedBox(height: 36),
+              SizedBox(height: 36 * responsiveScale),
               GestureDetector(
                 onTap: _nextStep,
                 child: Container(
-                  height: 52,
+                  height: 52 * responsiveScale,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(4)

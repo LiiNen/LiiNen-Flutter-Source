@@ -6,6 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 
+import 'package:my_flutter_source/main.dart';
+
 class ProfileSetupView extends StatefulWidget {
   @override
   State<ProfileSetupView> createState() => _ProfileSetupView();
@@ -21,7 +23,7 @@ class _ProfileSetupView extends State<ProfileSetupView> {
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 21),
+          padding: EdgeInsets.symmetric(horizontal: 21  * responsiveScale),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(color: Colors.white),
           child: Stack(
@@ -30,40 +32,40 @@ class _ProfileSetupView extends State<ProfileSetupView> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 24),
+                  SizedBox(height: 24 * responsiveScale),
                   Text('사진과 닉네임을 등록해주세요', style: textStyle(weight: 700, size: 20.0)),
-                  SizedBox(height: 24),
+                  SizedBox(height: 24 * responsiveScale),
                   Center(
                     child: GestureDetector(
                       onTap: _modifyImage,
                       child: Stack(
                         children: [
                           Container(
-                            width: 120, height: 120,
+                            width: 120 * responsiveScale, height: 120 * responsiveScale,
                             decoration: BoxDecoration(
                               color: const Color(0xffebebeb),
-                              borderRadius: BorderRadius.circular(60),
+                              borderRadius: BorderRadius.circular(60 * responsiveScale),
                             ),
                             child: _profileImage == null ? Image.asset('asset/loginView/profile.png') : Image.file(File(_profileImage!.path)),
                           ),
                           Positioned(
-                            right: 5, bottom: 0,
+                            right: 5 * responsiveScale, bottom: 0,
                             child: Container(
-                              width: 28, height: 28,
+                              width: 28 * responsiveScale, height: 28 * responsiveScale,
                               decoration: BoxDecoration(
                                 color: const Color(0xffc2c6cd),
-                                borderRadius: BorderRadius.circular(14),
+                                borderRadius: BorderRadius.circular(14 * responsiveScale),
                               ),
-                              child: Center(child: Container(width: 14, height: 14, child: SvgPicture.asset('asset/loginView/icoCamera.svg', fit: BoxFit.fill,)))
+                              child: Center(child: Container(width: 14 * responsiveScale, height: 14 * responsiveScale, child: SvgPicture.asset('asset/loginView/icoCamera.svg', fit: BoxFit.fill,)))
                             )
                           )
                         ],
                       )
                     )
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 20 * responsiveScale),
                   Text('닉네임', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,),
-                  SizedBox(height: 8),
+                  SizedBox(height: 8 * responsiveScale),
                   TextField(
                     controller: nameController,
                     obscureText: true,
@@ -76,13 +78,13 @@ class _ProfileSetupView extends State<ProfileSetupView> {
                     style: textStyle(weight: 600, size: 12.0),
                     onChanged: (value) {setState(() {});},
                   ),
-                  SizedBox(height: 4),
+                  SizedBox(height: 4 * responsiveScale),
                   Text('20자 이내로 입력할 수 있어요', style: textStyle(color: Color(0xff636c73), weight: 400, size: 12.0)),
-                  SizedBox(height: 40),
+                  SizedBox(height: 40 * responsiveScale),
                   GestureDetector(
                     onTap: _nextStep,
                     child: Container(
-                      height: 52,
+                      height: 52 * responsiveScale,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(
                             Radius.circular(4)

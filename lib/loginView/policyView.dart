@@ -79,25 +79,30 @@ class _PolicyView extends State<PolicyView> {
     return Container(
       height: 24,
       width: MediaQuery.of(context).size.width - 42,
-      child:Row(
-        children: [
-          GestureDetector(
-            onTap: () => {_checkBoxTap(index)},
-            child: Container(
+      child:
+      GestureDetector(
+        onTap: () => {_checkBoxTap(index)},
+        child: Row(
+          children: [
+            Container(
               width: 24, height: 24,
               child: SvgPicture.asset(_checkList[index] ? 'asset/loginView/checkBoxCheck.svg' : 'asset/loginView/checkBoxUncheck.svg'),
             ),
-          ),
-          SizedBox(width: 8),
-          Container(
-            width: MediaQuery.of(context).size.width - 98,
-            child: Text(title, style: style,),
-          ),
-          Container(
-            width: 24, height: 24,
-            child: detailBool ? SvgPicture.asset('asset/loginView/iconArrow.svg') : Container()
-          )
-        ],
+            SizedBox(width: 8),
+            Container(
+              width: MediaQuery.of(context).size.width - 98,
+              child: Text(title, style: style,),
+            ),
+            GestureDetector(
+              // TODO: 상세 이용 약관 등등등 + > 버튼 크기 키우기
+              onTap: () => {print('hello')},
+              child: Container(
+                width: 24, height: 24,
+                child: detailBool ? SvgPicture.asset('asset/loginView/iconArrow.svg') : Container()
+              )
+            ),
+          ],
+        )
       )
     );
   }
