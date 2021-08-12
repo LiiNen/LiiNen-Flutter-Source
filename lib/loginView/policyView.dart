@@ -53,21 +53,21 @@ class _PolicyView extends State<PolicyView> {
               ],
             ),
             Positioned(
-                bottom: 36,
-                child: GestureDetector(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width - 42,
-                    height: 52,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(4)
-                        ),
-                        color: _check() ? Color(0xff0958c5) : Color(0xffd1d5d9)
+              bottom: 36,
+              child: GestureDetector(
+                child: Container(
+                  width: MediaQuery.of(context).size.width - 42,
+                  height: 52,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(4)
                     ),
-                    child: Center(child: Text('시작하기', style: textStyle(color: Colors.white, weight: 600, size: 16.0)))
+                    color: _check() ? Color(0xff0958c5) : Color(0xffd1d5d9)
                   ),
-                  onTap: () => _check() ? {Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpView()))} : {},
+                  child: Center(child: Text('시작하기', style: textStyle(color: Colors.white, weight: 600, size: 16.0)))
                 ),
+                onTap: () => _check() ? {Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpView()))} : {},
+              ),
             )
           ],
         )
