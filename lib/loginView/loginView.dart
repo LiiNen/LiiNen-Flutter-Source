@@ -58,17 +58,17 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
               SizedBox(height: 44 * responsiveScale),
               GestureDetector(
                 onTap: _loginSuccess,
-                child: Image.asset('asset/image/appleBtn.png', width: 333 * responsiveScale, height: 52 * responsiveScale)
+                child: SvgPicture.asset('asset/loginView/appleBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
               ),
               SizedBox(height: 8 * responsiveScale),
               GestureDetector(
                   onTap: _loginSuccess,
-                  child: Image.asset('asset/image/kakaoBtn.png', width: 333 * responsiveScale, height: 52 * responsiveScale)
+                  child: SvgPicture.asset('asset/loginView/kakaoBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
               ),
               SizedBox(height: 8 * responsiveScale),
               GestureDetector(
                   onTap: _loginEmail,
-                  child: Image.asset('asset/image/emailBtn.png', width: 333 * responsiveScale, height: 52 * responsiveScale)
+                  child: SvgPicture.asset('asset/loginView/emailBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
               )
             ],
           )
@@ -120,14 +120,14 @@ class _MaskAppBar extends State<MaskAppBar> {
         children: [
           Positioned(
             top: 78,
-            child: SvgPicture.asset('asset/image/messageImg.svg', width: 217, height: 92)
+            child: SvgPicture.asset('asset/loginView/messageImg.svg', width: 217, height: 92)
           ),
           Container(
             padding: EdgeInsets.only(top: 192 * responsiveScale),
             child: Center(
               child: Container(
                 width: 165 * responsiveScale, height: 192 * responsiveScale,
-                child: Image.asset('asset/image/bannerImg.png', fit:BoxFit.fill)
+                child: Image.asset('asset/loginView/bannerImg.png', fit:BoxFit.fill)
               ),
             )
           )

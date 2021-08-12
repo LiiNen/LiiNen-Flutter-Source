@@ -85,7 +85,7 @@ class _PolicyView extends State<PolicyView> {
             onTap: () => {_checkBoxTap(index)},
             child: Container(
               width: 24, height: 24,
-              child: SvgPicture.asset(_checkList[index] ? 'asset/image/CheckBoxCheck.svg' : 'asset/image/CheckBoxUncheck.svg'),
+              child: SvgPicture.asset(_checkList[index] ? 'asset/loginView/checkBoxCheck.svg' : 'asset/loginView/checkBoxUncheck.svg'),
             ),
           ),
           SizedBox(width: 8),
@@ -95,7 +95,7 @@ class _PolicyView extends State<PolicyView> {
           ),
           Container(
             width: 24, height: 24,
-            child: detailBool ? SvgPicture.asset('asset/image/iconArrow.svg') : Container()
+            child: detailBool ? SvgPicture.asset('asset/loginView/iconArrow.svg') : Container()
           )
         ],
       )

@@ -38,7 +38,7 @@ class _ProfileSetupView extends State<ProfileSetupView> {
                             color: const Color(0xffebebeb),
                             borderRadius: BorderRadius.circular(60),
                           ),
-                          child: Image.asset('asset/image/profile.png'),
+                          child: Image.asset('asset/loginView/profile.png'),
                         ),
                         Positioned(
                           right: 5, bottom: 0,
@@ -48,7 +48,7 @@ class _ProfileSetupView extends State<ProfileSetupView> {
                               color: const Color(0xffc2c6cd),
                               borderRadius: BorderRadius.circular(14),
                             ),
-                            child: Center(child: Container(width: 14, height: 14, child: SvgPicture.asset('asset/image/icoCamera.svg', fit: BoxFit.fill,)))
+                            child: Center(child: Container(width: 14, height: 14, child: SvgPicture.asset('asset/loginView/icoCamera.svg', fit: BoxFit.fill,)))
                           )
                         )
                       ],
