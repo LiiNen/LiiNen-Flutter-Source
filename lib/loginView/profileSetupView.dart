@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/loginView/categorySetupView.dart';
 
 import 'package:my_flutter_source/main.dart';
 
@@ -104,7 +105,7 @@ class _ProfileSetupView extends State<ProfileSetupView> {
   }
 
   void _nextStep() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileSetupView()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => CategorySetupView()));
   }
 
   // TODO: m1 이외에서 체크 필요
