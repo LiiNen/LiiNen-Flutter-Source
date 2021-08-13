@@ -17,9 +17,11 @@ class _ProfileSetupView extends State<ProfileSetupView> {
   final nameController = TextEditingController();
   PickedFile? _profileImage;
 
+  // TODO : overflow 37 pixel in android device when keyboard up
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: LoginViewAppBar(),
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),

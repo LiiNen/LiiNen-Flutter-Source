@@ -31,3 +31,7 @@ TextStyle textStyle({color: Colors.black, weight: int, size: double}) {
     fontSize: size
   );
 }
+
+void scrollOnFocus(scrollController, height) {
+  scrollController.animateTo(height, duration: new Duration(seconds: 1), curve: Curves.ease);
+}

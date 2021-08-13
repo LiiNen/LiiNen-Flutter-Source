@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_flutter_source/main.dart';
 
 class TitleContainer extends StatelessWidget {
   final String _title;
@@ -6,9 +7,9 @@ class TitleContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 50 * responsiveScale,
       child: Center(child: Container(
-        padding: EdgeInsets.only(left: 15),
+        padding: EdgeInsets.only(left: 15 * responsiveScale),
         width: MediaQuery.of(context).size.width,
         child: Text(_title, textAlign: TextAlign.left,)
       ))

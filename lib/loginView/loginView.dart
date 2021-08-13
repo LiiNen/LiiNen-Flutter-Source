@@ -24,7 +24,6 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
     super.dispose();
   }
 
-  //TODO: 반응형
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -15,12 +15,14 @@ class _SignUpView extends State<SignUpView> {
   final emailController = TextEditingController();
   final pwFirstController = TextEditingController();
   final pwSecondController = TextEditingController();
+  
   //TODO: 오류 색상 변경
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: LoginViewAppBar(),
-      body: GestureDetector(
+      body: SingleChildScrollView(child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
@@ -39,9 +41,9 @@ class _SignUpView extends State<SignUpView> {
                 controller: emailController,
                 autofocus: false,
                 decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
-                    border: OutlineInputBorder(),
-                    hintText: '이메일을 입력해주세요'
+                  contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
+                  border: OutlineInputBorder(),
+                  hintText: '이메일을 입력해주세요'
                 ),
                 style: textStyle(weight: 600, size: 12.0),
                 onChanged: (value) {setState(() {});},
@@ -106,7 +108,7 @@ class _SignUpView extends State<SignUpView> {
             ]
           )
         )
-      )
+      ))
     );
   }
 
