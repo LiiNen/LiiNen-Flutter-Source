@@ -66,6 +66,8 @@ class _LoginEmailView extends State<LoginEmailView> {
                       ),
                       style: textStyle(weight: 600, size: 12.0),
                       onChanged: (value) {setState(() {});},
+                      textInputAction: TextInputAction.next,
+                      onSubmitted: (value) => {passwordFocus.requestFocus()},
                     ),
                     SizedBox(height: 20),
                     Text('비밀번호', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,),
@@ -81,6 +83,8 @@ class _LoginEmailView extends State<LoginEmailView> {
                       ),
                       style: textStyle(weight: 600, size: 12.0),
                       onChanged: (value) {setState(() {});},
+                      textInputAction: TextInputAction.done,
+                      onSubmitted: (value) => {_loginAction(emailController.text, value)},
                     ),
                     SizedBox(height: 20 * responsiveScale),
                     Container(
@@ -88,15 +92,18 @@ class _LoginEmailView extends State<LoginEmailView> {
                       child: Text('아이디/비밀번호 찾기', style: textStyle(weight: 600, size: 12.0), textAlign: TextAlign.right),
                     ),
                     SizedBox(height: 36 * responsiveScale),
-                    Container(
+                    GestureDetector(
+                      onTap: () => {_loginAction(emailController.text, passwordController.text)},
+                      child: Container(
                         height: 52 * responsiveScale,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(4)
-                            ),
-                            color: emailController.text != '' && passwordController.text != '' ? Color(0xff0958c5) : Color(0xffd1d5d9)
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(4)
+                          ),
+                          color: emailController.text != '' && passwordController.text != '' ? Color(0xff0958c5) : Color(0xffd1d5d9)
                         ),
                         child: Center(child: Text('로그인', style: textStyle(color: Colors.white, weight: 600, size: 16.0)))
+                      ),
                     ),
                     SizedBox(height: 288 * responsiveScale),
                   ]
@@ -137,8 +144,10 @@ class _LoginEmailView extends State<LoginEmailView> {
     super.dispose();
   }
 
-  void _scrollOnFocus(double _height) {
-    _scrollController.animateTo(_height, duration: new Duration(seconds: 2), curve: Curves.ease);
+  //TODO : login implements
+  void _loginAction(email, password) {
+    print(email);
+    print(password);
   }
 
   void _signUpBtnClick() {

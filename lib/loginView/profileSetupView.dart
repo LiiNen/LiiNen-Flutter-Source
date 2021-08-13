@@ -43,13 +43,11 @@ class _ProfileSetupView extends State<ProfileSetupView> {
                       onTap: _modifyImage,
                       child: Stack(
                         children: [
-                          Container(
-                            width: 120 * responsiveScale, height: 120 * responsiveScale,
-                            decoration: BoxDecoration(
-                              color: const Color(0xffebebeb),
-                              borderRadius: BorderRadius.circular(60 * responsiveScale),
-                            ),
-                            child: _profileImage == null ? Image.asset('asset/loginView/profile.png') : Image.file(File(_profileImage!.path)),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(60 * responsiveScale),
+                            child: _profileImage == null
+                              ? Image.asset('asset/loginView/profile.png', width: 120 * responsiveScale, height: 120 * responsiveScale,)
+                              : Image.file(File(_profileImage!.path), width: 120 * responsiveScale, height: 120 * responsiveScale, fit: BoxFit.cover,),
                           ),
                           Positioned(
                             right: 5 * responsiveScale, bottom: 0,
@@ -80,6 +78,8 @@ class _ProfileSetupView extends State<ProfileSetupView> {
                     ),
                     style: textStyle(weight: 600, size: 12.0),
                     onChanged: (value) {setState(() {});},
+                    textInputAction: TextInputAction.done,
+                    onSubmitted: (value) {_nextStep();},
                   ),
                   SizedBox(height: 4 * responsiveScale),
                   Text('20자 이내로 입력할 수 있어요', style: textStyle(color: Color(0xff636c73), weight: 400, size: 12.0)),

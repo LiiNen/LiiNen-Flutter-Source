@@ -15,7 +15,11 @@ class _SignUpView extends State<SignUpView> {
   final emailController = TextEditingController();
   final pwFirstController = TextEditingController();
   final pwSecondController = TextEditingController();
-  
+
+  var emailFocus = FocusNode();
+  var pwFirstFocus = FocusNode();
+  var pwSecondFocus = FocusNode();
+
   //TODO: 오류 색상 변경
   @override
   Widget build(BuildContext context) {
@@ -39,7 +43,7 @@ class _SignUpView extends State<SignUpView> {
               SizedBox(height: 8 * responsiveScale),
               TextField(
                 controller: emailController,
-                autofocus: false,
+                focusNode: emailFocus,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
                   border: OutlineInputBorder(),
@@ -47,6 +51,8 @@ class _SignUpView extends State<SignUpView> {
                 ),
                 style: textStyle(weight: 600, size: 12.0),
                 onChanged: (value) {setState(() {});},
+                textInputAction: TextInputAction.next,
+                onSubmitted: (value) => {pwFirstFocus.requestFocus()},
               ),
               SizedBox(height: 20 * responsiveScale),
               Text('비밀번호', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,),
@@ -54,7 +60,7 @@ class _SignUpView extends State<SignUpView> {
               TextField(
                 controller: pwFirstController,
                 obscureText: true,
-                autofocus: false,
+                focusNode: pwFirstFocus,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(horizontal: 14.0 * responsiveScale),
                   border: OutlineInputBorder(
@@ -66,6 +72,8 @@ class _SignUpView extends State<SignUpView> {
                 onChanged: (value) {setState(() {
                   pwSecondConfirm = (pwFirstController.text == pwSecondController.text ? true : false);
                 });},
+                textInputAction: TextInputAction.next,
+                onSubmitted: (value) => {pwSecondFocus.requestFocus()},
               ),
               SizedBox(height: 4 * responsiveScale),
               Text('영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.',
@@ -78,7 +86,7 @@ class _SignUpView extends State<SignUpView> {
               TextField(
                 controller: pwSecondController,
                 obscureText: true,
-                autofocus: false,
+                focusNode: pwSecondFocus,
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(horizontal: 14.0 * responsiveScale),
                     border: OutlineInputBorder(
@@ -90,6 +98,7 @@ class _SignUpView extends State<SignUpView> {
                 onChanged: (value) {setState(() {
                   pwSecondConfirm = (pwFirstController.text == pwSecondController.text ? true : false);
                 });},
+                onSubmitted: (value) => {_nextStep()},
               ),
               SizedBox(height: 36 * responsiveScale),
               GestureDetector(
@@ -116,6 +125,9 @@ class _SignUpView extends State<SignUpView> {
   void dispose() {
     emailController.dispose();
     pwFirstController.dispose();
+    pwSecondController.dispose();
+    emailFocus.dispose();
+    pwFirstFocus.dispose();
     pwSecondController.dispose();
     super.dispose();
   }
