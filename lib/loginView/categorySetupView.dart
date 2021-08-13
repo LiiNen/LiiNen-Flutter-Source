@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/navView/navView.dart';
 
 class CategorySetupView extends StatefulWidget {
   @override
   State<CategorySetupView> createState() => _CategorySetupView();
 }
 class _CategorySetupView extends State<CategorySetupView> {
+  bool _selectedLeast = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,18 +33,7 @@ class _CategorySetupView extends State<CategorySetupView> {
                 Wrap(
                   direction: Axis.horizontal,
                   spacing: 8, runSpacing: 8,
-                  children: [
-                    _categoryItem('운동(스포츠/피트니스'),
-                    _categoryItem('공예 DIY'),
-                    _categoryItem('예술 악기 그림'),
-                    _categoryItem('자기계발 독서 스터디'),
-                    _categoryItem('안녕'),
-                    _categoryItem('하세요'),
-                    _categoryItem('ㅎㅎ'),
-                    _categoryItem('안녕'),
-                    _categoryItem('하세요'),
-                    _categoryItem('ㅎㅎ'),
-                  ],
+                  children: _titleList.map((e) => _categoryItem(e)).toList(),
                 )
               ]
             ),
@@ -55,11 +47,11 @@ class _CategorySetupView extends State<CategorySetupView> {
                     borderRadius: BorderRadius.all(
                       Radius.circular(4)
                     ),
-                    color: Color(0xffd1d5d9)
+                    color: _selectedLeast ? Color(0xff0958c5) : Color(0xffd1d5d9)
                   ),
                   child: Center(child: Text('가입 완료', style: textStyle(color: Colors.white, weight: 600, size: 16.0)))
                 ),
-                onTap: () => {}
+                onTap: () => {_submitSignUp()}
               ),
             )
           ],
@@ -68,16 +60,32 @@ class _CategorySetupView extends State<CategorySetupView> {
     );
   }
 
-  Container _categoryItem(String title) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(16)),
-        border: Border.all(color: Color(0xffd3d7df), width: 1)
-      ),
+  GestureDetector _categoryItem(title) {
+    bool _selected = _selectedList[_titleList.indexOf(title)];
+    return GestureDetector(
+      onTap: () => {setState(() {
+        _selectedList[_titleList.indexOf(title)] = !_selected;
+        _selectedLeast = _selectedList.indexOf(true) != -1 ? true : false;
+      })},
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 12),
-        child: Text(title)
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+          border: Border.all(color: _selected ? Color(0xff0958c5) : Color(0xffd3d7df), width: 1),
+          color: _selected ? Color(0xff0958c5) : Color(0xffffffff),
+        ),
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 12),
+          child: Text(title, style: textStyle(color: _selected ? Color(0xffffffff) : Color(0xffd1d5d9), weight: 400, size: 14.0),)
+        )
       )
     );
   }
+
+  //TODO : 뒤로가기 삭제
+  void _submitSignUp() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => NavView()));
+  }
 }
+
+List<String> _titleList = ['운동(스포츠/피트니스', '공예 DIY', '자기계발 독서 스터디', '예술 악기 그림', '안녕', '하세요', 'ㅎㅎ', 'example'];
+List<bool> _selectedList = List<bool>.generate(_titleList.length, (index) => false);
