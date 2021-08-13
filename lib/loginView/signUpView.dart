@@ -63,13 +63,19 @@ class _SignUpView extends State<SignUpView> {
                 focusNode: pwFirstFocus,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(horizontal: 14.0 * responsiveScale),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: pwFirstConfirm ? Color(0xff0958c5) : Color(0xffd93826), width: 1)
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(2),
+                    borderSide: BorderSide(color: pwFirstConfirm || pwFirstController.text == '' ? Color(0xffe4e4e4) : Color(0xffd93826), width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(2),
+                    borderSide: BorderSide(color: pwFirstConfirm || pwFirstController.text == '' ? Color(0xff0958c5) : Color(0xffd93826)),
                   ),
                   hintText: '비밀번호를 입력해주세요'
                 ),
                 style: textStyle(weight: 600, size: 12.0),
                 onChanged: (value) {setState(() {
+                  pwFirstConfirm = passwordRegexCheck(pwFirstController.text);
                   pwSecondConfirm = (pwFirstController.text == pwSecondController.text ? true : false);
                 });},
                 textInputAction: TextInputAction.next,
@@ -88,11 +94,16 @@ class _SignUpView extends State<SignUpView> {
                 obscureText: true,
                 focusNode: pwSecondFocus,
                 decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 14.0 * responsiveScale),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: pwSecondConfirm ? Color(0xff0958c5) : Color(0xffd93826), width: 1),
-                    ),
-                    hintText: '비밀번호를 한번 더 입력해주세요'
+                  contentPadding: EdgeInsets.symmetric(horizontal: 14.0 * responsiveScale),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(2),
+                    borderSide: BorderSide(color: pwSecondConfirm || pwSecondController.text == '' ? Color(0xffe4e4e4) : Color(0xffd93826), width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(2),
+                    borderSide: BorderSide(color: pwSecondConfirm || pwSecondController.text == '' ? Color(0xff0958c5) : Color(0xffd93826)),
+                  ),
+                  hintText: '비밀번호를 한번 더 입력해주세요'
                 ),
                 style: textStyle(weight: 600, size: 12.0),
                 onChanged: (value) {setState(() {
