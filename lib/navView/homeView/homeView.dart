@@ -20,7 +20,7 @@ class _HomeView extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainViewAppBar(),
+      appBar: MainViewAppBar(home: true,),
       body: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(color: Colors.white),

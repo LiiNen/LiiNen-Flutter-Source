@@ -18,6 +18,7 @@ class _NavView extends State<NavView> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor:Colors.white,
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
         onTap: (int index){
@@ -29,8 +30,9 @@ class _NavView extends State<NavView> {
         items: [
           BottomNavigationBarItem(label: '홈', icon: Icon(Icons.home)),
           BottomNavigationBarItem(label: '찾아보기', icon: Icon(Icons.search)),
-          BottomNavigationBarItem(label: '내 모임', icon: Icon(Icons.favorite)),
-          BottomNavigationBarItem(label: '개인설정', icon: Icon(Icons.account_circle))
+          BottomNavigationBarItem(label: '내 모임', icon: Icon(Icons.people_alt_sharp)),
+          BottomNavigationBarItem(label: '알림', icon: Icon(Icons.notifications_none)),
+          BottomNavigationBarItem(label: '더 보기', icon: Icon(Icons.more_horiz))
         ],
       ),
       body: Center(
@@ -44,6 +46,7 @@ class _NavView extends State<NavView> {
     HomeView(),
     SearchView(),
     ClubView(),
+    ProfileView(),
     ProfileView(),
   ];
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'searchResult/categoryResultView.dart';
 import 'package:my_flutter_source/containerCollection.dart';
+import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/functionCollection.dart';
 
 class SearchView extends StatefulWidget {
   @override
@@ -13,13 +15,13 @@ class _SearchView extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _searchByText = [
-      TitleContainer('검색하기'),
       Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        height: 40 * responsiveScale,
+        padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            border: Border.all(width: 2, color: Colors.black),
-            borderRadius: BorderRadius.all(Radius.circular(5))
+            borderRadius: BorderRadius.all(Radius.circular(2)),
+            color: Color(0xfff5f5f5),
           ),
           child: TextField(
             focusNode: focusNode,
@@ -28,8 +30,8 @@ class _SearchView extends State<SearchView> {
             decoration: InputDecoration(
               border: InputBorder.none,
               icon: Padding(
-                padding: EdgeInsets.only(left: 10, right: 0),
-                child: Icon(Icons.search)
+                padding: EdgeInsets.only(left: 14, right: 0),
+                child: Text('어떤 모임을 찾으시나요?', style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 12.0))
               )
             ),
             onChanged: (_text) {_textChangedListener(_text);},
@@ -41,22 +43,28 @@ class _SearchView extends State<SearchView> {
 
     List<Widget> _searchByCategory = [
       TitleContainer('카테고리'),
+      SizedBox(height: 4),
       Container(
         child: categoryContainer(context)
       )
     ];
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('검색하기')
-      ),
-      body: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          children: <Widget>[] + _searchByText + _searchByCategory
+      appBar: MainViewAppBar(title: '탐색'),
+      body: Container(
+        decoration: BoxDecoration(color: Colors.white),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          child: GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              children: <Widget>[
+                SizedBox(height: 16 * responsiveScale)
+              ] + _searchByText + [SizedBox(height: 12 * responsiveScale)] + _searchByCategory
+            )
+          )
         )
       )
     );
@@ -82,7 +90,7 @@ Widget categoryContainerGenerator(bool _empty, int _index, BuildContext context)
 
   return Container(
     padding: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
-    width: MediaQuery.of(context).size.width / 2,
+    width: (MediaQuery.of(context).size.width-60*responsiveScale) / 2,
     height: 80,
     child: _empty ? null : GestureDetector(
       onTap: () {
@@ -101,13 +109,13 @@ Widget categoryContainerGenerator(bool _empty, int _index, BuildContext context)
 }
 Widget categoryContainer(BuildContext context) {
   return Column(
-    children: List<Widget>.generate((categoryList.length / 2).ceil() , (_index) {
+    children: <Widget>[SizedBox(height: 12)] + List<Widget>.generate((categoryList.length / 2).ceil() , (_index) {
       var _leftComponent = categoryContainerGenerator(false, _index*2, context);
       var _rightComponent = (_index*2)+1 < categoryList.length ?
         categoryContainerGenerator(false, _index*2+1, context) :
         categoryContainerGenerator(true, 0, context);
       return Row(
-        children: [_leftComponent, _rightComponent],
+        children: [_leftComponent, SizedBox(width: 15), _rightComponent],
       );
     })
   ) ;
