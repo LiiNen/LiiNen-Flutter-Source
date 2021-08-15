@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:my_flutter_source/main.dart';
+
+import 'functionCollection.dart';
 
 class TitleContainer extends StatelessWidget {
   final String _title;
@@ -7,17 +10,21 @@ class TitleContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50 * responsiveScale,
+      height: 56 * responsiveScale,
       child: Center(child: Container(
-        padding: EdgeInsets.only(left: 15 * responsiveScale),
+        margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
         width: MediaQuery.of(context).size.width,
-        child: Text(_title, textAlign: TextAlign.left,)
+        child: Text(_title, style: textStyle(weight: 700, size: 20.0), textAlign: TextAlign.left,)
       ))
     );
   }
 }
 
 class LoginViewAppBar extends StatelessWidget implements PreferredSizeWidget {
+  LoginViewAppBar() : preferredSize = Size.fromHeight(48.0);
+  @override
+  final Size preferredSize;
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -31,10 +38,24 @@ class LoginViewAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: const Color(0xffffffff)
     );
   }
+}
 
-  LoginViewAppBar() : preferredSize = Size.fromHeight(48.0);
+class MainViewAppBar extends StatelessWidget implements PreferredSizeWidget {
+  MainViewAppBar() : preferredSize = Size.fromHeight(40.0);
   @override
   final Size preferredSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      elevation: 0,
+      brightness: Brightness.light,
+      backgroundColor: Colors.lightGreen,
+      title: Center(
+        child: SvgPicture.asset('asset/image/splashLogo.svg', width: 81, height: 16)
+      )
+    );
+  }
 }
 
 class ColumnVerticalDivider extends StatelessWidget {

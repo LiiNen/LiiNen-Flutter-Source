@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_source/clubObject.dart';
 
+import '../../main.dart';
 import 'homeBannerContainer.dart';
 import 'clubSuggestionContainer.dart';
 
@@ -19,21 +20,27 @@ class _HomeView extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('제목'),
-      ),
-      body: ListView(
+      appBar: MainViewAppBar(),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(color: Colors.white),
+        child: ListView(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         children: <Widget>[
           MainBannerContainer(),
-          TitleContainer('추천 모임'),
+          SizedBox(height: 20 * responsiveScale),
+          TitleContainer('오늘의 번개'),
           ClubSuggestionContainer(),
+          SizedBox(height: 48 * responsiveScale),
+          TitleContainer('추천모임'),
+          ClubSuggestionContainer(),
+          SizedBox(height: 48 * responsiveScale),
           FeedListContainer(feedTitle: '최근 활동 중인 피드', scrollController: _scrollController)
         ],
         controller: _scrollController
       ),
+    )
     );
   }
 }

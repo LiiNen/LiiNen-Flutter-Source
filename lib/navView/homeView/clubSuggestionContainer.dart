@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_flutter_source/main.dart';
 
 class ClubSuggestionVariable {
   String _name;
@@ -21,8 +22,7 @@ class _ClubSuggestionContainer extends State<ClubSuggestionContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      height: 100,
+      height: 181 * responsiveScale,
       child: new ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: clubSuggestionVariableList.length,
@@ -54,8 +54,8 @@ class _ClubSuggestionItem extends State<ClubSuggestionItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
-      height: 100,
+      width: 217 + 15,
+      height: 181 * responsiveScale,
       padding: EdgeInsets.all(5),
       child: DecoratedBox(
         decoration: BoxDecoration(

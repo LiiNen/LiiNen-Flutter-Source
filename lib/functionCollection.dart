@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -67,4 +68,15 @@ inputBorderWarning() {
 
 constraint(height) {
   return SizedBox(height: height * responsiveScale);
+}
+
+swiperPagination() {
+  return SwiperPagination(
+    alignment: Alignment.bottomCenter,
+    margin: EdgeInsets.all(4),
+    builder: DotSwiperPaginationBuilder(
+      color: Color(0xffd9dee7), size: 6.0,
+      activeColor: Color(0xff0058cc), activeSize: 6.0
+    )
+  );
 }

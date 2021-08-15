@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/main.dart';
 
 class MainBannerContainer extends StatefulWidget {
   @override
@@ -10,13 +11,13 @@ class _MainBannerContainer extends State<MainBannerContainer> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 10, left: 20, right: 20),
+      padding: EdgeInsets.all(0),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: 150,
+        height: 168 * responsiveScale,
         child: Swiper(
           autoplay: true,
-          control: SwiperControl(),
+          pagination: swiperPagination(),
           itemCount: _bannerItemList.length,
           itemBuilder: (BuildContext context, int index) {
             return BannerItemBuilder(_bannerItemList[index]);
