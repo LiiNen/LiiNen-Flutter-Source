@@ -45,7 +45,7 @@ class _SearchView extends State<SearchView> {
       TitleContainer('카테고리'),
       SizedBox(height: 4),
       Container(
-        child: categoryContainer(context)
+        child: categoryGridContainer(context)
       )
     ];
 
@@ -84,39 +84,73 @@ void _textReturnListener(_text) {
   print(_text);
 }
 
-final List<String> categoryList = ['축구', '농구', '배구', '공부', '코딩', '취업', '뜨개질', '등산', '사이클', '노래', '댄스'];
-Widget categoryContainerGenerator(bool _empty, int _index, BuildContext context) {
-  String _category = categoryList[_index];
-
-  return Container(
-    padding: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
-    width: (MediaQuery.of(context).size.width-60*responsiveScale) / 2,
-    height: 80,
-    child: _empty ? null : GestureDetector(
-      onTap: () {
-        FocusManager.instance.primaryFocus?.unfocus();
-        Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryResultView(_category)));
-      },
-      child: Container(
-        decoration:  BoxDecoration(
-          border: Border.all(width: 2, color: Colors.black),
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-        ),
-        child: Center(child: Text(_category)),
-      )
-    )
-  );
+class CategoryItemClass {
+  final String title;
+  final String context;
+  final String imgSrc;
+  CategoryItemClass({required this.title, required this.context, required this.imgSrc});
 }
-Widget categoryContainer(BuildContext context) {
-  return Column(
-    children: <Widget>[SizedBox(height: 12)] + List<Widget>.generate((categoryList.length / 2).ceil() , (_index) {
-      var _leftComponent = categoryContainerGenerator(false, _index*2, context);
-      var _rightComponent = (_index*2)+1 < categoryList.length ?
-        categoryContainerGenerator(false, _index*2+1, context) :
-        categoryContainerGenerator(true, 0, context);
-      return Row(
-        children: [_leftComponent, SizedBox(width: 15), _rightComponent],
-      );
-    })
+
+final List<CategoryItemClass> categoryList = [
+  CategoryItemClass(title: '운동', context: '(스포츠/피트니스)', imgSrc: 'asset/category/sport.jpeg'),
+  CategoryItemClass(title: '공예', context: '(DIY)', imgSrc: 'asset/category/diy.jpeg'),
+  CategoryItemClass(title: '예술', context: '(악기/그림)', imgSrc: 'asset/category/art.jpeg'),
+  CategoryItemClass(title: '자기계발', context: '(독서/스터디)', imgSrc: 'asset/category/reading.jpeg'),
+  CategoryItemClass(title: 'IT', context: '(개발/디자인)', imgSrc: 'asset/category/it.jpeg'),
+  CategoryItemClass(title: '오락', context: '(온라인/보드게임)', imgSrc: 'asset/category/boardGame.jpeg'),
+  CategoryItemClass(title: '자유주제', context: '(기타)', imgSrc: 'asset/category/etc.jpeg')
+];
+
+Widget categoryGridContainer(BuildContext context) {
+  return Container(
+    margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
+    child: GridView.count(
+      shrinkWrap: true,
+      crossAxisCount: 2, crossAxisSpacing: 15 * responsiveScale,
+      mainAxisSpacing: 12 * responsiveScale,
+      childAspectRatio: 1.7,
+      children: List.generate(categoryList.length, (index){
+        return Container(
+          child: Stack(
+            children: [
+              Container(
+                child: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    return GestureDetector(
+                      onTap: () {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryResultView(categoryList[index].title)));
+                      },
+                      child: Container(
+                        width: constraints.maxWidth, height: constraints.maxHeight,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(4)),
+                          image: DecorationImage(
+                            image: AssetImage(categoryList[index].imgSrc),
+                            fit: BoxFit.cover,
+                            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.6), BlendMode.srcOver)
+                          )
+                        )
+                      )
+                    );
+                  }
+                )
+              ),
+              Positioned(
+                left: 8 * responsiveScale, bottom: 8 * responsiveScale,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(categoryList[index].title, style: textStyle(color: Colors.white, weight: 400, size: 12.0), textAlign: TextAlign.left,),
+                    Text(categoryList[index].context, style: textStyle(color: Colors.white, weight: 400, size: 10.0), textAlign: TextAlign.left,)
+                  ],
+                )
+              )
+           ],
+          )
+        );
+      })
+    )
   ) ;
 }

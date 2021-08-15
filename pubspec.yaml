@@ -58,6 +58,7 @@ flutter:
   assets:
     - asset/image/
     - asset/loginView/
+    - asset/category/
     - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
