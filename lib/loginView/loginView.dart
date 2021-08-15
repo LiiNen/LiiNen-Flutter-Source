@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:my_flutter_source/functionCollection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../navView/navView.dart';

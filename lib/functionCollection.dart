@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_flutter_source/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -55,4 +56,15 @@ focusedBorderDefault() {
     borderRadius: BorderRadius.circular(2),
     borderSide: BorderSide(color: Color(0xff0958c5), width: 1),
   );
+}
+
+inputBorderWarning() {
+  return OutlineInputBorder(
+    borderRadius: BorderRadius.circular(2),
+    borderSide: BorderSide(color: Color(0xffd93826), width: 1),
+  );
+}
+
+constraint(height) {
+  return SizedBox(height: height * responsiveScale);
 }

@@ -21,7 +21,6 @@ class _SignUpView extends State<SignUpView> {
   var pwFirstFocus = FocusNode();
   var pwSecondFocus = FocusNode();
 
-  //TODO: 오류 색상 변경
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,14 +69,8 @@ class _SignUpView extends State<SignUpView> {
                 focusNode: pwFirstFocus,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(horizontal: 14.0 * responsiveScale),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(2),
-                    borderSide: BorderSide(color: pwFirstConfirm || pwFirstController.text == '' ? Color(0xffe4e4e4) : Color(0xffd93826), width: 1),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(2),
-                    borderSide: BorderSide(color: pwFirstConfirm || pwFirstController.text == '' ? Color(0xff0958c5) : Color(0xffd93826), width: 1),
-                  ),
+                  enabledBorder: pwFirstConfirm || pwFirstController.text == '' ? enabledBorderDefault() : inputBorderWarning(),
+                  focusedBorder: pwFirstConfirm || pwFirstController.text == '' ? focusedBorderDefault() : inputBorderWarning(),
                   hintText: '비밀번호를 입력해주세요'
                 ),
                 style: textStyle(weight: 600, size: 12.0),
@@ -112,14 +105,8 @@ class _SignUpView extends State<SignUpView> {
                 focusNode: pwSecondFocus,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(horizontal: 14.0 * responsiveScale),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(2),
-                    borderSide: BorderSide(color: pwSecondConfirm || pwSecondController.text == '' ? Color(0xffe4e4e4) : Color(0xffd93826), width: 1),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(2),
-                    borderSide: BorderSide(color: pwSecondConfirm || pwSecondController.text == '' ? Color(0xff0958c5) : Color(0xffd93826), width: 1),
-                  ),
+                  enabledBorder: pwSecondConfirm || pwSecondController.text == '' ? enabledBorderDefault() : inputBorderWarning(),
+                  focusedBorder: pwSecondConfirm || pwSecondController.text == '' ? focusedBorderDefault() : inputBorderWarning(),
                   hintText: '비밀번호를 한번 더 입력해주세요'
                 ),
                 style: textStyle(weight: 600, size: 12.0),
@@ -128,6 +115,17 @@ class _SignUpView extends State<SignUpView> {
                 });},
                 onSubmitted: (value) => {_nextStep()},
               ),
+              SizedBox(height: 4 * responsiveScale),
+              (pwSecondController.text == '' ? Text('', style: textStyle(color: Colors.white, weight: 400, size: 12.0),) : (pwSecondConfirm  ?
+                Text('비밀번호가 일치합니다.',
+                  style: textStyle(color: Colors.lightGreen, weight: 400, size: 12.0),
+                  textAlign: TextAlign.left,
+                ) :
+                Text('비밀번호가 일치하지 않습니다.',
+                  style: textStyle(color: Color(0xffd93826), weight: 400, size: 12.0),
+                  textAlign: TextAlign.left,
+                )
+              )),
               SizedBox(height: 36 * responsiveScale),
               GestureDetector(
                 onTap: _nextStep,
