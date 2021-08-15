@@ -3,6 +3,7 @@ import 'searchResult/categoryResultView.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/functionCollection.dart';
+import 'searchTextView.dart';
 
 class SearchView extends StatefulWidget {
   @override
@@ -18,24 +19,26 @@ class _SearchView extends State<SearchView> {
       Container(
         height: 40 * responsiveScale,
         padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(2)),
-            color: Color(0xfff5f5f5),
-          ),
-          child: TextField(
-            focusNode: focusNode,
-            autofocus: false,
-            textInputAction: TextInputAction.search,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              icon: Padding(
-                padding: EdgeInsets.only(left: 14, right: 0),
-                child: Text('어떤 모임을 찾으시나요?', style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 12.0))
-              )
+        child: GestureDetector(
+          onTap: () => {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => SearchTextView()))
+          },
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(2)),
+              color: Color(0xfff5f5f5),
             ),
-            onChanged: (_text) {_textChangedListener(_text);},
-            onSubmitted: (_text) {_textReturnListener(_text);},
+            child: Center(
+              child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  return Container(
+                    margin: EdgeInsets.only(left: 14 * responsiveScale),
+                    width: constraints.maxWidth,
+                    child: Text('어떤 모임을 찾으시나요?', style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 12.0), textAlign: TextAlign.left,)
+                  );
+                },
+              )
+            )
           )
         )
       )
@@ -60,9 +63,10 @@ class _SearchView extends State<SearchView> {
             child: ListView(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              children: <Widget>[
-                SizedBox(height: 16 * responsiveScale)
-              ] + _searchByText + [SizedBox(height: 12 * responsiveScale)] + _searchByCategory
+              children: <Widget>[SizedBox(height: 16 * responsiveScale)]
+                + _searchByText
+                + [SizedBox(height: 12 * responsiveScale)]
+                + _searchByCategory
             )
           )
         )
@@ -75,13 +79,6 @@ class _SearchView extends State<SearchView> {
     focusNode.dispose();
     super.dispose();
   }
-}
-
-void _textChangedListener(_text) {
-  print(_text);
-}
-void _textReturnListener(_text) {
-  print(_text);
 }
 
 class CategoryItemClass {

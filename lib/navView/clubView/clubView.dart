@@ -28,7 +28,7 @@ class _ClubView extends State<ClubView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // endDrawer: _loadComplete ? (_hasClub! ? AlarmDrawer() : null) : null, // TODO : 커스텀 앱바에서 안보이는거(동작은함) 보이도록 하기 + drawer 있으면 중앙이 안됨
+      endDrawer: _loadComplete ? (_hasClub! ? AlarmDrawer() : null) : null,
       appBar: MainViewAppBar(title: '내 모임'),
       body: Container(
         decoration: BoxDecoration(color: Colors.white),

@@ -41,12 +41,13 @@ class LoginViewAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class MainViewAppBar extends StatelessWidget implements PreferredSizeWidget {
-  MainViewAppBar({this.home = false, this.title = '', this.preferredSize = const Size.fromHeight(40.0)});
+  MainViewAppBar({this.home = false, this.title = '', this.back = false, this.preferredSize = const Size.fromHeight(40.0)});
   @override
   final Size preferredSize;
 
   final bool home;
   final String title;
+  final bool back;
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +55,14 @@ class MainViewAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       brightness: Brightness.light,
       backgroundColor: Colors.white,
-      title: Center(
-        child: home ? SvgPicture.asset('asset/image/splashLogo.svg', width: 81, height: 16)
-          : Text(title, style: textStyle(weight: 700, size: 16.0)),
-      )
+      centerTitle: true,
+      leading: back ? IconButton(
+        padding: EdgeInsets.only(left: 0),
+        icon: Icon(Icons.arrow_back, color: Colors.black,),
+        onPressed: () {Navigator.pop(context);},
+      ) : null,
+      title: home ? SvgPicture.asset('asset/image/splashLogo.svg', width: 81, height: 16)
+        : Text(title, style: textStyle(weight: 700, size: 16.0)),
     );
   }
 }
