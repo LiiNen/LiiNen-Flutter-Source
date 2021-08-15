@@ -10,6 +10,7 @@ class TitleContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(vertical: 16 * responsiveScale),
       height: 56 * responsiveScale,
       child: Center(child: Container(
         margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),

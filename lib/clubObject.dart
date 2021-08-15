@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_flutter_source/functionCollection.dart';
 import 'infoView.dart';
 import 'containerCollection.dart';
 
@@ -40,7 +41,7 @@ class _ClubObjectItem extends State<ClubObjectItem> {
                     border: Border.all()
                 ),
                 child: Center(
-                    child: Text(_inputClubObject.clubName)
+                    child: Text(_inputClubObject.clubName, style: textStyle(weight: 700, size: 20.0))
                 )
               ),
               onTap: () => _loadClubView(_inputClubObject.clubId)

@@ -72,7 +72,7 @@ class _CategorySetupView extends State<CategorySetupView> {
           color: _selected ? Color(0xff0958c5) : Color(0xffffffff),
         ),
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 7.5, horizontal: 12),
+          margin: EdgeInsets.symmetric(vertical: 7.5, horizontal: 12),
           child: Text(title, style: textStyle(color: _selected ? Color(0xffffffff) : Color(0xffd1d5d9), weight: 400, size: 14.0),)
         )
       )
