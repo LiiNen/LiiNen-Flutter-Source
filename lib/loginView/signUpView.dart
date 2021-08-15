@@ -47,10 +47,7 @@ class _SignUpView extends State<SignUpView> {
                 focusNode: emailFocus,
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(horizontal: 14.0 * responsiveScale),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(2),
-                      borderSide: BorderSide(color: Color(0xffe4e4e4), width: 1),
-                    ),
+                    enabledBorder: enabledBorderDefault(),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(2),
                       borderSide: BorderSide(color: emailConfirm || emailController.text == '' ? Color(0xff0958c5) : Color(0xffd93826), width: 1),

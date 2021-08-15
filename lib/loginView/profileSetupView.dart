@@ -72,9 +72,10 @@ class _ProfileSetupView extends State<ProfileSetupView> {
                     obscureText: true,
                     autofocus: false,
                     decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
-                        border: OutlineInputBorder(),
-                        hintText: '닉네임을 입력해주세요'
+                      contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
+                      enabledBorder: enabledBorderDefault(),
+                      focusedBorder: focusedBorderDefault(),
+                      hintText: '닉네임을 입력해주세요'
                     ),
                     style: textStyle(weight: 600, size: 12.0),
                     onChanged: (value) {setState(() {});},

@@ -42,3 +42,17 @@ bool passwordRegexCheck(String input) {
 bool emailRegexCheck(String input) {
   return RegExp(r'^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$').hasMatch(input);
 }
+
+enabledBorderDefault() {
+  return OutlineInputBorder(
+    borderRadius: BorderRadius.circular(2),
+    borderSide: BorderSide(color: Color(0xffe4e4e4), width: 1),
+  );
+}
+
+focusedBorderDefault() {
+  return OutlineInputBorder(
+    borderRadius: BorderRadius.circular(2),
+    borderSide: BorderSide(color: Color(0xff0958c5), width: 1),
+  );
+}

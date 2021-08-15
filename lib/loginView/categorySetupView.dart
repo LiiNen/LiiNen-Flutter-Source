@@ -44,9 +44,7 @@ class _CategorySetupView extends State<CategorySetupView> {
                   width: MediaQuery.of(context).size.width - 42 * responsiveScale,
                   height: 52 * responsiveScale,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(4)
-                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
                     color: _selectedLeast ? Color(0xff0958c5) : Color(0xffd1d5d9)
                   ),
                   child: Center(child: Text('가입 완료', style: textStyle(color: Colors.white, weight: 600, size: 16.0)))

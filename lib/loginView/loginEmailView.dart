@@ -61,7 +61,8 @@ class _LoginEmailView extends State<LoginEmailView> {
                       focusNode: emailFocus,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(horizontal: 14.0 * responsiveScale),
-                        border: OutlineInputBorder(),
+                        enabledBorder: enabledBorderDefault(),
+                        focusedBorder: focusedBorderDefault(),
                         hintText: '이메일을 입력해주세요',
                       ),
                       style: textStyle(weight: 600, size: 12.0),
@@ -78,7 +79,8 @@ class _LoginEmailView extends State<LoginEmailView> {
                       obscureText: true,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.symmetric(horizontal: 14.0 * responsiveScale),
-                        border: OutlineInputBorder(),
+                        enabledBorder: enabledBorderDefault(),
+                        focusedBorder: focusedBorderDefault(),
                         hintText: '비밀번호를 입력해주세요'
                       ),
                       style: textStyle(weight: 600, size: 12.0),
