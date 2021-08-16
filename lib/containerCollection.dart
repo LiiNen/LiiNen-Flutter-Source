@@ -52,7 +52,7 @@ class MainViewAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: 0,
+      elevation: 1,
       brightness: Brightness.light,
       backgroundColor: Colors.white,
       centerTitle: true,

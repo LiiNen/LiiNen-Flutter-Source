@@ -17,12 +17,16 @@ class _CategoryResultView extends State<CategoryResultView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CategoryAppBar(currentCategory: _category,),
-      body: ListView(
-       scrollDirection: Axis.vertical,
-       shrinkWrap: true,
-       children: [
-         ResultClubContainer()
-       ],
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(color: Colors.white),
+        child: ListView(
+         scrollDirection: Axis.vertical,
+         shrinkWrap: true,
+         children: [
+           ResultClubContainer()
+         ],
+        )
       )
     );
   }
@@ -43,10 +47,9 @@ class _CategoryAppBar extends State<CategoryAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey titleKey = GlobalKey();
     int categoryIndex = categoryNameList.indexOf(_currentCategory);
     return AppBar(
-      elevation: 0,
+      elevation: 1,
       brightness: Brightness.light,
       backgroundColor: Colors.white,
       centerTitle: true,
@@ -57,35 +60,36 @@ class _CategoryAppBar extends State<CategoryAppBar> {
       ),
       title: Container(
         child: GestureDetector(
-          onTap: () => {print(_currentCategory)},
+          onTap: () => {
+            setState(() {
+              print(_currentCategory);
+            })
+          },
           child: Stack(
             children: [
               Container(
-                width: 200,
+                margin: EdgeInsets.symmetric(horizontal: 24),
                 child: Text(
                   '$_currentCategory(${categoryDetailList[categoryIndex]})',
                   style: textStyle(weight: 700, size: 16.0),
                   textAlign: TextAlign.center,
-                  key: titleKey,
                 ),
               ),
               Positioned(right: 0, child: Icon(Icons.arrow_drop_down, color: Colors.black, size: 24))
             ]
           )
         )
-      ),
+      )
     );
+  }
+}
+
+class CategoryBottomDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
 
 List<String> categoryNameList = ['운동', '공예', '예술', '자기계발', 'IT', '오락', '자유주제'];
 List<String> categoryDetailList = ['스포츠/피트니스', 'DIY', '악기/그림', '독서/스터디', '개발/디자인', '온라인/보드게임', '(기타)'];
-List<DropdownMenuItem<String>> categoryItemList = List<DropdownMenuItem<String>>.generate(categoryNameList.length, (index){
-  return DropdownMenuItem(
-    value: categoryNameList[index],
-    child: SizedBox(
-      height: 20,
-      child: Center(child: Text(categoryNameList[index], style: TextStyle(color: Colors.black), textAlign: TextAlign.center,))
-    ),
-  );
-});
