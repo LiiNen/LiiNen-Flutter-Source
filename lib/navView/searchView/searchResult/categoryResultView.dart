@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'resultItemObject.dart';
@@ -74,7 +75,7 @@ class _CategoryAppBar extends State<CategoryAppBar> {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 24),
                 child: Text(
-                  '$_currentCategory(${categoryDetailList[categoryIndex]})',
+                  '$_currentCategory (${categoryDetailList[categoryIndex]})',
                   style: textStyle(weight: 700, size: 16.0),
                   textAlign: TextAlign.center,
                 ),
@@ -101,6 +102,7 @@ class _CategoryAppBar extends State<CategoryAppBar> {
             color: Colors.white,
           ),
           padding: EdgeInsets.only(left: 28 * responsiveScale),
+          width: MediaQuery.of(context).size.width,
           height: 452 * responsiveScale,
           child: ListView(
             physics: NeverScrollableScrollPhysics(),
@@ -115,10 +117,32 @@ class _CategoryAppBar extends State<CategoryAppBar> {
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 children: List<Widget>.generate(categoryList.length, (index) {
+                  var _selected = (_currentCategory == categoryList[index].name);
                   return GestureDetector(
                     child: Container(
+                      width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Text('${categoryList[index].name} (${categoryList[index].detail})', style: textStyle(weight: 600, size: 14.0), textAlign: TextAlign.left,),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            child: Text(
+                              '${categoryList[index].name} (${categoryList[index].detail})',
+                              style: _selected
+                                ? textStyle(color: Color(0xff0958c5), weight: 700, size: 14.0)
+                                : textStyle(color: Colors.black, weight: 600, size: 14.0)
+                            ),
+                          ),
+                          Container(
+                            child: _selected ? Container(
+                              width: 24, height: 24,
+                              // padding: EdgeInsets.symmetric(horizontal: 3, vertical: 5),
+                              margin: EdgeInsets.only(right: 31),
+                              child: SvgPicture.asset('asset/image/icoCheck.svg')
+                            ) : Container()
+                          )
+                        ]
+                      )
                     ),
                     onTap: ((){
                       Navigator.pop(context);
@@ -136,7 +160,7 @@ class _CategoryAppBar extends State<CategoryAppBar> {
 }
 
 List<String> categoryNameList = ['운동', '공예', '예술', '자기계발', 'IT', '오락', '자유주제', 'a'];
-List<String> categoryDetailList = ['스포츠/피트니스', 'DIY', '악기/그림', '독서/스터디', '개발/디자인', '온라인/보드게임', '(기타)', 'b'];
+List<String> categoryDetailList = ['스포츠/피트니스', 'DIY', '악기/그림', '독서/스터디', '개발/디자인', '온라인/보드게임', '기타', 'b'];
 
 class CategoryComponent {
   final String name;

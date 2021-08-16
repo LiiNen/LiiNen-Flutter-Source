@@ -25,7 +25,7 @@ class _ClubSuggestionContainer extends State<ClubSuggestionContainer> {
         scrollDirection: Axis.horizontal,
         itemCount: _clubObjectList.length,
         itemBuilder: (BuildContext context, int index) {
-          return ClubSuggestionItem(_clubObjectList[index], index);
+          return ClubSuggestionItem(_clubObjectList[index]);
         }
       )
     );
@@ -40,16 +40,14 @@ class _ClubSuggestionContainer extends State<ClubSuggestionContainer> {
 
 class ClubSuggestionItem extends StatefulWidget {
   final ClubObject _variable;
-  final int _index;
-  ClubSuggestionItem(this._variable, this._index);
+  ClubSuggestionItem(this._variable);
 
   @override
-  State<ClubSuggestionItem> createState() => _ClubSuggestionItem(_variable, _index);
+  State<ClubSuggestionItem> createState() => _ClubSuggestionItem(_variable);
 }
 class _ClubSuggestionItem extends State<ClubSuggestionItem> {
   final ClubObject _variable;
-  final int _index;
-  _ClubSuggestionItem(this._variable, this._index);
+  _ClubSuggestionItem(this._variable);
 
   // TODO : pixel overflow
   @override

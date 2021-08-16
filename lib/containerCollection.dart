@@ -67,7 +67,7 @@ class MainViewAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-class ColumnVerticalDivider extends StatelessWidget {
+class VerticalLineDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

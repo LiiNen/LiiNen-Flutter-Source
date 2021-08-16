@@ -55,6 +55,7 @@ class _SearchView extends State<SearchView> {
     return Scaffold(
       appBar: MainViewAppBar(title: '탐색'),
       body: Container(
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(color: Colors.white),
         child: Container(
           width: MediaQuery.of(context).size.width,
