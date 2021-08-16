@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:my_flutter_source/clubObject.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
-
-class ClubSuggestionVariable {
-  String _name;
-  ClubSuggestionVariable(this._name);
-}
 
 class ClubSuggestionContainer extends StatefulWidget {
   @override
   State<ClubSuggestionContainer> createState() => _ClubSuggestionContainer();
 }
 class _ClubSuggestionContainer extends State<ClubSuggestionContainer> {
-  List<ClubSuggestionVariable> clubSuggestionVariableList = [];
+  List<ClubObject> _clubObjectList = [];
   var futureTestObject;
   @override
   void initState() {
@@ -27,9 +23,9 @@ class _ClubSuggestionContainer extends State<ClubSuggestionContainer> {
       height: 181 * responsiveScale,
       child: new ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: clubSuggestionVariableList.length,
+        itemCount: _clubObjectList.length,
         itemBuilder: (BuildContext context, int index) {
-          return ClubSuggestionItem(clubSuggestionVariableList[index]);
+          return ClubSuggestionItem(_clubObjectList[index], index);
         }
       )
     );
@@ -37,21 +33,23 @@ class _ClubSuggestionContainer extends State<ClubSuggestionContainer> {
 
   void _loadTestSuggestion() async {
     setState(() {
-      clubSuggestionVariableList = [ClubSuggestionVariable("1"), ClubSuggestionVariable("2"), ClubSuggestionVariable("3"), ClubSuggestionVariable("4")];
+      _clubObjectList = clubObjectList;
     });
   }
 }
 
 class ClubSuggestionItem extends StatefulWidget {
-  final ClubSuggestionVariable _variable;
-  ClubSuggestionItem(this._variable);
+  final ClubObject _variable;
+  final int _index;
+  ClubSuggestionItem(this._variable, this._index);
 
   @override
-  State<ClubSuggestionItem> createState() => _ClubSuggestionItem(_variable);
+  State<ClubSuggestionItem> createState() => _ClubSuggestionItem(_variable, _index);
 }
 class _ClubSuggestionItem extends State<ClubSuggestionItem> {
-  final ClubSuggestionVariable _variable;
-  _ClubSuggestionItem(this._variable);
+  final ClubObject _variable;
+  final int _index;
+  _ClubSuggestionItem(this._variable, this._index);
 
   // TODO : pixel overflow
   @override
@@ -66,12 +64,17 @@ class _ClubSuggestionItem extends State<ClubSuggestionItem> {
         children: [
           Container(
             width: 217 * responsiveScale, height: 108 * responsiveScale,
-            child: FlutterLogo(),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(_variable.clubImgSrc),
+                fit: BoxFit.cover
+              )
+            ),
           ),
           SizedBox(height: 8 * responsiveScale),
-          Text('모임명 들어갈 위치', style: textStyle(weight: 700, size: 12.0), textAlign: TextAlign.left,),
+          Text(_variable.clubName, style: textStyle(weight: 700, size: 12.0), textAlign: TextAlign.left,),
           SizedBox(height: 4 * responsiveScale),
-          Text('dssdsfsdfsdfsdfsdfsdfsdfsdfsdfsdfadsfasdfsdfsdfsdfsdfsdf', style: textStyle(weight: 400, size: 10.0), textAlign: TextAlign.left,),
+          Text(_variable.clubContext, style: textStyle(weight: 400, size: 10.0), textAlign: TextAlign.left,),
           SizedBox(height: 6 * responsiveScale),
           Container(
             height: 16,
@@ -82,7 +85,7 @@ class _ClubSuggestionItem extends State<ClubSuggestionItem> {
             ),
             child: Container(
               margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              child: Text('카테고리명 들어갈 위치', style: textStyle(color: Color(0xff0958c5), weight: 400, size: 6.0),)
+              child: Text(_variable.clubGenre, style: textStyle(color: Color(0xff0958c5), weight: 400, size: 6.0),)
             )
           )
         ],

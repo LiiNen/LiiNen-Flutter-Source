@@ -7,11 +7,24 @@ import 'containerCollection.dart';
 class ClubObject {
   final int clubId;
   final String clubName;
-  ClubObject(this.clubId, this.clubName);
+  final String clubImgSrc;
+  final String clubContext;
+  final String clubGenre;
+  ClubObject({required this.clubId, required this.clubName, this.clubImgSrc = '', required this.clubContext, required this.clubGenre});
 }
-List<String> clubList = ['기타모임', '친목모임', '무슨모임', '이건모임'];
-List<ClubObject> clubObjectList = List<ClubObject>.generate(clubList.length, (index) {
-  return ClubObject(index, clubList[index]);
+
+List<String> clubImgSrcList = [
+  'asset/category/boardGame.jpeg',
+  'asset/category/etc.jpeg',
+  'asset/category/it.jpeg',
+  'asset/category/diy.jpeg',
+  'asset/category/reading.jpeg',
+  'asset/category/sport.jpeg'
+];
+List<String> clubNameList = ['보드게임모임', '집모임', '코딩동아리', '직접제작동아리'];
+List<String> clubGenreList = ['보드게임', 'etc', 'IT', 'diy'];
+List<ClubObject> clubObjectList = List<ClubObject>.generate(clubNameList.length, (index) {
+  return ClubObject(clubId: index, clubName: clubNameList[index], clubImgSrc: clubImgSrcList[index], clubContext: '설명설명', clubGenre: clubGenreList[index]);
 });
 
 class ClubObjectItem extends StatefulWidget {

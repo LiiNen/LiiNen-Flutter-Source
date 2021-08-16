@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:my_flutter_source/clubObject.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
 
@@ -28,24 +29,16 @@ class _MainBannerContainer extends State<MainBannerContainer> {
   }
 }
 
-final List<String> _tempSrcList = [
-  'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView1.png',
-  'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView2.png',
-  'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView3.png',
-  'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView4.png',
-  'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView5.png',
-  'https://raw.githubusercontent.com/LiiNen/indilist_private/master/image/pageView6.png'
-];
 class BannerItem {
   final String imgSrc;
   final String launchSrc;
   BannerItem({required this.imgSrc, required this.launchSrc});
 }
 
-final List<BannerItem> _bannerItemList = List<BannerItem>.generate(_tempSrcList.length, (index) {
+final List<BannerItem> _bannerItemList = List<BannerItem>.generate(clubImgSrcList.length, (index) {
   return BannerItem(
-    imgSrc: _tempSrcList[index],
-    launchSrc: _tempSrcList[index]
+    imgSrc: clubImgSrcList[index],
+    launchSrc: clubImgSrcList[index]
   );
 });
 
@@ -60,7 +53,7 @@ class BannerItemBuilder extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(_bannerItem.imgSrc),
+              image: AssetImage(_bannerItem.imgSrc),
               fit: BoxFit.cover
             )
           ),
