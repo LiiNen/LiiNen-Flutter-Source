@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:my_flutter_source/functionCollection.dart';
 import 'resultItemObject.dart';
 
 class CategoryResultView extends StatefulWidget {
@@ -29,7 +29,7 @@ class _CategoryResultView extends State<CategoryResultView> {
 }
 
 class CategoryAppBar extends StatefulWidget implements PreferredSizeWidget{
-  CategoryAppBar({required this.currentCategory}) : preferredSize = Size.fromHeight(kToolbarHeight);
+  CategoryAppBar({required this.currentCategory}) : preferredSize = Size.fromHeight(40.0);
   @override
   final Size preferredSize;
   final String currentCategory;
@@ -40,36 +40,52 @@ class CategoryAppBar extends StatefulWidget implements PreferredSizeWidget{
 class _CategoryAppBar extends State<CategoryAppBar> {
   String _currentCategory;
   _CategoryAppBar(this._currentCategory);
+
   @override
   Widget build(BuildContext context) {
+    GlobalKey titleKey = GlobalKey();
+    int categoryIndex = categoryNameList.indexOf(_currentCategory);
     return AppBar(
+      elevation: 0,
+      brightness: Brightness.light,
+      backgroundColor: Colors.white,
       centerTitle: true,
-      title: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Container(
-          width: 80,
-          child: Center(child: DropdownButton<String>(
-            dropdownColor: Colors.white,
-            underline: SizedBox(height: 0,),
-            value: _currentCategory,
-            items: categoryItemList.toList(),
-            focusColor: Colors.yellow,
-            onChanged: (value) {Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CategoryResultView(value!)));},
-          ))
-        )],
+      leading: IconButton(
+        padding: EdgeInsets.only(left: 0),
+        icon: Icon(Icons.arrow_back, color: Colors.black,),
+        onPressed: () {Navigator.pop(context);},
+      ),
+      title: Container(
+        child: GestureDetector(
+          onTap: () => {print(_currentCategory)},
+          child: Stack(
+            children: [
+              Container(
+                width: 200,
+                child: Text(
+                  '$_currentCategory(${categoryDetailList[categoryIndex]})',
+                  style: textStyle(weight: 700, size: 16.0),
+                  textAlign: TextAlign.center,
+                  key: titleKey,
+                ),
+              ),
+              Positioned(right: 0, child: Icon(Icons.arrow_drop_down, color: Colors.black, size: 24))
+            ]
+          )
+        )
       ),
     );
   }
 }
 
-List<String> categoryList = ['축구', '농구', '배구', '공부', '코딩', '취업', '뜨개질', '등산', '사이클', '노래', '댄스', 'a', 'b', 'c', 'd', 'e', 'f', 'g'];
-List<DropdownMenuItem<String>> categoryItemList = List<DropdownMenuItem<String>>.generate(categoryList.length, (index){
+List<String> categoryNameList = ['운동', '공예', '예술', '자기계발', 'IT', '오락', '자유주제'];
+List<String> categoryDetailList = ['스포츠/피트니스', 'DIY', '악기/그림', '독서/스터디', '개발/디자인', '온라인/보드게임', '(기타)'];
+List<DropdownMenuItem<String>> categoryItemList = List<DropdownMenuItem<String>>.generate(categoryNameList.length, (index){
   return DropdownMenuItem(
-    value: categoryList[index],
+    value: categoryNameList[index],
     child: SizedBox(
       height: 20,
-      child: Center(child: Text(categoryList[index], style: TextStyle(color: Colors.black), textAlign: TextAlign.center,))
+      child: Center(child: Text(categoryNameList[index], style: TextStyle(color: Colors.black), textAlign: TextAlign.center,))
     ),
   );
 });
