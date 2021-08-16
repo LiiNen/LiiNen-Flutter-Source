@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'resultItemObject.dart';
 
@@ -27,10 +28,12 @@ class _CategoryResultView extends State<CategoryResultView> {
            ResultClubContainer()
          ],
         )
-      )
+      ),
     );
   }
 }
+
+
 
 class CategoryAppBar extends StatefulWidget implements PreferredSizeWidget{
   CategoryAppBar({required this.currentCategory}) : preferredSize = Size.fromHeight(40.0);
@@ -62,6 +65,7 @@ class _CategoryAppBar extends State<CategoryAppBar> {
         child: GestureDetector(
           onTap: () => {
             setState(() {
+              showCategoryList();
               print(_currentCategory);
             })
           },
@@ -82,14 +86,62 @@ class _CategoryAppBar extends State<CategoryAppBar> {
       )
     );
   }
-}
 
-class CategoryBottomDrawer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
+  //TODO : background color border의 나머지에 적용안됨
+  showCategoryList() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+            ),
+            color: Colors.white,
+          ),
+          padding: EdgeInsets.only(left: 28 * responsiveScale),
+          height: 452 * responsiveScale,
+          child: ListView(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            children: [
+              SizedBox(height: 8 * responsiveScale),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: Text('카테고리 선택', style: textStyle(color: Color(0xff8a8a8a), weight: 700, size: 12.0), textAlign: TextAlign.left,)
+              ),
+              ListView(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                children: List<Widget>.generate(categoryList.length, (index) {
+                  return GestureDetector(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Text('${categoryList[index].name} (${categoryList[index].detail})', style: textStyle(weight: 600, size: 14.0), textAlign: TextAlign.left,),
+                    ),
+                    onTap: ((){
+                      Navigator.pop(context);
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CategoryResultView(categoryList[index].name)));
+                    })
+                  );
+                }),
+              ),
+            ],
+          ),
+        );
+      }
+    );
   }
 }
 
-List<String> categoryNameList = ['운동', '공예', '예술', '자기계발', 'IT', '오락', '자유주제'];
-List<String> categoryDetailList = ['스포츠/피트니스', 'DIY', '악기/그림', '독서/스터디', '개발/디자인', '온라인/보드게임', '(기타)'];
+List<String> categoryNameList = ['운동', '공예', '예술', '자기계발', 'IT', '오락', '자유주제', 'a'];
+List<String> categoryDetailList = ['스포츠/피트니스', 'DIY', '악기/그림', '독서/스터디', '개발/디자인', '온라인/보드게임', '(기타)', 'b'];
+
+class CategoryComponent {
+  final String name;
+  final String detail;
+  CategoryComponent(this.name, this.detail);
+}
+
+var categoryList = List<CategoryComponent>.generate(categoryNameList.length, (index) => CategoryComponent(categoryNameList[index], categoryDetailList[index]));
