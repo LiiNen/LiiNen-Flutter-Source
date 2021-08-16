@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_flutter_source/functionCollection.dart';
 
 class ResultClubObject {
   String? thumbnailUrl;
   String clubTitle;
-  String? clubContext;
-  ResultClubObject({this.thumbnailUrl, required this.clubTitle, this.clubContext});
+  String clubContext;
+  int current;
+  int total;
+  bool isRecruit;
+  ResultClubObject({
+    this.thumbnailUrl, required this.clubTitle, required this.clubContext,
+    this.current=0, this.total=5, this.isRecruit=false,
+  });
 }
 
 List<ResultClubObject> testObjectList = [
-  ResultClubObject(clubTitle: 'first'),
-  ResultClubObject(clubTitle: 'second', thumbnailUrl: 'https://liinen.github.io/Team7-Blog/images/home/home_banner.png'),
-  ResultClubObject(clubTitle: 'third', thumbnailUrl: 'https://liinen.github.io/Team7-Blog/images/home/home_banner.png'),
-  ResultClubObject(clubTitle: 'fourth'),
-  ResultClubObject(clubTitle: 'fifth'),
-  ResultClubObject(clubTitle: 'sixth', thumbnailUrl: 'https://liinen.github.io/Team7-Blog/images/home/home_banner.png'),
-  ResultClubObject(clubTitle: 'seventh'),
+  ResultClubObject(clubTitle: '응애 나 애기 개발자', clubContext: '안녕하세요 응애 나는 애기개발자 코드줘 벅벅', current: 4, total: 10),
+  ResultClubObject(clubTitle: 'second', clubContext: 'qwerqwreqwerqwreqerqwerqwerqwerqwreqwerqwerqwer', current: 1, total: 3, isRecruit: true),
+  ResultClubObject(clubTitle: 'third', clubContext: 'zxcvznxmcvnzmxcvnzmxcvnmzxcvnmzxcnvmzxncvmnzcxmvnzmvnmxzcnvmzxnv', current: 13, total: 22),
+  ResultClubObject(clubTitle: 'fourth', clubContext: 'a'),
+  ResultClubObject(clubTitle: 'fifth', clubContext: 's'),
+  ResultClubObject(clubTitle: 'sixth', clubContext: 'e'),
+  ResultClubObject(clubTitle: 'seventh', clubContext: 'w'),
 ];
 
 class ResultClubContainer extends StatefulWidget {
@@ -44,21 +52,62 @@ class _ResultClubItem extends State<ResultClubItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: (
-        Row(
-          children: [
-            FlutterLogo(size: 200),
-            Expanded(
+      width: MediaQuery.of(context).size.width, height: 152,
+      padding: EdgeInsets.symmetric(horizontal: 21, vertical: 16),
+      child: Row(
+        children: [
+          Container(
+            width: 128, height: 120,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              image: DecorationImage(
+                image: AssetImage('asset/category/it.jpeg'),
+                fit: BoxFit.fill,
+              )
+            ),
+          ),
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(left: 12),
               child: Column(
-                children: [Text(_clubObject.clubTitle)]
-                    + (_clubObject.clubContext != null ? [Text(_clubObject.clubContext!)] : [])
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('클럽 분류 들어갈 위치', style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0), textAlign: TextAlign.left,),
+                  SizedBox(height: 6),
+                  Text(_clubObject.clubTitle, style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,),
+                  SizedBox(height: 4),
+                  Text(_clubObject.clubContext, style: textStyle(weight: 400, size: 10.0), textAlign: TextAlign.left,),
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          right: 0, bottom: 3,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(width: 10),
+                              SvgPicture.asset('asset/image/icoUser.svg', width: 10, height: 10, color: Colors.black),
+                              SizedBox(width: 4),
+                              Text('(${_clubObject.current}/${_clubObject.total}명)', style: textStyle(weight: 600, size: 10.0),),
+                              SizedBox(width: 6),
+                              _clubObject.isRecruit
+                                ? Text('모집중', style: textStyle(color: Color(0xff0958c5), weight: 700, size: 16.0))
+                                : Text('모집마감', style: textStyle(color: Color(0xff636c73), weight: 700, size: 16.0))
+                            ],
+                          )
+                        ),
+                      ],
+                    )
+                  )
+                ]
               )
             )
-          ],
-        )
+          ),
+
+        ],
       ),
     );
   }

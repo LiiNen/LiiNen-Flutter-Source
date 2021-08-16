@@ -34,8 +34,6 @@ class _CategoryResultView extends State<CategoryResultView> {
   }
 }
 
-
-
 class CategoryAppBar extends StatefulWidget implements PreferredSizeWidget{
   CategoryAppBar({required this.currentCategory}) : preferredSize = Size.fromHeight(40.0);
   @override
