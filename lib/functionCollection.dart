@@ -80,3 +80,7 @@ swiperPagination() {
     )
   );
 }
+
+textFieldClear(TextEditingController controller) {
+  controller.clear();
+}
