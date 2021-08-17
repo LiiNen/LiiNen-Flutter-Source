@@ -17,7 +17,7 @@ class _SearchTextView extends State<SearchTextView> {
   List<String> searchHistoryList = [];
 
   // TODO: 서버 연결 초기화
-  List<String> popularList = ['소프트웨어 마에스트로', '리그 오브 레전드', '구글 플러터', '이디야 아이스 아메리카노'];
+  List<String> popularList = ['소프트웨어 마에스트로소프트웨어 마에스트로소프트웨어 마에스트로소프트웨어 마에스트로소프트웨어 마에스트로', '소프트웨어 마에스트로', '리그 오브 레전드', '구글 플러터', '이디야 아이스 아메리카노'];
   @override
   void initState() {
     super.initState();
@@ -70,9 +70,9 @@ class _SearchTextView extends State<SearchTextView> {
                         icon: SvgPicture.asset('asset/image/icoInputClose.svg', width: 20, height: 20),
                       ) : null
                     ),
-                    style: textStyle(weight: 400, size: 12.0),
+                    style: textStyle(color: Colors.black, weight: 400, size: 12.0),
                     onChanged: (value) => textChangeListener(value),
-                    onSubmitted: (value) => searchWithText(value),
+                    onSubmitted: (value) => {setState(() {searchWithText(value);})},
                   )
                 )
               ),
@@ -93,7 +93,7 @@ class _SearchTextView extends State<SearchTextView> {
                 ],
               ),
               SizedBox(height: 20, width: MediaQuery.of(context).size.width),
-              Wrap(
+              Wrap( // TODO: max line 3
                 direction: Axis.horizontal,
                 spacing: 8, runSpacing: 8,
                 children: searchHistoryList.map((e) => _keywordItem(keyword: e, isRecent: true)).toList(),
@@ -102,7 +102,7 @@ class _SearchTextView extends State<SearchTextView> {
             ] : []) + (popularList.length != 0 ? [
               Text('인기 검색어', style: textStyle(weight: 700, size: 16.0), textAlign: TextAlign.left,),
               SizedBox(height: 20),
-              Wrap(
+              Wrap( // TODO: max line 3
                 direction: Axis.horizontal,
                 spacing: 8, runSpacing: 8,
                 children: popularList.map((e) => _keywordItem(keyword: e, isRecent: false)).toList(),
@@ -145,9 +145,7 @@ class _SearchTextView extends State<SearchTextView> {
 
   GestureDetector _keywordItem({required String keyword, required bool isRecent}) {
     return GestureDetector(
-      onTap: () => {setState(() {
-        searchWithText(keyword);
-      })},
+      onTap: () => {setState(() {searchWithText(keyword);})},
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -160,7 +158,10 @@ class _SearchTextView extends State<SearchTextView> {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(keyword, style: textStyle(weight: 600, size: 14.0)),
+                Flexible(child: Text(keyword,
+                  style: textStyle(weight: 600, size: 14.0),
+                  overflow: TextOverflow.ellipsis,
+                )),
                 SizedBox(width: 4,),
                 GestureDetector(
                   onTap: () => {setState(() {removeRecent(target: keyword);})},
@@ -168,7 +169,10 @@ class _SearchTextView extends State<SearchTextView> {
                 ),
               ],
             ) :
-            Text(keyword, style: textStyle(color: Colors.white, weight: 600, size: 14.0))
+            Text(keyword,
+              style: textStyle(color: Colors.white, weight: 600, size: 14.0),
+              overflow: TextOverflow.ellipsis,
+            )
           )
         )
       )
