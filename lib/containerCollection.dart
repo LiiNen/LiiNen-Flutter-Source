@@ -28,14 +28,19 @@ class LoginViewAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: IconButton(
-        padding: EdgeInsets.only(left: 0),
-        icon: Icon(Icons.arrow_back, color: Colors.black,),
-        onPressed: () {Navigator.pop(context);},
-      ),
       elevation: 0,
       brightness: Brightness.light,
-      backgroundColor: const Color(0xffffffff)
+      backgroundColor: const Color(0xffffffff),
+      automaticallyImplyLeading: false,
+      flexibleSpace: Stack(children: [
+        Positioned(
+          bottom: 8, left: 21,
+          child: GestureDetector(
+            onTap: () {Navigator.pop(context);},
+            child: SvgPicture.asset('asset/image/icoBack.svg', width: 24, height: 24),
+          ),
+        )
+      ]),
     );
   }
 }
@@ -56,13 +61,20 @@ class MainViewAppBar extends StatelessWidget implements PreferredSizeWidget {
       brightness: Brightness.light,
       backgroundColor: Colors.white,
       centerTitle: true,
-      leading: back ? IconButton(
-        padding: EdgeInsets.only(left: 0),
-        icon: Icon(Icons.arrow_back, color: Colors.black,),
-        onPressed: () {Navigator.pop(context);},
-      ) : null,
+      automaticallyImplyLeading: false,
       title: home ? SvgPicture.asset('asset/image/splashLogo.svg', width: 81, height: 16)
         : Text(title, style: textStyle(weight: 700, size: 16.0)),
+      flexibleSpace: Stack(
+        children: back ? [
+          Positioned(
+            bottom: 8, left: 21,
+            child: GestureDetector(
+              onTap: () {Navigator.pop(context);},
+              child: SvgPicture.asset('asset/image/icoBack.svg', width: 24, height: 24),
+            ),
+          )
+        ] : []
+      )
     );
   }
 }

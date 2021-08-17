@@ -44,12 +44,8 @@ class _CategoryAppBar extends State<CategoryAppBar> {
       elevation: 1,
       brightness: Brightness.light,
       backgroundColor: Colors.white,
+      automaticallyImplyLeading: false,
       centerTitle: true,
-      leading: IconButton(
-        padding: EdgeInsets.only(left: 0),
-        icon: Icon(Icons.arrow_back, color: Colors.black,),
-        onPressed: () {Navigator.pop(context);},
-      ),
       title: Container(
         child: GestureDetector(
           onTap: () => {
@@ -72,7 +68,16 @@ class _CategoryAppBar extends State<CategoryAppBar> {
             ]
           )
         )
-      )
+      ),
+      flexibleSpace: Stack(children: [
+        Positioned(
+          bottom: 8, left: 21,
+          child: GestureDetector(
+            onTap: () {Navigator.pop(context);},
+            child: SvgPicture.asset('asset/image/icoBack.svg', width: 24, height: 24),
+          ),
+        )
+      ]),
     );
   }
 
