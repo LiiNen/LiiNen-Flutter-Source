@@ -7,6 +7,16 @@
   <img src="https://img.shields.io/badge/Xcode-147EFB?style=flat-square&logo=XCODE&logoColor=white"/>
 </div>
 
+## Design (Zeplin, outsourcing)
+<img src="https://raw.githubusercontent.com/LiiNen/LiiNen/main/images/flutter-b2k/design-zeplin.png">
+
+## App Dev Overview (iOS simulator)
+- 로그인 및 회원가입 일부
+<img src="https://raw.githubusercontent.com/LiiNen/LiiNen/main/images/flutter-b2k/pages1.jpg">
+
+- 메인페이지 및 검색 페이지
+<img src="https://raw.githubusercontent.com/LiiNen/LiiNen/main/images/flutter-b2k/pages2.jpg">
+
 ## 요구 사항
 최소 요구 사항
 > IDE: Visual Studio Code or Android Studio  
@@ -33,6 +43,7 @@ dependencies:
   permission_handler: ^8.1.2
   flutter_dotenv: ^5.0.0
   cached_network_image: ^3.1.0
+  flutter_svg: ^0.22.0
 ```
 
 ```shell
