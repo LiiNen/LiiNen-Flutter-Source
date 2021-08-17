@@ -67,14 +67,17 @@ class MainViewAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-class VerticalLineDivider extends StatelessWidget {
+class LineDivider extends StatelessWidget {
+  LineDivider({this.color = const Color(0xffebebeb)});
+  final Color color;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 1,
       decoration: BoxDecoration(
         border: Border.all(
-          color: const Color(0xffd1d5d9),
+          color: color,
           width: 1
         )
       )
