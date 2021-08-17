@@ -54,6 +54,12 @@ class _TextAppBar extends State<TextAppBar> {
     });
   }
   @override
+  void dispose() {
+    searchInputController.dispose();
+    searchInputFocusNode.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 1,

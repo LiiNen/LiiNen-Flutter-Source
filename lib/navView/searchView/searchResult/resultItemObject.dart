@@ -18,8 +18,8 @@ class ResultClubObject {
 }
 
 List<ResultClubObject> testObjectList = [
-  ResultClubObject(clubTitle: '응애 나 애기 개발자', clubContext: '안녕하세요 응애 나는 애기개발자 코드줘 벅벅', current: 4, total: 10),
-  ResultClubObject(clubTitle: 'second', clubContext: 'qwerqwreqwerqwreqerqwerqwerqwerqwreqwerqwerqwer', current: 1, total: 3, isRecruit: true),
+  ResultClubObject(clubTitle: '첫번째 모임 예', clubContext: '안녕하세요 첫번째 모임 예시의 모임 설명 내용에 해당되는 텍스트입니다. 해당 필드는 최대 3줄까지만 표기되며 이후는 점으로 축약되어 표기됩니다. 이후 내용은 모두 보이지 않게 됩니다.', current: 4, total: 10),
+  ResultClubObject(clubTitle: '모임 제목, 최대 1줄, ellipsis overflow를 적용하여 이후는 점으로', clubContext: 'qwerqwreqwerqwreqerqwerqwerqwerqwreqwerqwerqwer', current: 1, total: 3, isRecruit: true),
   ResultClubObject(clubTitle: 'third', clubContext: 'zxcvznxmcvnzmxcvnzmxcvnmzxcvnmzxcnvmzxncvmnzcxmvnzmvnmxzcnvmzxnv', current: 13, total: 22),
   ResultClubObject(clubTitle: 'fourth', clubContext: 'a'),
   ResultClubObject(clubTitle: 'fifth', clubContext: 's'),
@@ -78,9 +78,14 @@ class _ResultClubItem extends State<ResultClubItem> {
                 children: [
                   Text('클럽 분류 들어갈 위치', style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0), textAlign: TextAlign.left,),
                   SizedBox(height: 6 * responsiveScale),
-                  Text(_clubObject.clubTitle, style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,),
+                  Text(_clubObject.clubTitle, style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   SizedBox(height: 4 * responsiveScale),
-                  Text(_clubObject.clubContext, style: textStyle(weight: 400, size: 10.0), textAlign: TextAlign.left,),
+                  Text(_clubObject.clubContext, style: textStyle(weight: 400, size: 10.0), textAlign: TextAlign.left,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                  ),
                   Expanded(
                     child: Stack(
                       children: [

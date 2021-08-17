@@ -23,6 +23,12 @@ class _SearchTextView extends State<SearchTextView> {
     super.initState();
     _loadSearchHistory();
   }
+  @override
+  void dispose() {
+    searchInputController.dispose();
+    searchInputFocusNode.dispose();
+    super.dispose();
+  }
 
   void _loadSearchHistory() async {
     final pref = await SharedPreferences.getInstance();
