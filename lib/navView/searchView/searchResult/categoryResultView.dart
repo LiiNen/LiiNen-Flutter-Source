@@ -22,40 +22,43 @@ class _CategoryResultView extends State<CategoryResultView> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(color: Colors.white),
-        child: ListView(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
+        child: Stack(
           children: [
-            SizedBox(height: 16 * responsiveScale),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('${testObjectList.length}건의 검색결과', style: textStyle(weight: 700, size: 14.0)),
-                  Container(
-                    width: 42 * responsiveScale, height: 24 * responsiveScale,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                      color: Color(0xfff3f3f3),
-                    ),
-                    child: Center(
-                      child: Text('필터', style: textStyle(color: Color(0xff666666), weight: 400, size: 10.0))
+            Positioned(
+              top: 16 * responsiveScale,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
+                width: MediaQuery.of(context).size.width,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('${testObjectList.length}건의 검색결과', style: textStyle(weight: 700, size: 14.0)),
+                    Container(
+                      width: 42 * responsiveScale, height: 24 * responsiveScale,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(4)),
+                        color: Color(0xfff3f3f3),
+                      ),
+                      child: Center(
+                        child: Text('필터', style: textStyle(color: Color(0xff666666), weight: 400, size: 10.0))
+                      )
                     )
-                  )
-                ]
-              )
+                  ]
+                )
+              ),
             ),
-            ListView(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              children: [
-                ResultClubContainer()
-              ],
+            Container(
+              margin: EdgeInsets.only(top: 40 * responsiveScale),
+              child: ListView(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                children: [
+                  ResultClubContainer()
+                ],
+              )
             )
-          ]
+          ],
         )
       ),
     );
@@ -130,55 +133,57 @@ class _CategoryAppBar extends State<CategoryAppBar> {
           padding: EdgeInsets.only(left: 28 * responsiveScale),
           width: MediaQuery.of(context).size.width,
           height: 452 * responsiveScale,
-          child: ListView(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
+          child: Stack(
             children: [
-              SizedBox(height: 8 * responsiveScale),
+              Positioned(
+                top: 8 * responsiveScale,
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: Text('카테고리 선택', style: textStyle(color: Color(0xff8a8a8a), weight: 700, size: 12.0), textAlign: TextAlign.left,)
+                ),
+              ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child: Text('카테고리 선택', style: textStyle(color: Color(0xff8a8a8a), weight: 700, size: 12.0), textAlign: TextAlign.left,)
-              ),
-              ListView(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                children: List<Widget>.generate(categoryList.length, (index) {
-                  var _selected = (_currentCategory == categoryList[index].name);
-                  return GestureDetector(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            child: Text(
-                              '${categoryList[index].name} (${categoryList[index].detail})',
-                              style: _selected
-                                ? textStyle(color: Color(0xff0958c5), weight: 700, size: 14.0)
-                                : textStyle(color: Colors.black, weight: 600, size: 14.0)
+                margin: EdgeInsets.only(top: 63 * responsiveScale),
+                child: ListView(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  children: List<Widget>.generate(categoryList.length, (index) {
+                    var _selected = (_currentCategory == categoryList[index].name);
+                    return GestureDetector(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              child: Text(
+                                '${categoryList[index].name} (${categoryList[index].detail})',
+                                style: _selected
+                                  ? textStyle(color: Color(0xff0958c5), weight: 700, size: 14.0)
+                                  : textStyle(color: Colors.black, weight: 600, size: 14.0)
+                              ),
                             ),
-                          ),
-                          Container(
-                            child: _selected ? Container(
-                              width: 24, height: 24,
-                              // padding: EdgeInsets.symmetric(horizontal: 3, vertical: 5),
-                              margin: EdgeInsets.only(right: 31),
-                              child: SvgPicture.asset('asset/image/icoCheck.svg')
-                            ) : Container()
-                          )
-                        ]
-                      )
-                    ),
-                    onTap: ((){
-                      Navigator.pop(context);
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CategoryResultView(categoryList[index].name)));
-                    })
-                  );
-                }),
-              ),
-            ],
-          ),
+                            Container(
+                              child: _selected ? Container(
+                                width: 24, height: 24,
+                                margin: EdgeInsets.only(right: 31),
+                                child: SvgPicture.asset('asset/image/icoCheck.svg')
+                              ) : Container()
+                            )
+                          ]
+                        )
+                      ),
+                      onTap: ((){
+                        Navigator.pop(context);
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CategoryResultView(categoryList[index].name)));
+                      })
+                    );
+                  }),
+                ),
+              )
+            ]
+          )
         );
       }
     );
