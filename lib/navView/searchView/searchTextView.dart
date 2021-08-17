@@ -3,8 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
-import 'package:my_flutter_source/navView/searchView/searchResult/searchTextResult.dart';
-import 'package:my_flutter_source/navView/searchView/searchResult/textResultView.dart';
+import 'searchResult/textResultView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchTextView extends StatefulWidget {
@@ -71,8 +70,7 @@ class _SearchTextView extends State<SearchTextView> {
                         icon: SvgPicture.asset('asset/image/icoInputClose.svg', width: 20, height: 20),
                       ) : null
                     ),
-                    style: textStyle(color: Colors.black, weight: 400, size: 12.0),
-                    onChanged: (value) => textChangeListener(value),
+                    style: textStyle(weight: 400, size: 12.0),
                     onSubmitted: (value) => {setState(() {searchWithText(value);})},
                   )
                 )
@@ -115,13 +113,7 @@ class _SearchTextView extends State<SearchTextView> {
     );
   }
 
-  textChangeListener(input) {
-    setState(() {
-      print(input);
-    });
-  }
-
-  searchWithText(String input) async{
+  searchWithText(String input) async {
     final pref = await SharedPreferences.getInstance();
     searchHistoryList.remove(input);
     searchHistoryList.insert(0, input);
