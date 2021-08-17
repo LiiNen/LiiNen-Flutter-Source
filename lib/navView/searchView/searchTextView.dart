@@ -4,6 +4,7 @@ import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/navView/searchView/searchResult/searchTextResult.dart';
+import 'package:my_flutter_source/navView/searchView/searchResult/textResultView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchTextView extends StatefulWidget {
@@ -127,7 +128,7 @@ class _SearchTextView extends State<SearchTextView> {
     pref.setStringList('searchHistory', searchHistoryList);
 
     if(input !='') {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => SearchTextResult(searchText: input)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => TextResultView(input)));
     }
   }
 
