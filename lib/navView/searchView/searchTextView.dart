@@ -22,7 +22,7 @@ class _SearchTextView extends State<SearchTextView> {
           child: Column(
             children: [
               Container(
-                height: 40 * responsiveScale,
+                height: 40,
                 margin: EdgeInsets.symmetric(vertical: 16 * responsiveScale),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
@@ -34,7 +34,7 @@ class _SearchTextView extends State<SearchTextView> {
                     textInputAction: TextInputAction.search,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      contentPadding: EdgeInsets.only(left: 14, bottom: (30 * responsiveScale - 15) / 2), // TODO : 왜 30인지 모르겠음
+                      contentPadding: EdgeInsets.only(left: 14, bottom: (40 * responsiveScale - 15) / 2), // TODO : 왜 30인지 모르겠음
                       hintText: '어떤 모임을 찾으시나요?',
                       hintStyle: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 12.0),
                     ),
