@@ -18,10 +18,13 @@ class _NavView extends State<NavView> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        elevation: 20,
         backgroundColor:Colors.white,
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
+        selectedItemColor: Color(0xff0958c5),
+        unselectedItemColor: Color(0xffd1d5d9),
+        selectedFontSize: 10,
+        unselectedFontSize: 10,
         onTap: (int index){
           setState(() {
             _selectedIndex = index;
