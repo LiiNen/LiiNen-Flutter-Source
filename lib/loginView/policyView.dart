@@ -87,7 +87,7 @@ class _PolicyView extends State<PolicyView> {
           children: [
             Container(
               width: 24 * responsiveScale, height: 24 * responsiveScale,
-              child: SvgPicture.asset(_checkList[index] ? 'asset/loginView/checkBoxCheck.svg' : 'asset/loginView/checkBoxUncheck.svg'),
+              child: SvgPicture.asset(_checkList[index] ? 'asset/image/checkBoxCheck.svg' : 'asset/image/checkBoxUncheck.svg'),
             ),
             SizedBox(width: 8 * responsiveScale),
             Container(
