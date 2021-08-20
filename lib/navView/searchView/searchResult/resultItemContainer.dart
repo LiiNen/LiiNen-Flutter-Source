@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_flutter_source/main.dart';
 import 'resultItemObject.dart';
 import 'package:my_flutter_source/functionCollection.dart';
@@ -13,7 +14,7 @@ class _ResultItemContainer extends State<ResultItemContainer> {
     return Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(color: Colors.white),
-        child: Stack(
+        child: testObjectList.length != 0 ? Stack(
           children: [
             Positioned(
               top: 16 * responsiveScale,
@@ -50,6 +51,19 @@ class _ResultItemContainer extends State<ResultItemContainer> {
                 )
             )
           ],
+        ) : Container(
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SvgPicture.asset('asset/image/icoFail.svg', width: 28, height: 48),
+                SizedBox(height: 24),
+                Text('검색 결과가 없습니다.', style: textStyle(weight: 600, size: 16.0),),
+              ],
+            )
+          )
         )
     );
   }
