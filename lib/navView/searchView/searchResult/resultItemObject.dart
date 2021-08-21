@@ -36,15 +36,16 @@ class ResultClubContainer extends StatefulWidget {
 class _ResultClubContainer extends State<ResultClubContainer> {
   @override
   Widget build(BuildContext context) {
+    var _resultClubListView = List<Widget>.generate(testObjectList.length * 2, (index) {
+      return index%2 == 0 ? ResultClubItem(testObjectList[(index/2).floor()]) : LineDivider();
+    });
+
+    // 광고 삭제할 수 있도록 만들어야함
+    _resultClubListView.insert(2, AdMobBanner());
+    _resultClubListView.insert(3, LineDivider());
+
     return Column(
-      children: List<Widget>.generate(testObjectList.length * 2, (index) {
-        return index%2 == 0 ? ResultClubItem(testObjectList[(index/2).floor()]) : LineDivider();
-      }) + [AdMobBanner()],
-        /**
-         * TODO: admob failed error // https://codelabs.developers.google.com/codelabs/admob-inline-ads-in-flutter?hl=ko#6
-         * <Google> To get test ads on this device, set: GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[ kGADSimulatorID ];
-         * <Google> <Google:HTML> A valid SKAdNetworkIdentifier for Google (cstr6suwn9.skadnetwork) is missing from Info.plist. See [Enable SKAdNetwork to track conversions] (https://googlemobileadssdk.page.link/enable-skadnetwork)
-         */
+      children: _resultClubListView
     );
   }
 }
