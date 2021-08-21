@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'loginView/loginView.dart';
 import 'navView/navView.dart';
@@ -10,6 +11,10 @@ void main()=> runApp(MyApp());
 double responsiveScale = 1.0;
 
 class MyApp extends StatelessWidget {
+  Future<InitializationStatus> _initGoogleMobileAds() {
+    return MobileAds.instance.initialize();
+  }
+
   const MyApp({Key? key}) : super(key: key);
   // This widget is the root of your application.
   @override

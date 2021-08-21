@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/adMob/adMobItem.dart';
 
 class ResultClubObject {
   String? thumbnailUrl;
@@ -37,7 +39,12 @@ class _ResultClubContainer extends State<ResultClubContainer> {
     return Column(
       children: List<Widget>.generate(testObjectList.length * 2, (index) {
         return index%2 == 0 ? ResultClubItem(testObjectList[(index/2).floor()]) : LineDivider();
-      }),
+      }) + [AdMobBanner()],
+        /**
+         * TODO: admob failed error // https://codelabs.developers.google.com/codelabs/admob-inline-ads-in-flutter?hl=ko#6
+         * <Google> To get test ads on this device, set: GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[ kGADSimulatorID ];
+         * <Google> <Google:HTML> A valid SKAdNetworkIdentifier for Google (cstr6suwn9.skadnetwork) is missing from Info.plist. See [Enable SKAdNetwork to track conversions] (https://googlemobileadssdk.page.link/enable-skadnetwork)
+         */
     );
   }
 }
