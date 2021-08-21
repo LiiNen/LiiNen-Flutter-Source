@@ -79,7 +79,6 @@ class _CategorySetupView extends State<CategorySetupView> {
     );
   }
 
-  //TODO : 뒤로가기 삭제
   void _submitSignUp() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => NavView()));
   }

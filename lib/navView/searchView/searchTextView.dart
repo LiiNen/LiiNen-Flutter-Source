@@ -60,7 +60,6 @@ class _SearchTextView extends State<SearchTextView> {
                     borderRadius: BorderRadius.all(Radius.circular(2)),
                     color: Color(0xfff5f5f5),
                   ),
-                  // TODO : 정중앙이 아닌 문제
                   child: TextField(
                     controller: searchInputController,
                     focusNode: searchInputFocusNode,

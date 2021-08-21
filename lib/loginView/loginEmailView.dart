@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/navView/navView.dart';
 
 import 'policyView.dart';
 
@@ -150,6 +151,7 @@ class _LoginEmailView extends State<LoginEmailView> {
   void _loginAction(email, password) {
     print(email);
     print(password);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => NavView()));
   }
 
   void _signUpBtnClick() {
