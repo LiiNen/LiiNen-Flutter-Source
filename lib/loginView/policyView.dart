@@ -88,8 +88,8 @@ class _PolicyView extends State<PolicyView> {
               width: 24 * responsiveScale, height: 24 * responsiveScale,
               child: SvgPicture.asset(_checkList[index] ? 'asset/image/checkBoxCheck.svg' : 'asset/image/checkBoxUncheck.svg'),
             ),
-            sizedBox(8),
             Container(
+              margin: EdgeInsets.only(left: 8),
               width: MediaQuery.of(context).size.width - 98 * responsiveScale,
               child: Text(title, style: style,),
             ),
