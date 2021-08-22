@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'homeView/homeView.dart';
-import 'clubView/clubView.dart';
 import 'searchView/searchView.dart';
+import 'clubView/clubView.dart';
+import 'alarmView/alarmView.dart';
 import 'profileView/profileView.dart';
 
 import 'package:my_flutter_source/functionCollection.dart';
@@ -50,7 +51,7 @@ class _NavView extends State<NavView> {
     HomeView(),
     SearchView(),
     ClubView(),
-    ProfileView(),
+    AlarmView(),
     ProfileView(),
   ];
 }

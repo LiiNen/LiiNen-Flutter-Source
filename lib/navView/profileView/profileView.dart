@@ -1,203 +1,23 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import '../../infoView.dart';
+
+import 'package:my_flutter_source/containerCollection.dart';
+import 'package:my_flutter_source/main.dart';
 
 class ProfileView extends StatefulWidget {
   @override
   State<ProfileView> createState() => _ProfileView();
 }
-
 class _ProfileView extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: NavDrawer(),
-      appBar: PersonalAppBar(),
-      body: Column(
-        children: [
-          PersonalComponent(),
-          Container(
-            height: heightSize,
-            width: MediaQuery.of(context).size.width,
-            child: Image.network(mybanner, fit: BoxFit.fill)
-          )
-        ]
-      )
-    );
-  }
-}
+      appBar: MainViewAppBar(title: '더보기', back: false),
+      body: Container(
+        margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
+        child: Column(
 
-class NavDrawer extends StatefulWidget {
-  @override
-  State<NavDrawer> createState() => _NavDrawer();
-}
-class _NavDrawer extends State<NavDrawer> {
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.all(10),
-        children: [
-          DrawerHeader(
-            child: Text('side menu', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: NetworkImage(mybanner)
-              )
-            )
-          ),
-          ListTile(
-            leading: Icon(Icons.person),
-            title: Text('list 1'),
-            onTap: () => _loadList1View('test'),
-          ),
-          ListTile(
-            leading: Icon(Icons.person_add),
-            title: Text('list 2'),
-            onTap: () => {},
-          )
-        ]
-      )
-    );
-  }
-  void _loadList1View(String _infoSrc) {
-    Navigator.pop(context);
-    Navigator.push(context, MaterialPageRoute(builder: (context) => InfoView(_infoSrc)));
-  }
-}
-
-class PersonalAppBar extends StatefulWidget implements PreferredSizeWidget{
-  PersonalAppBar() : preferredSize = Size.fromHeight(kToolbarHeight);
-  @override
-  final Size preferredSize;
-
-  @override
-  State<PersonalAppBar> createState() => _PersonalAppBar();
-}
-class _PersonalAppBar extends State<PersonalAppBar> {
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      centerTitle: true,
-      title: Text('개인 설정'),
-      leading: IconButton(
-          icon: Icon(Icons.search),
-          onPressed: _loadNothing
-      ),
-      actions: [
-        IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: Scaffold.of(context).openEndDrawer,
-        ),
-      ]
-    );
-  }
-
-  void _loadNothing() {
-  }
-}
-
-class PersonalComponent extends StatefulWidget{
-  @override
-  State<PersonalComponent> createState() => _PersonalComponent();
-}
-class _PersonalComponent extends State<PersonalComponent> {
-  @override
-  initState() {
-    super.initState();
-    _loadProfile();
-  }
-  _loadProfile() async {
-    setState(() {
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-            width: widthSize,
-            height: heightSize,
-            child: Padding(
-                padding: EdgeInsets.all(10),
-                child: Container(
-                  child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(mypict),
-                                fit: BoxFit.cover,
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(widthSize/2))
-                          ),
-                        ),
-                        IconButton(onPressed: _modifyImage, icon: Icon(Icons.add))
-                      ]
-                  ),
-                )
-            )
-        ),
-        Container(
-            width: MediaQuery.of(context).size.width - widthSize,
-            height: heightSize,
-            child: Column(
-              children: [
-                Container(
-                    height: heightSize / 3,
-                    child: Center(
-                        child: Text('myName')
-                    )
-                ),
-                Container(
-                    child: Row(
-                      children: [
-                        Container(
-                            width: (MediaQuery.of(context).size.width - widthSize) / 2,
-                            height: heightSize / 3,
-                            child: Center(
-                                child: Text('left')
-                            )
-                        ),
-                        Container(
-                            width: (MediaQuery.of(context).size.width - widthSize) / 2,
-                            height: heightSize / 3,
-                            child: Center(
-                                child: Text('right')
-                            )
-                        )
-                      ],
-                    )
-                ),
-                Container(
-                    height: heightSize / 3,
-                    child: Image.asset('asset/image/sample2.jpeg')
-                )
-              ],
-            )
         )
-      ],
+      )
     );
   }
-
-  void _modifyImage() async{
-    final ImagePicker _imagePicker = ImagePicker();
-    try {
-      final _pickedImage = await _imagePicker.getImage(source: ImageSource.gallery);
-    } catch(e) {
-      print(e);
-      setState(() {
-
-      });
-    }
-  }
 }
-
-final String mypict = 'https://liinen.github.io/Team7-Blog/images/jeonghoon/jeonghoon_picture.png';
-final String mybanner = 'https://liinen.github.io/Team7-Blog/images/home/home_banner.png';
-final double widthSize = 150;
-final double heightSize = 150;
