@@ -87,5 +87,5 @@ class _CategorySetupView extends State<CategorySetupView> {
   }
 }
 
-List<String> _titleList = ['운동(스포츠/피트니스', '공예 DIY', '자기계발 독서 스터디', '예술 악기 그림', '안녕', '하세요', 'ㅎㅎ', 'example'];
+List<String> _titleList = categoryFullList;
 List<bool> _selectedList = List<bool>.generate(_titleList.length, (index) => false);

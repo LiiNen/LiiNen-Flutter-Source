@@ -17,6 +17,8 @@ class ProfileSetupView extends StatefulWidget {
 }
 class _ProfileSetupView extends State<ProfileSetupView> {
   final nameController = TextEditingController();
+  final introController = TextEditingController();
+  FocusNode introFocusNode = FocusNode();
   PickedFile? _profileImage;
 
   // TODO : overflow 37 pixel in android device when keyboard up
@@ -66,26 +68,7 @@ class _ProfileSetupView extends State<ProfileSetupView> {
                       )
                     )
                   ),
-                  sizedBox(20),
-                  loginSubtitle('닉네임'),
-                  sizedBox(8),
-                  TextField(
-                    controller: nameController,
-                    obscureText: true,
-                    autofocus: false,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
-                      enabledBorder: enabledBorderDefault(),
-                      focusedBorder: focusedBorderDefault(),
-                      hintText: '닉네임을 입력해주세요'
-                    ),
-                    style: textStyle(weight: 600, size: 12.0),
-                    onChanged: (value) {setState(() {});},
-                    textInputAction: TextInputAction.done,
-                    onSubmitted: (value) {_nextStep();},
-                  ),
-                  sizedBox(4),
-                  Text('20자 이내로 입력할 수 있어요', style: textStyle(color: Color(0xff636c73), weight: 400, size: 12.0)),
+                ] + nameField() + introField() + [
                   sizedBox(40),
                   GestureDetector(
                     onTap: _nextStep,
@@ -109,8 +92,57 @@ class _ProfileSetupView extends State<ProfileSetupView> {
     );
   }
 
+  List<Widget> nameField() {
+    return [
+      sizedBox(20),
+      loginSubtitle('닉네임'),
+      sizedBox(8),
+      TextField(
+        controller: nameController,
+        obscureText: true,
+        autofocus: false,
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
+            enabledBorder: enabledBorderDefault(),
+            focusedBorder: focusedBorderDefault(),
+            hintText: '닉네임을 입력해주세요'
+        ),
+        style: textStyle(weight: 600, size: 12.0),
+        textInputAction: TextInputAction.done,
+        onSubmitted: (value) {introFocusNode.requestFocus();},
+      ),
+      sizedBox(4),
+      Text('20자 이내로 입력할 수 있어요', style: textStyle(color: Color(0xff636c73), weight: 400, size: 12.0)),
+    ];
+  }
+  List<Widget> introField() {
+    return [
+      sizedBox(24),
+      loginSubtitle('자기소개'),
+      sizedBox(8),
+      TextField(
+        controller: introController,
+        obscureText: true,
+        focusNode: introFocusNode,
+        autofocus: false,
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
+            enabledBorder: enabledBorderDefault(),
+            focusedBorder: focusedBorderDefault(),
+            hintText: '자기소개를 입력해주세요'
+        ),
+        style: textStyle(weight: 600, size: 12.0),
+        textInputAction: TextInputAction.done,
+        onSubmitted: (value) {_nextStep();},
+      ),
+      sizedBox(4),
+      Text('나이와 직업, 도시 등을 자유롭게 소개하세요', style: textStyle(color: Color(0xff636c73), weight: 400, size: 12.0)),
+    ];
+  }
+
+
   void _nextStep() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => CategorySetupView()));
+    if(nameController.text != '') Navigator.push(context, MaterialPageRoute(builder: (context) => CategorySetupView()));
   }
 
   // TODO: m1 이외에서 체크 필요

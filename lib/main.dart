@@ -70,3 +70,9 @@ class _MainRouter extends State<MainRouter> {
     );
   }
 }
+
+List<String> categoryNameList = ['운동', '공예', '예술', '자기계발', 'IT', '오락', '자유주제'];
+List<String> categoryDetailList = ['스포츠/피트니스', 'DIY', '악기/그림', '독서/스터디', '개발/디자인', '온라인/보드게임', '기타'];
+List<String> categoryFullList = List<String>.generate(categoryNameList.length, (index) {
+  return '${categoryNameList[index]} (${categoryDetailList[index]})';
+});
