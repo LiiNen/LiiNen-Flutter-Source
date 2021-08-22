@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'infoView.dart';
-import 'containerCollection.dart';
 
 class ClubObject {
   final int clubId;

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
-import 'package:my_flutter_source/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'resultItemContainer.dart';
 

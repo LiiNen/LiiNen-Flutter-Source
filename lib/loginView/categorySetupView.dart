@@ -5,7 +5,6 @@ import 'package:my_flutter_source/loginView/loginWidgets.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/navView/navView.dart';
-import 'package:my_flutter_source/navView/profileView/profileView.dart';
 
 class CategorySetupView extends StatefulWidget {
   @override

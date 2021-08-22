@@ -8,13 +8,7 @@ class AdMobBanner extends StatefulWidget {
   State<AdMobBanner> createState() => _AdMobBanner();
 }
 class _AdMobBanner extends State<AdMobBanner> {
-  static final _kAdIndex = 2;
   late BannerAd _ad;
-  bool _isAdLoaded = false;
-  int _getDestinationItemIndex(int rawIndex) {
-    if (rawIndex >= _kAdIndex && _isAdLoaded) return rawIndex - 1;
-    return rawIndex;
-  }
 
   @override
   void initState() {
@@ -25,11 +19,7 @@ class _AdMobBanner extends State<AdMobBanner> {
       size: AdSize.banner,
       request: AdRequest(),
       listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            _isAdLoaded = true;
-          });
-        },
+        onAdLoaded: (_) {},
         onAdFailedToLoad: (ad, error) {
           ad.dispose();
           print('Ad load failed (code=${error.code} message=${error.message})');

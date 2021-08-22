@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../navView/navView.dart';
 import 'loginEmailView.dart';
 import 'package:my_flutter_source/main.dart';
-import 'package:my_flutter_source/constraintCollection.dart';
 
 class LoginView extends StatefulWidget {
   @override
