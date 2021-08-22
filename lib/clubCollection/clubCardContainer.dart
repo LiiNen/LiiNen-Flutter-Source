@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:my_flutter_source/constraintCollection.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 
@@ -28,29 +29,25 @@ List<ClubCardObject> testObjectList = [
 
 class ClubCardContainer extends StatefulWidget {
   final ClubCardObject clubObject;
-  final bool isBorder;
-  final double verticalPadding;
-  ClubCardContainer({required this.clubObject, this.isBorder: false, this.verticalPadding: 16});
+  ClubCardContainer(this.clubObject);
   @override
-  State<ClubCardContainer> createState() => _ClubCardContainer(clubObject: clubObject, isBorder: isBorder, verticalPadding: verticalPadding);
+  State<ClubCardContainer> createState() => _ClubCardContainer(clubObject);
 }
 class _ClubCardContainer extends State<ClubCardContainer> {
   ClubCardObject clubObject;
-  bool isBorder;
-  double verticalPadding;
-  _ClubCardContainer({required this.clubObject, this.isBorder: false, this.verticalPadding: 16});
+  _ClubCardContainer(this.clubObject);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: isBorder ? shadowBoxDecoration() : null,
+      decoration: shadowBoxDecoration(),
       width: MediaQuery.of(context).size.width, height: 152 * responsiveScale,
       margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
-      padding: EdgeInsets.symmetric(vertical: verticalPadding * responsiveScale),
+      padding: EdgeInsets.all(12),
       child: Row(
         children: [
           Container(
-            width: 128 * responsiveScale, height: 120 * responsiveScale,
+            width: 128 * responsiveScale, height: 128 * responsiveScale,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(4)),
               image: DecorationImage(
@@ -61,18 +58,19 @@ class _ClubCardContainer extends State<ClubCardContainer> {
           ),
           Expanded(
             child: Container(
-              margin: EdgeInsets.only(left: 12 * responsiveScale),
+              margin: EdgeInsets.only(left: 8 * responsiveScale),
+              // padding: EdgeInsets.symmetric(vertical: 8),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text('클럽 분류 들어갈 위치', style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0), textAlign: TextAlign.left,),
-                  SizedBox(height: 6 * responsiveScale),
+                  sizedBox(6),
                   Text(clubObject.clubTitle, style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(height: 4 * responsiveScale),
+                  sizedBox(4),
                   Text(clubObject.clubContext, style: textStyle(weight: 400, size: 10.0), textAlign: TextAlign.left,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
@@ -81,7 +79,7 @@ class _ClubCardContainer extends State<ClubCardContainer> {
                     child: Stack(
                       children: [
                         Positioned(
-                          right: 0, bottom: 3 * responsiveScale,
+                          right: 0, bottom: 0 * responsiveScale,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,

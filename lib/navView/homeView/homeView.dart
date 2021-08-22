@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:my_flutter_source/clubObject.dart';
 
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'homeBannerContainer.dart';
 import 'clubSuggestionContainer.dart';
+import 'feedSuggestionContainer.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -30,9 +30,8 @@ class _HomeView extends State<HomeView> {
             MainBannerContainer(),
             SizedBox(height: 20 * responsiveScale),
             ClubSuggestionContainer(),
-            SizedBox(height: 48 * responsiveScale),
-            TitleContainer('추천모임'),
-            ClubSuggestionContainer(),
+            SizedBox(height: 16 * responsiveScale),
+            FeedSuggestionContainer(),
           ],
           controller: _scrollController
         ),

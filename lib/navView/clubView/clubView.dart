@@ -117,7 +117,7 @@ class _MyClubListContainer extends State<MyClubListContainer> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TitleContainer('내 모임들'),
+        TitleContainer(title: '내 모임들'),
         Container(
           height: 160,
           child: ListView.builder(
@@ -142,7 +142,7 @@ class _MyQuestListContainer extends State<MyQuestListContainer> {
   Widget build(BuildContext context) {
     return Column(
       children:[
-        TitleContainer('내 퀘스트 목록'),
+        TitleContainer(title: '내 퀘스트 목록'),
         Container(
           padding: EdgeInsets.all(10),
           width: MediaQuery.of(context).size.width,

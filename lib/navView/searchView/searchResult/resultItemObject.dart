@@ -14,7 +14,7 @@ class _ResultClubContainer extends State<ResultClubContainer> {
   @override
   Widget build(BuildContext context) {
     var _resultClubListView = List<Widget>.generate(testObjectList.length * 2, (index) {
-      return index%2 == 0 ? ClubCardContainer(clubObject: testObjectList[(index/2).floor()]) : LineDivider();
+      return index%2 == 0 ? ClubCardContainer(testObjectList[(index/2).floor()]) : LineDivider();
     });
 
     // 광고 삭제할 수 있도록 만들어야함

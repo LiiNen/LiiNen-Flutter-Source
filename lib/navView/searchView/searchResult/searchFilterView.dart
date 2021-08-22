@@ -22,7 +22,7 @@ class _SearchFilterView extends State<SearchFilterView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 16),
-            TitleContainer('정렬'),
+            TitleContainer(title: '정렬'),
             SizedBox(height: 4),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 21),
@@ -33,7 +33,7 @@ class _SearchFilterView extends State<SearchFilterView> {
               )
             ),
             SizedBox(height: 32),
-            TitleContainer('선택'),
+            TitleContainer(title: '선택'),
             SizedBox(height: 4),
             GestureDetector(
               onTap: () {setState(() {

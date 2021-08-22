@@ -66,7 +66,7 @@ class _SearchView extends State<SearchView> {
                   children: [
                     _searchByText,
                     SizedBox(height: 12),
-                    TitleContainer('카테고리'),
+                    TitleContainer(title: '카테고리'),
                   ],
                 )
               ),

@@ -5,8 +5,10 @@ import 'package:my_flutter_source/main.dart';
 import 'functionCollection.dart';
 
 class TitleContainer extends StatelessWidget {
-  final String _title;
-  TitleContainer(this._title);
+  final String title;
+  final double size;
+
+  TitleContainer({required this.title, this.size=16.0});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,7 +16,7 @@ class TitleContainer extends StatelessWidget {
       child: Center(child: Container(
         margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
         width: MediaQuery.of(context).size.width,
-        child: Text(_title, style: textStyle(weight: 700, size: 16.0), textAlign: TextAlign.left,)
+        child: Text(title, style: textStyle(weight: 700, size: size), textAlign: TextAlign.left,)
       ))
     );
   }
@@ -86,6 +88,7 @@ class LineDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
       height: 1,
       decoration: BoxDecoration(
         border: Border.all(

@@ -21,34 +21,34 @@ class _ClubSuggestionContainer extends State<ClubSuggestionContainer> {
 
   @override
   Widget build(BuildContext context) {
-    var _clubSuggestionList = List<Widget>.generate(_clubObjectList.length, (index){
-      return ClubCardContainer(clubObject: _clubObjectList[index], isBorder: true, verticalPadding: 4.0,);
+    var _clubSuggestionList = List<Widget>.generate(_clubObjectList.length * 2, (index){
+      return index%2 == 0 ? ClubCardContainer(_clubObjectList[(index/2).floor()]) : sizedBox(8);
     });
 
     return Column(
-      children: <Widget>[TitleContainer('추천 모임')] + _clubSuggestionList + (_clubObjectList.length < testObjectList.length ? [
-        sizedBox(16),
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              _clubObjectList.add(testObjectList[_clubObjectList.length]);
-            });
-          },
-          child: Container(
-            decoration: shadowBoxDecoration(),
-            width: MediaQuery.of(context).size.width,
-            height: 48 * responsiveScale,
-            margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
-            child: Center(child: Text('모임 더 보기', style: textStyle(weight: 700, size: 14.0)),)
+      children: <Widget>[TitleContainer(title: '추천 모임', size: 20.0)] + _clubSuggestionList
+        + (_clubObjectList.length < testObjectList.length ? [
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _clubObjectList.add(testObjectList[_clubObjectList.length]);
+              });
+            },
+            child: Container(
+              decoration: shadowBoxDecoration(),
+              width: MediaQuery.of(context).size.width,
+              height: 48 * responsiveScale,
+              margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale, vertical: 16 * responsiveScale),
+              child: Center(child: Text('모임 더 보기', style: textStyle(weight: 700, size: 14.0)),)
+            )
           )
-        )
-      ] : []),
+        ] : [sizedBox(16)]) + [LineDivider()],
     );
   }
 
   void _loadTestSuggestion() async {
     setState(() {
-      _clubObjectList = List<ClubCardObject>.generate(3, (index){
+      _clubObjectList = List<ClubCardObject>.generate(3, (index) {
         return testObjectList[index];
       });
     });
