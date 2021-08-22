@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_flutter_source/constraintCollection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../navView/navView.dart';
 import 'loginEmailView.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/constraintCollection.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -30,7 +32,7 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 40 * responsiveScale),
+              sizedBox(40),
               Text(
                 "환영합니다 🙌",
                 style: const TextStyle(
@@ -41,7 +43,7 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
                     fontSize: 28.0
                 )
               ),
-              SizedBox(height: 12 * responsiveScale),
+              sizedBox(12),
               Text(
                 "이건모임에서 목표를 달성해보세요!",
                 style: const TextStyle(
@@ -52,17 +54,17 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
                     fontSize: 14.0
                 ),
               ),
-              SizedBox(height: 44 * responsiveScale),
+              sizedBox(44),
               GestureDetector(
                 onTap: _loginSuccess,
                 child: SvgPicture.asset('asset/loginView/appleBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
               ),
-              SizedBox(height: 8 * responsiveScale),
+              sizedBox(8),
               GestureDetector(
                   onTap: _loginSuccess,
                   child: SvgPicture.asset('asset/loginView/kakaoBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
               ),
-              SizedBox(height: 8 * responsiveScale),
+              sizedBox(8),
               GestureDetector(
                   onTap: _loginEmail,
                   child: SvgPicture.asset('asset/loginView/emailBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)

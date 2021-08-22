@@ -3,6 +3,7 @@ import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/navView/navView.dart';
+import 'package:my_flutter_source/constraintCollection.dart';
 
 import 'loginWidgets.dart';
 import 'policyView.dart';
@@ -50,11 +51,11 @@ class _LoginEmailView extends State<LoginEmailView> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 24 * responsiveScale),
+                    sizedBox(24),
                     loginTitle('이메일 로그인',),
-                    SizedBox(height: 24 * responsiveScale),
+                    sizedBox(24),
                     loginSubtitle('이메일'),
-                    SizedBox(height: 8 * responsiveScale),
+                    sizedBox(8),
                     TextField(
                       controller: emailController,
                       focusNode: emailFocus,
@@ -69,9 +70,9 @@ class _LoginEmailView extends State<LoginEmailView> {
                       textInputAction: TextInputAction.next,
                       onSubmitted: (value) => {passwordFocus.requestFocus()},
                     ),
-                    SizedBox(height: 20),
+                    sizedBox(20),
                     loginSubtitle('비밀번호'),
-                    SizedBox(height: 8),
+                    sizedBox(8),
                     TextField(
                       controller: passwordController,
                       focusNode: passwordFocus,
@@ -87,12 +88,12 @@ class _LoginEmailView extends State<LoginEmailView> {
                       textInputAction: TextInputAction.done,
                       onSubmitted: (value) => {_loginAction(emailController.text, value)},
                     ),
-                    SizedBox(height: 20 * responsiveScale),
+                    sizedBox(20),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       child: Text('아이디/비밀번호 찾기', style: textStyle(weight: 600, size: 12.0), textAlign: TextAlign.right),
                     ),
-                    SizedBox(height: 36 * responsiveScale),
+                    sizedBox(36),
                     GestureDetector(
                       onTap: () => {_loginAction(emailController.text, passwordController.text)},
                       child: Container(
@@ -106,7 +107,7 @@ class _LoginEmailView extends State<LoginEmailView> {
                         child: Center(child: Text('로그인', style: textStyle(color: Colors.white, weight: 600, size: 16.0)))
                       ),
                     ),
-                    SizedBox(height: 288 * responsiveScale),
+                    sizedBox(288),
                   ]
                 ),
                 Positioned(

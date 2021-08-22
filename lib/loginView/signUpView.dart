@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/loginView/phoneAuthView.dart';
-import 'package:my_flutter_source/loginView/profileSetupView.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/constraintCollection.dart';
 
 import 'loginWidgets.dart';
 
@@ -39,11 +39,11 @@ class _SignUpView extends State<SignUpView> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 24 * responsiveScale),
+              sizedBox(24),
               loginTitle('이메일로 회원가입'),
-              SizedBox(height: 24 * responsiveScale),
+              sizedBox(24),
               loginSubtitle('이메일'),
-              SizedBox(height: 8 * responsiveScale),
+              sizedBox(8),
               TextField(
                 controller: emailController,
                 focusNode: emailFocus,
@@ -63,9 +63,9 @@ class _SignUpView extends State<SignUpView> {
                 textInputAction: TextInputAction.next,
                 onSubmitted: (value) => {pwFirstFocus.requestFocus()},
               ),
-              SizedBox(height: 20 * responsiveScale),
+              sizedBox(20),
               loginSubtitle('비밀번호'),
-              SizedBox(height: 8 * responsiveScale),
+              sizedBox(8),
               TextField(
                 controller: pwFirstController,
                 obscureText: true,
@@ -84,7 +84,7 @@ class _SignUpView extends State<SignUpView> {
                 textInputAction: TextInputAction.next,
                 onSubmitted: (value) => {pwSecondFocus.requestFocus()},
               ),
-              SizedBox(height: 4 * responsiveScale),
+              sizedBox(4),
               (pwFirstController.text == ''  ?
                 Text('영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.',
                   style: textStyle(color: Color(0xff636c73), weight: 400, size: 12.0),
@@ -99,9 +99,9 @@ class _SignUpView extends State<SignUpView> {
                   textAlign: TextAlign.left,
                 ))
               ),
-              SizedBox(height: 24 * responsiveScale),
+              sizedBox(24),
               loginSubtitle('비밀번호 확인'),
-              SizedBox(height: 8 * responsiveScale),
+              sizedBox(8),
               TextField(
                 controller: pwSecondController,
                 obscureText: true,
@@ -118,7 +118,7 @@ class _SignUpView extends State<SignUpView> {
                 });},
                 onSubmitted: (value) => {_nextStep()},
               ),
-              SizedBox(height: 4 * responsiveScale),
+              sizedBox(4),
               (pwSecondController.text == '' ? Text('', style: textStyle(color: Colors.white, weight: 400, size: 12.0),) : (pwSecondConfirm  ?
                 Text('비밀번호가 일치합니다.',
                   style: textStyle(color: Colors.lightGreen, weight: 400, size: 12.0),
@@ -129,7 +129,7 @@ class _SignUpView extends State<SignUpView> {
                   textAlign: TextAlign.left,
                 )
               )),
-              SizedBox(height: 36 * responsiveScale),
+              sizedBox(36),
               GestureDetector(
                 onTap: _nextStep,
                 child: Container(

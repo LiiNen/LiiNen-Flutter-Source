@@ -44,6 +44,12 @@ bool passwordRegexCheck(String input) {
 bool emailRegexCheck(String input) {
   return RegExp(r'^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$').hasMatch(input);
 }
+bool phoneRegexCheck(String input) {
+  return RegExp(r'^(010)[0-9]{8}').hasMatch(input);
+}
+bool authRegexCheck(String input, int length) {
+  return RegExp(r'^[0-9]{$length}').hasMatch(input);
+}
 
 enabledBorderDefault() {
   return OutlineInputBorder(

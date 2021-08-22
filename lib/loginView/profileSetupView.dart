@@ -7,6 +7,7 @@ import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/loginView/categorySetupView.dart';
 import 'package:my_flutter_source/loginView/loginWidgets.dart';
+import 'package:my_flutter_source/constraintCollection.dart';
 
 import 'package:my_flutter_source/main.dart';
 
@@ -36,9 +37,9 @@ class _ProfileSetupView extends State<ProfileSetupView> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 24 * responsiveScale),
+                  sizedBox(24),
                   loginTitle('사진과 닉네임을 등록해주세요'),
-                  SizedBox(height: 24 * responsiveScale),
+                  sizedBox(24),
                   Center(
                     child: GestureDetector(
                       onTap: _modifyImage,
@@ -65,9 +66,9 @@ class _ProfileSetupView extends State<ProfileSetupView> {
                       )
                     )
                   ),
-                  SizedBox(height: 20 * responsiveScale),
+                  sizedBox(20),
                   loginSubtitle('닉네임'),
-                  SizedBox(height: 8 * responsiveScale),
+                  sizedBox(8),
                   TextField(
                     controller: nameController,
                     obscureText: true,
@@ -83,9 +84,9 @@ class _ProfileSetupView extends State<ProfileSetupView> {
                     textInputAction: TextInputAction.done,
                     onSubmitted: (value) {_nextStep();},
                   ),
-                  SizedBox(height: 4 * responsiveScale),
+                  sizedBox(4),
                   Text('20자 이내로 입력할 수 있어요', style: textStyle(color: Color(0xff636c73), weight: 400, size: 12.0)),
-                  SizedBox(height: 40 * responsiveScale),
+                  sizedBox(40),
                   GestureDetector(
                     onTap: _nextStep,
                     child: Container(

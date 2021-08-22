@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_flutter_source/constraintCollection.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/loginView/loginWidgets.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/navView/navView.dart';
+import 'package:my_flutter_source/navView/profileView/profileView.dart';
 
 class CategorySetupView extends StatefulWidget {
   @override
@@ -26,11 +28,11 @@ class _CategorySetupView extends State<CategorySetupView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(height: 24 * responsiveScale),
+                sizedBox(24),
                 loginTitle('관심 카테고리 선택'),
-                SizedBox(height: 16 * responsiveScale),
+                sizedBox(24),
                 Text('관심있는 카테고리를 선택해주세요', style: textStyle(weight: 400, size: 16.0)),
-                SizedBox(height: 24 * responsiveScale),
+                sizedBox(24),
                 Wrap(
                   direction: Axis.horizontal,
                   spacing: 8, runSpacing: 8,
