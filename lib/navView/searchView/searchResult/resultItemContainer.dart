@@ -5,6 +5,8 @@ import 'package:my_flutter_source/functionCollection.dart';
 import 'resultItemObject.dart';
 import 'searchFilterView.dart';
 
+import 'package:my_flutter_source/clubCollection/clubCardContainer.dart';
+
 
 class ResultItemContainer extends StatefulWidget {
   @override

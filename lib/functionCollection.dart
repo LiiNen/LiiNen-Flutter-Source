@@ -34,6 +34,19 @@ TextStyle textStyle({color: Colors.black, weight: int, size: double}) {
   );
 }
 
+BoxDecoration shadowBoxDecoration() {
+  return BoxDecoration(
+    borderRadius: BorderRadius.all(Radius.circular(4)),
+    boxShadow: [BoxShadow(
+        color: Color(0x338d979e),
+        offset: Offset(0, 0),
+        blurRadius: 30,
+        spreadRadius: 0
+    )],
+    color: Colors.white,
+  );
+}
+
 void scrollOnFocus(scrollController, height) {
   scrollController.animateTo(height, duration: new Duration(seconds: 1), curve: Curves.ease);
 }

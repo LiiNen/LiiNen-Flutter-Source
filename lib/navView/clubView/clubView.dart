@@ -98,7 +98,6 @@ class _ClubExist extends State<ClubExist> {
         ]),
         MyClubListContainer(),
         MyQuestListContainer(),
-        FeedListContainer(feedTitle: '내 피드', scrollController: _scrollController,),
       ],
       controller: _scrollController,
     );

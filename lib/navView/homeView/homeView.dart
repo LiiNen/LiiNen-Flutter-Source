@@ -29,13 +29,10 @@ class _HomeView extends State<HomeView> {
           children: <Widget>[
             MainBannerContainer(),
             SizedBox(height: 20 * responsiveScale),
-            TitleContainer('오늘의 번개'),
             ClubSuggestionContainer(),
             SizedBox(height: 48 * responsiveScale),
             TitleContainer('추천모임'),
             ClubSuggestionContainer(),
-            SizedBox(height: 48 * responsiveScale),
-            FeedListContainer(feedTitle: '최근 활동 중인 피드', scrollController: _scrollController)
           ],
           controller: _scrollController
         ),
