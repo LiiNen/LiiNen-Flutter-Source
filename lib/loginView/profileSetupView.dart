@@ -102,10 +102,11 @@ class _ProfileSetupView extends State<ProfileSetupView> {
         obscureText: true,
         autofocus: false,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
-            enabledBorder: enabledBorderDefault(),
-            focusedBorder: focusedBorderDefault(),
-            hintText: '닉네임을 입력해주세요'
+          contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
+          enabledBorder: enabledBorderDefault(),
+          focusedBorder: focusedBorderDefault(),
+          hintText: '닉네임을 입력해주세요',
+          hintStyle: textStyle(color: Color(0xffd1d5d9), weight: 400, size: 12.0),
         ),
         style: textStyle(weight: 600, size: 12.0),
         textInputAction: TextInputAction.done,
@@ -126,10 +127,11 @@ class _ProfileSetupView extends State<ProfileSetupView> {
         focusNode: introFocusNode,
         autofocus: false,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
-            enabledBorder: enabledBorderDefault(),
-            focusedBorder: focusedBorderDefault(),
-            hintText: '자기소개를 입력해주세요'
+          contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
+          enabledBorder: enabledBorderDefault(),
+          focusedBorder: focusedBorderDefault(),
+          hintText: '자기소개를 입력해주세요',
+          hintStyle: textStyle(color: Color(0xffd1d5d9), weight: 400, size: 12.0),
         ),
         style: textStyle(weight: 600, size: 12.0),
         textInputAction: TextInputAction.done,
