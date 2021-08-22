@@ -41,7 +41,7 @@ class _CategorySetupView extends State<CategorySetupView> {
               ]
             ),
             Positioned(
-              bottom: 36 * responsiveScale,
+              bottom: 56 * responsiveScale,
               child: GestureDetector(
                 child: Container(
                   width: MediaQuery.of(context).size.width - 42 * responsiveScale,
@@ -68,17 +68,7 @@ class _CategorySetupView extends State<CategorySetupView> {
         _selectedList[_titleList.indexOf(title)] = !_selected;
         _selectedLeast = _selectedList.indexOf(true) != -1 ? true : false;
       })},
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(16)),
-          border: Border.all(color: _selected ? Color(0xff0958c5) : Color(0xffd3d7df), width: 1),
-          color: _selected ? Color(0xff0958c5) : Color(0xffffffff),
-        ),
-        child: Container(
-          margin: EdgeInsets.symmetric(vertical: 7.5, horizontal: 12),
-          child: Text(title, style: textStyle(color: _selected ? Color(0xffffffff) : Color(0xffd1d5d9), weight: 400, size: 14.0),)
-        )
-      )
+      child: categoryItem(title, _selected)
     );
   }
 

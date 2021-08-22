@@ -104,3 +104,10 @@ swiperPagination() {
 textFieldClear(TextEditingController controller) {
   controller.clear();
 }
+
+selectedBorderColor() {return Color(0xff0958c5);}
+unselectedBorderColor() {return Color(0xffd3d7df);}
+selectedFillColor() {return Color(0xff0958c5);}
+unselectedFillColor() {return Color(0xffffffff);}
+selectedTextColor() {return Color(0xffffffff);}
+unselectedTextColor() {return Color(0xffd1d5d9);}

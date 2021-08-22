@@ -7,14 +7,15 @@ import 'functionCollection.dart';
 class TitleContainer extends StatelessWidget {
   final String title;
   final double size;
+  final bool margin;
 
-  TitleContainer({required this.title, this.size=16.0});
+  TitleContainer({required this.title, this.size=16.0, this.margin=true});
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 16 * responsiveScale),
       child: Center(child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
+        margin: EdgeInsets.symmetric(horizontal: margin ? 21 * responsiveScale : 0),
         width: MediaQuery.of(context).size.width,
         child: Text(title, style: textStyle(weight: 700, size: size), textAlign: TextAlign.left,)
       ))
@@ -98,4 +99,18 @@ class LineDivider extends StatelessWidget {
       )
     );
   }
+}
+
+categoryItem(String title, bool condition) {
+  return Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(16)),
+      border: Border.all(color: condition ? selectedBorderColor() : unselectedBorderColor()),
+      color: condition ? selectedFillColor() : unselectedFillColor()
+    ),
+    child: Container(
+      margin: EdgeInsets.symmetric(vertical: 7.5, horizontal: 12),
+      child: Text(title, style: textStyle(color: condition ? selectedTextColor() : unselectedTextColor(), weight: 400, size: 14.0),)
+    )
+  );
 }
