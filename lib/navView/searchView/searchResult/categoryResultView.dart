@@ -81,7 +81,6 @@ class _CategoryAppBar extends State<CategoryAppBar> {
     );
   }
 
-  //TODO : background color border의 나머지에 적용안됨
   showCategoryList() {
     showModalBottomSheet(
       context: context,

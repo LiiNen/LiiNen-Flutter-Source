@@ -41,7 +41,6 @@ class _ClubDetailSetupView extends State<ClubDetailSetupView> {
               children: [
                 sizedBox(8),
                 detailTitle('모임 사진'),
-                // TODO : image get(profileSetupView)
                 clubImageSetupContainer(),
                 detailTitle('모임 이름'),
                 _setupTextField(
@@ -123,10 +122,11 @@ class _ClubDetailSetupView extends State<ClubDetailSetupView> {
       ),
       style: textStyle(weight: 600, size: 12.0),
       keyboardType: isNum ? TextInputType.number : (isIntro ? TextInputType.multiline : TextInputType.text),
-      textInputAction: isNext ? TextInputAction.next : (isIntro ? TextInputAction.newline : TextInputAction.done),
+      textInputAction: isIntro ? TextInputAction.newline : (isNext ? TextInputAction.next : TextInputAction.done),
       maxLines: isIntro ? null : 1,
       onChanged: (value) {
         setState(() {
+          print(isIntro);
           _fieldComplete = (clubNameController.text != '' && clubIntroController.text != '' && (clubLimitController.text != '' && int.parse(clubLimitController.text) > 0));
         });
       },

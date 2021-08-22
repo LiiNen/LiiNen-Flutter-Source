@@ -41,21 +41,22 @@ class _SearchTextView extends State<SearchTextView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: MainViewAppBar(title: '탐색', back: true),
-      body: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(color: Colors.white),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 40,
-                margin: EdgeInsets.symmetric(vertical: 16 * responsiveScale),
-                child: DecoratedBox(
+      body: SingleChildScrollView(
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(color: Colors.white),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                //TODO : why textfield going up when text inserted?
+                Container(
+                  height: 40,
+                  margin: EdgeInsets.only(top: 16 * responsiveScale),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(2)),
                     color: Color(0xfff5f5f5),
@@ -67,7 +68,7 @@ class _SearchTextView extends State<SearchTextView> {
                     textInputAction: TextInputAction.search,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 12.5),
+                      contentPadding: EdgeInsets.only(left: 14, right: 14),
                       hintText: '어떤 모임을 찾으시나요?',
                       hintStyle: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 12.0),
                       suffixIcon: searchInputController.text != '' ? IconButton(
@@ -75,43 +76,44 @@ class _SearchTextView extends State<SearchTextView> {
                         icon: SvgPicture.asset('asset/image/icoInputClose.svg', width: 20, height: 20),
                       ) : null
                     ),
-                    style: textStyle(weight: 400, size: 12.0),
+                    style: textStyle(weight: 600, size: 12.0),
+                    onChanged: (value) => {setState((){})},
                     onSubmitted: (value) => {setState(() {searchWithText(value);})},
                   )
-                )
-              ),
-              SizedBox(height: 28, width: MediaQuery.of(context).size.width),
-            ] + (searchHistoryList.length != 0 ? [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('최근 검색어', style: textStyle(weight: 700, size: 16.0), textAlign: TextAlign.left,),
-                  GestureDetector(
-                    onTap: () => {setState(() {removeRecent(all: true);})},
-                    child: Center(
-                      child: Text('전체삭제', style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 12.0))
+                ),
+                SizedBox(height: 28, width: MediaQuery.of(context).size.width),
+              ] + (searchHistoryList.length != 0 ? [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text('최근 검색어', style: textStyle(weight: 700, size: 16.0), textAlign: TextAlign.left,),
+                    GestureDetector(
+                      onTap: () => {setState(() {removeRecent(all: true);})},
+                      child: Center(
+                        child: Text('전체삭제', style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 12.0))
+                      )
                     )
-                  )
-                ],
-              ),
-              SizedBox(height: 20, width: MediaQuery.of(context).size.width),
-              Wrap( // TODO: max line 3
-                direction: Axis.horizontal,
-                spacing: 8, runSpacing: 8,
-                children: searchHistoryList.map((e) => _keywordItem(keyword: e, isRecent: true)).toList(),
-              ),
-              SizedBox(height: 48),
-            ] : []) + (popularList.length != 0 ? [
-              Text('인기 검색어', style: textStyle(weight: 700, size: 16.0), textAlign: TextAlign.left,),
-              SizedBox(height: 20),
-              Wrap( // TODO: max line 3
-                direction: Axis.horizontal,
-                spacing: 8, runSpacing: 8,
-                children: popularList.map((e) => _keywordItem(keyword: e, isRecent: false)).toList(),
-              )
-            ] : [])
+                  ],
+                ),
+                SizedBox(height: 20, width: MediaQuery.of(context).size.width),
+                Wrap( // TODO: max line 3
+                  direction: Axis.horizontal,
+                  spacing: 8, runSpacing: 8,
+                  children: searchHistoryList.map((e) => _keywordItem(keyword: e, isRecent: true)).toList(),
+                ),
+                SizedBox(height: 48),
+              ] : []) + (popularList.length != 0 ? [
+                Text('인기 검색어', style: textStyle(weight: 700, size: 16.0), textAlign: TextAlign.left,),
+                SizedBox(height: 20),
+                Wrap( // TODO: max line 3
+                  direction: Axis.horizontal,
+                  spacing: 8, runSpacing: 8,
+                  children: popularList.map((e) => _keywordItem(keyword: e, isRecent: false)).toList(),
+                )
+              ] : [])
+            )
           )
         )
       )
