@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_source/containerCollection.dart';
+import 'package:my_flutter_source/loginView/loginWidgets.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/navView/navView.dart';
@@ -26,7 +27,7 @@ class _CategorySetupView extends State<CategorySetupView> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(height: 24 * responsiveScale),
-                Text('관심 카테고리 선택', style: textStyle(weight: 700, size: 20.0)),
+                loginTitle('관심 카테고리 선택'),
                 SizedBox(height: 16 * responsiveScale),
                 Text('관심있는 카테고리를 선택해주세요', style: textStyle(weight: 400, size: 16.0)),
                 SizedBox(height: 24 * responsiveScale),

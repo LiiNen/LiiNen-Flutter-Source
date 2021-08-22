@@ -4,6 +4,7 @@ import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/navView/navView.dart';
 
+import 'loginWidgets.dart';
 import 'policyView.dart';
 
 class LoginEmailView extends StatefulWidget {
@@ -50,12 +51,9 @@ class _LoginEmailView extends State<LoginEmailView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 24 * responsiveScale),
-                    Text('이메일 로그인',
-                      style: textStyle(weight: 700, size: 20.0),
-                      textAlign: TextAlign.left,
-                    ),
+                    loginTitle('이메일 로그인',),
                     SizedBox(height: 24 * responsiveScale),
-                    Text('이메일', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,),
+                    loginSubtitle('이메일'),
                     SizedBox(height: 8 * responsiveScale),
                     TextField(
                       controller: emailController,
@@ -72,7 +70,7 @@ class _LoginEmailView extends State<LoginEmailView> {
                       onSubmitted: (value) => {passwordFocus.requestFocus()},
                     ),
                     SizedBox(height: 20),
-                    Text('비밀번호', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,),
+                    loginSubtitle('비밀번호'),
                     SizedBox(height: 8),
                     TextField(
                       controller: passwordController,

@@ -5,6 +5,7 @@ import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
 
+import 'loginWidgets.dart';
 import 'signUpView.dart';
 
 class PolicyView extends StatefulWidget {
@@ -29,10 +30,7 @@ class _PolicyView extends State<PolicyView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 24 * responsiveScale),
-                Text('환영합니다',
-                  style: textStyle(weight: 700, size: 20.0),
-                  textAlign: TextAlign.left,
-                ),
+                loginTitle('환영합니다.'),
                 SizedBox(height: 16 * responsiveScale),
                 Text('아래 약관에 동의하시고\n'
                     '이건모임에서 목표를 이루어 보세요',

@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/loginView/categorySetupView.dart';
+import 'package:my_flutter_source/loginView/loginWidgets.dart';
 
 import 'package:my_flutter_source/main.dart';
 
@@ -36,7 +37,7 @@ class _ProfileSetupView extends State<ProfileSetupView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 24 * responsiveScale),
-                  Text('사진과 닉네임을 등록해주세요', style: textStyle(weight: 700, size: 20.0)),
+                  loginTitle('사진과 닉네임을 등록해주세요'),
                   SizedBox(height: 24 * responsiveScale),
                   Center(
                     child: GestureDetector(
@@ -65,7 +66,7 @@ class _ProfileSetupView extends State<ProfileSetupView> {
                     )
                   ),
                   SizedBox(height: 20 * responsiveScale),
-                  Text('닉네임', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,),
+                  loginSubtitle('닉네임'),
                   SizedBox(height: 8 * responsiveScale),
                   TextField(
                     controller: nameController,

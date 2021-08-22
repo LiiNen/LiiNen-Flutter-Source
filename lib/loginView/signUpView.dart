@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/loginView/phoneAuthView.dart';
 import 'package:my_flutter_source/loginView/profileSetupView.dart';
 import 'package:my_flutter_source/main.dart';
+
+import 'loginWidgets.dart';
 
 class SignUpView extends StatefulWidget {
   @override
@@ -37,9 +40,9 @@ class _SignUpView extends State<SignUpView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 24 * responsiveScale),
-              Text('이메일로 회원가입', style: textStyle(weight: 700, size: 20.0), textAlign: TextAlign.left,),
+              loginTitle('이메일로 회원가입'),
               SizedBox(height: 24 * responsiveScale),
-              Text('이메일', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left),
+              loginSubtitle('이메일'),
               SizedBox(height: 8 * responsiveScale),
               TextField(
                 controller: emailController,
@@ -61,7 +64,7 @@ class _SignUpView extends State<SignUpView> {
                 onSubmitted: (value) => {pwFirstFocus.requestFocus()},
               ),
               SizedBox(height: 20 * responsiveScale),
-              Text('비밀번호', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,),
+              loginSubtitle('비밀번호'),
               SizedBox(height: 8 * responsiveScale),
               TextField(
                 controller: pwFirstController,
@@ -97,7 +100,7 @@ class _SignUpView extends State<SignUpView> {
                 ))
               ),
               SizedBox(height: 24 * responsiveScale),
-              Text('비밀번호 확인', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,),
+              loginSubtitle('비밀번호 확인'),
               SizedBox(height: 8 * responsiveScale),
               TextField(
                 controller: pwSecondController,
@@ -159,6 +162,6 @@ class _SignUpView extends State<SignUpView> {
   }
 
   void _nextStep() {
-    if(emailController.text != '' && pwSecondConfirm) Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileSetupView()));
+    if(emailController.text != '' && pwSecondConfirm) Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneAuthView()));
   }
 }
