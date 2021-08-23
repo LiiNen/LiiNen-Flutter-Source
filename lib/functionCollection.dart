@@ -86,6 +86,13 @@ inputBorderWarning() {
   );
 }
 
+disabledBorder() {
+  return OutlineInputBorder(
+    borderRadius: BorderRadius.circular(2),
+    borderSide: BorderSide(color: Color(0xfff5f5f5), width: 1)
+  );
+}
+
 constraint(height) {
   return SizedBox(height: height * responsiveScale);
 }

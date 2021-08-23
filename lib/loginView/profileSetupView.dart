@@ -99,7 +99,6 @@ class _ProfileSetupView extends State<ProfileSetupView> {
       sizedBox(8),
       TextField(
         controller: nameController,
-        obscureText: true,
         autofocus: false,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
@@ -123,7 +122,6 @@ class _ProfileSetupView extends State<ProfileSetupView> {
       sizedBox(8),
       TextField(
         controller: introController,
-        obscureText: true,
         focusNode: introFocusNode,
         autofocus: false,
         decoration: InputDecoration(

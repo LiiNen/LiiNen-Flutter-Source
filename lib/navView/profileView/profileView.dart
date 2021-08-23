@@ -11,9 +11,11 @@ import 'modifyAccountView/modifyAccountView.dart';
 class ProfileItem {
   String? profileUrl;
   String name;
-  ProfileItem({this.profileUrl, required this.name});
+  String intro;
+  String phone;
+  ProfileItem({this.profileUrl, required this.name, required this.intro, required this.phone});
 }
-ProfileItem testUser = ProfileItem(name: '테스트계정');
+ProfileItem testUser = ProfileItem(name: '테스트계정', intro: '안녕하세요', phone: '010-0000-0000');
 
 class ProfileView extends StatefulWidget {
   @override
