@@ -18,6 +18,7 @@ class _CategoryResultView extends State<CategoryResultView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CategoryAppBar(currentCategory: _category,),
       body: ResultItemContainer()
     );

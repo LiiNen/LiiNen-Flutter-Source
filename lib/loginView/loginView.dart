@@ -26,6 +26,7 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: MaskAppBar(),
       body: Container(
         child: Center(
@@ -35,22 +36,22 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
               Text(
                 "환영합니다 🙌",
                 style: const TextStyle(
-                    color:  const Color(0xff000000),
-                    fontWeight: FontWeight.w700,
-                    fontFamily: "AppleSDGothicNeo",
-                    fontStyle:  FontStyle.normal,
-                    fontSize: 28.0
+                  color:  const Color(0xff000000),
+                  fontWeight: FontWeight.w700,
+                  fontFamily: "AppleSDGothicNeo",
+                  fontStyle:  FontStyle.normal,
+                  fontSize: 28.0
                 )
               ),
               sizedBox(12),
               Text(
                 "이건모임에서 목표를 달성해보세요!",
                 style: const TextStyle(
-                    color:  const Color(0xff4a4a4a),
-                    fontWeight: FontWeight.w400,
-                    fontFamily: "AppleSDGothicNeo",
-                    fontStyle:  FontStyle.normal,
-                    fontSize: 14.0
+                  color:  const Color(0xff4a4a4a),
+                  fontWeight: FontWeight.w400,
+                  fontFamily: "AppleSDGothicNeo",
+                  fontStyle:  FontStyle.normal,
+                  fontSize: 14.0
                 ),
               ),
               sizedBox(44),
@@ -60,13 +61,13 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
               ),
               sizedBox(8),
               GestureDetector(
-                  onTap: _loginSuccess,
-                  child: SvgPicture.asset('asset/loginView/kakaoBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
+                onTap: _loginSuccess,
+                child: SvgPicture.asset('asset/loginView/kakaoBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
               ),
               sizedBox(8),
               GestureDetector(
-                  onTap: _loginEmail,
-                  child: SvgPicture.asset('asset/loginView/emailBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
+                onTap: _loginEmail,
+                child: SvgPicture.asset('asset/loginView/emailBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
               )
             ],
           )

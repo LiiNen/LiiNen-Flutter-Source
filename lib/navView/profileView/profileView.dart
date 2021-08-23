@@ -26,6 +26,7 @@ class _ProfileView extends State<ProfileView> {
   Widget build(BuildContext context) {
     ProfileItem _user = testUser;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: MainViewAppBar(title: '더보기', back: false),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),

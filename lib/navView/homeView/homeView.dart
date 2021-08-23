@@ -20,10 +20,10 @@ class _HomeView extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: MainViewAppBar(home: true,),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(color: Colors.white),
         child: ListView(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,

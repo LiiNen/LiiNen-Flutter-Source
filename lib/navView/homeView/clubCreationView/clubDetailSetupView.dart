@@ -26,15 +26,15 @@ class _ClubDetailSetupView extends State<ClubDetailSetupView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: MainViewAppBar(title: '모임개설', back: true,),
-      body: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: Container(
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: true,
+        appBar: MainViewAppBar(title: '모임개설', back: true,),
+        body: Container(
           padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(color: Colors.white),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

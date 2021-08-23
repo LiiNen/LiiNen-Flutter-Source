@@ -18,6 +18,7 @@ class _TextResultView extends State<TextResultView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       appBar: TextAppBar(text: _text),
       body: GestureDetector(

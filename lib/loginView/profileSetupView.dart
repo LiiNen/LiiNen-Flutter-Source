@@ -24,12 +24,13 @@ class _ProfileSetupView extends State<ProfileSetupView> {
   // TODO : overflow 37 pixel in android device when keyboard up
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: LoginViewAppBar(),
-      body: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: Container(
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: true,
+        appBar: LoginViewAppBar(),
+        body: Container(
           padding: EdgeInsets.symmetric(horizontal: 21  * responsiveScale),
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(color: Colors.white),

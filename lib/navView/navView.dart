@@ -18,6 +18,7 @@ class _NavView extends State<NavView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor:Colors.white,
         type: BottomNavigationBarType.fixed,

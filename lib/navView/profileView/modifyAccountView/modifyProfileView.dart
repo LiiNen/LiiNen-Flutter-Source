@@ -28,6 +28,7 @@ class _ModifyProfileView extends State<ModifyProfileView> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
+        backgroundColor: Colors.white,
         resizeToAvoidBottomInset: true,
         appBar: MainViewAppBar(title: '프로필 편집', back: true),
         body: SingleChildScrollView(

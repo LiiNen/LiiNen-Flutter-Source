@@ -20,31 +20,25 @@ class _LoginEmailView extends State<LoginEmailView> {
   var emailFocus = FocusNode();
   var passwordFocus = FocusNode();
 
-  //TODO: 스크롤 버그 존재
   @override
   void initState() {
-    emailFocus.addListener(() {
-      scrollOnFocus(_scrollController, 96 * responsiveScale);
-    });
-    passwordFocus.addListener(() {
-      scrollOnFocus(_scrollController, 211 * responsiveScale);
-    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: LoginViewAppBar(),
-      body: SingleChildScrollView(
-        controller: _scrollController,
-        child: GestureDetector(
-          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: true,
+        appBar: LoginViewAppBar(),
+        body: SingleChildScrollView(
+          controller: _scrollController,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
             width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(color: Colors.white,),
+            height: MediaQuery.of(context).size.height - 116,
             child: Stack(
               children: [
                 Column(
@@ -107,7 +101,6 @@ class _LoginEmailView extends State<LoginEmailView> {
                         child: Center(child: Text('로그인', style: textStyle(color: Colors.white, weight: 600, size: 16.0)))
                       ),
                     ),
-                    sizedBox(288),
                   ]
                 ),
                 Positioned(
@@ -131,7 +124,7 @@ class _LoginEmailView extends State<LoginEmailView> {
               ]
             )
           )
-        )
+        ),
       )
     );
   }

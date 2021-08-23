@@ -16,6 +16,7 @@ class _SearchFilterView extends State<SearchFilterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: FilterAppBar(),
       body: Container(
         child: Column(

@@ -40,12 +40,13 @@ class _SearchTextView extends State<SearchTextView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: MainViewAppBar(title: '탐색', back: true),
-      body: SingleChildScrollView(
-        child: GestureDetector(
-          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: true,
+        appBar: MainViewAppBar(title: '탐색', back: true),
+        body: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
             width: MediaQuery.of(context).size.width,

@@ -19,6 +19,7 @@ class _AlarmView extends State<AlarmView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: MainViewAppBar(title: '알림', back: false),
       body: ListView.builder(
         itemCount: alarmItemList.length * 2,

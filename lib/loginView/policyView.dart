@@ -19,11 +19,11 @@ class _PolicyView extends State<PolicyView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: LoginViewAppBar(),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(color: Colors.white),
         child: Stack(
           children: [
             Column(
@@ -39,11 +39,11 @@ class _PolicyView extends State<PolicyView> {
                   textAlign: TextAlign.left,
                 ),
                 sizedBox(52),
-                LineDivider(color: Color(0xffd1d5d9)),
+                LineDivider(color: Color(0xffd1d5d9), horizontalMargin: false,),
                 sizedBox(16),
                 _checkBoxRow(0, '모두 동의합니다.', false, textStyle(weight: 600, size: 18.0)),
                 sizedBox(16),
-                LineDivider(color: Color(0xffd1d5d9)),
+                LineDivider(color: Color(0xffd1d5d9), horizontalMargin: false,),
                 sizedBox(16),
                 _checkBoxRow(1, '(필수) 이용약관', true, textStyle(color: Color(0xff636c73), weight: 400, size: 14.0)),
                 sizedBox(20),

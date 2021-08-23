@@ -11,8 +11,6 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchView extends State<SearchView> {
-  FocusNode focusNode = FocusNode();
-
   @override
   Widget build(BuildContext context) {
     Container _searchByText = Container(
@@ -49,33 +47,31 @@ class _SearchView extends State<SearchView> {
     );
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: MainViewAppBar(title: '탐색'),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(color: Colors.white),
-        child: GestureDetector(
-          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-          child: Stack(
-            children: <Widget>[
-              Positioned(
-                top: 16,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _searchByText,
-                    SizedBox(height: 12),
-                    TitleContainer(title: '카테고리'),
-                  ],
-                )
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 108),
-                child: _searchByCategory,
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: 16,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _searchByText,
+                  SizedBox(height: 12),
+                  TitleContainer(title: '카테고리'),
+                ],
               )
-            ]
-          )
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 108),
+              child: _searchByCategory,
+            )
+          ]
         )
       )
     );
@@ -83,7 +79,6 @@ class _SearchView extends State<SearchView> {
 
   @override
   void dispose() {
-    focusNode.dispose();
     super.dispose();
   }
 }

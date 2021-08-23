@@ -16,11 +16,11 @@ class _CategorySetupView extends State<CategorySetupView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: LoginViewAppBar(),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 21  * responsiveScale),
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(color: Colors.white),
         child: Stack(
           children: [
             Column(

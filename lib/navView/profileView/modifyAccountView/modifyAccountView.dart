@@ -11,6 +11,7 @@ class ModifyAccountView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: MainViewAppBar(title: '계정 설정', back: true,),
       body: Container(
         padding: EdgeInsets.only(top: 28 * responsiveScale),

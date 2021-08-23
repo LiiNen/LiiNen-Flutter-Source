@@ -24,15 +24,15 @@ class _PhoneAuthView extends State<PhoneAuthView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: LoginViewAppBar(),
-      body: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: Container(
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: false,
+        appBar: LoginViewAppBar(),
+        body: Container(
           padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(color: Colors.white),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
