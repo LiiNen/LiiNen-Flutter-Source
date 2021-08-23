@@ -111,3 +111,9 @@ selectedFillColor() {return Color(0xff0958c5);}
 unselectedFillColor() {return Color(0xffffffff);}
 selectedTextColor() {return Color(0xffffffff);}
 unselectedTextColor() {return Color(0xffd1d5d9);}
+
+navigatorPush({context, widget, replacement=false}) {
+  replacement
+    ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => widget))
+    : Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
+}

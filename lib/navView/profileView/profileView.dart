@@ -6,6 +6,8 @@ import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/constraintCollection.dart';
 import 'package:my_flutter_source/main.dart';
 
+import 'modifyAccountView/modifyAccountView.dart';
+
 class ProfileItem {
   String? profileUrl;
   String name;
@@ -29,9 +31,7 @@ class _ProfileView extends State<ProfileView> {
           children: [
             sizedBox(28),
             GestureDetector(
-              onTap: () {
-                //계정설정 페이지
-              },
+              onTap: () {navigatorPush(context: context, widget: ModifyAccountView());},
               child: Row(
                 children: [
                   ClipRRect(
@@ -67,17 +67,22 @@ class _ProfileView extends State<ProfileView> {
                   // 외부 링크 통해 약관 등 webview
                 }
               },
-              child: Container(
-                width: MediaQuery.of(context).size.width - 42 * responsiveScale,
-                height: 48,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(_menuItem.title, style: textStyle(weight: 400, size: 16.0)),
-                    SvgPicture.asset('asset/loginView/iconArrow.svg', width: 20, height: 20, color: Colors.black),
-                  ]
-                )
+              child: Column(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width - 42 * responsiveScale,
+                    height: 47,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(_menuItem.title, style: textStyle(weight: 400, size: 16.0)),
+                        SvgPicture.asset('asset/loginView/iconArrow.svg', width: 20, height: 20, color: Colors.black),
+                      ]
+                    )
+                  ),
+                  LineDivider(horizontalMargin: false,)
+                ]
               )
             );
           })
