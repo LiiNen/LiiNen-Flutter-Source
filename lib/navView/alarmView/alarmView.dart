@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/navView/alarmView/alarmItemContainer.dart';
@@ -13,20 +12,40 @@ class AlarmView extends StatefulWidget {
 }
 class _AlarmView extends State<AlarmView> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainViewAppBar(title: '알림', back: false),
       body: ListView.builder(
-        itemCount: alarmItemList.length,
+        itemCount: alarmItemList.length * 2,
         itemBuilder: (context, index) {
-          final item = alarmItemList[index];
-          return Dismissible(
+          if(index%2 == 1) return LineDivider(horizontalMargin: false,);
+          var itemIndex = (index/2).floor();
+          final item = alarmItemList[itemIndex];
+          return Slidable(
             key: UniqueKey(),
-            onDismissed: (direction) {
-              setState(() {
-                alarmItemList.removeAt(index);
-              });
-            },
+            direction: Axis.horizontal,
+            dismissal: SlidableDismissal(
+              child: SlidableDrawerDismissal(),
+              onDismissed: (actionType) {
+                setState(() {removeAlarm(itemIndex);});
+              },
+            ),
+            actionPane: SlidableScrollActionPane(),
+            actionExtentRatio: 0.2,
+            secondaryActions: [
+              IconSlideAction(
+                color: Color(0xffeb5847),
+                onTap: () {setState(() {removeAlarm(itemIndex);});},
+                iconWidget: Container(
+                  child: Text('지우기', style: textStyle(color: Colors.white, weight: 400, size: 12.0))
+                ),
+              )
+            ],
             child: GestureDetector(
               onTap: () => {},
               child: Container(
@@ -60,6 +79,10 @@ class _AlarmView extends State<AlarmView> {
         },
       ),
     );
+  }
+
+  removeAlarm(index) {
+    alarmItemList.removeAt(index);
   }
 }
 

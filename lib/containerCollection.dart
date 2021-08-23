@@ -83,13 +83,14 @@ class MainViewAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class LineDivider extends StatelessWidget {
-  LineDivider({this.color = const Color(0xffebebeb)});
+  LineDivider({this.color = const Color(0xffebebeb), this.horizontalMargin = true});
   final Color color;
+  final bool horizontalMargin;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
+      margin: EdgeInsets.symmetric(horizontal: horizontalMargin ? 21 * responsiveScale : 0),
       height: 1,
       decoration: BoxDecoration(
         border: Border.all(
