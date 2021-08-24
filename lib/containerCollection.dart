@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_flutter_source/main.dart';
@@ -121,6 +123,7 @@ confirmButton({required title, required confirmAction, required condition}){
     onTap: () {confirmAction();},
     child: Container(
       height: 52 * responsiveScale,
+      width: maxWidth,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
           Radius.circular(4),
@@ -138,7 +141,7 @@ checkBoxWithText ({required context, required title, required condition, require
     onTap: () {tapAction();},
     child: Container(
       height: 24,
-      width: MediaQuery.of(context).size.width - 42 * responsiveScale,
+      width: maxWidth,
       child: Row(
         children: [
           Container(

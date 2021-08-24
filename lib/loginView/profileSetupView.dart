@@ -71,19 +71,7 @@ class _ProfileSetupView extends State<ProfileSetupView> {
                   ),
                 ] + nameField() + introField() + [
                   sizedBox(40),
-                  GestureDetector(
-                    onTap: _nextStep,
-                    child: Container(
-                      height: 52 * responsiveScale,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(4)
-                        ),
-                        color: nameController.text != '' ? Color(0xff0958c5) : Color(0xffd1d5d9)
-                      ),
-                      child: Center(child: Text('다음으로', style: textStyle(color: Colors.white, weight: 600, size: 16.0)))
-                    )
-                  ),
+                  confirmButton(title: '다음으로', confirmAction: _nextStep, condition: nameController.text != '')
                 ],
               ),
             ],
@@ -110,6 +98,7 @@ class _ProfileSetupView extends State<ProfileSetupView> {
         ),
         style: textStyle(weight: 600, size: 12.0),
         textInputAction: TextInputAction.done,
+        onChanged: (value) {setState(() {});},
         onSubmitted: (value) {introFocusNode.requestFocus();},
       ),
       sizedBox(4),

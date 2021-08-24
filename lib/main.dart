@@ -9,6 +9,7 @@ import 'navView/navView.dart';
 void main()=> runApp(MyApp());
 
 double responsiveScale = 1.0;
+double maxWidth = 0.0;
 
 class MyApp extends StatelessWidget {
   Future<InitializationStatus> _initGoogleMobileAds() {
@@ -51,6 +52,7 @@ class _MainRouter extends State<MainRouter> {
     var a = MediaQuery.of(context).size.width / 375;
     var b = MediaQuery.of(context).size.height / 812;
     responsiveScale = a < b ? a : b;
+    maxWidth = MediaQuery.of(context).size.width - 42 * responsiveScale;
     if(_loginState != null && _loginState!){
       return MaterialApp(
         home: NavView()

@@ -108,17 +108,7 @@ class _PhoneAuthView extends State<PhoneAuthView> {
               sizedBox(4),
               Text(_leftTimeText, style: textStyle(color: Color(0xffd93826), weight: 400, size: 12.0),),
               sizedBox(40),
-              GestureDetector(
-                onTap: () {_nextStep();},
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                    color: isAuthValid ? Color(0xff0958c5) : Color(0xffd1d5d9)
-                  ),
-                  height: 52 * responsiveScale,
-                  child: Center(child: Text('확인', style: textStyle(color: Colors.white, weight: 600, size: 16.0))),
-                )
-              )
+              confirmButton(title: '확인', confirmAction: _nextStep, condition: isAuthValid),
             ] : []),
           )
         )

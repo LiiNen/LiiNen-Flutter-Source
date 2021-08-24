@@ -54,25 +54,16 @@ class _PolicyView extends State<PolicyView> {
             ),
             Positioned(
               bottom: 36 * responsiveScale,
-              child: GestureDetector(
-                child: Container(
-                  width: MediaQuery.of(context).size.width - 42 * responsiveScale,
-                  height: 52 * responsiveScale,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(4)
-                    ),
-                    color: _check() ? Color(0xff0958c5) : Color(0xffd1d5d9)
-                  ),
-                  child: Center(child: Text('시작하기', style: textStyle(color: Colors.white, weight: 600, size: 16.0)))
-                ),
-                onTap: () => _check() ? {Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpView()))} : {},
-              ),
+              child: confirmButton(title: '시작하기', confirmAction: _nextStep, condition: _check()),
             )
           ],
         )
       )
     );
+  }
+
+  void _nextStep() {
+    navigatorPush(context: context, widget: SignUpView());
   }
 
   Container _checkBoxRow(int index, String title, bool detailBool, TextStyle style) {
