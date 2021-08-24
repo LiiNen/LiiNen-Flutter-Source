@@ -115,3 +115,45 @@ categoryItem(String title, bool condition) {
     )
   );
 }
+
+confirmButton({required title, required confirmAction, required condition}){
+  return GestureDetector(
+    onTap: () {confirmAction();},
+    child: Container(
+      height: 52 * responsiveScale,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(4),
+        ),
+        color: condition ? Color(0xff0958c5) : Color(0xffd1d5d9),
+      ),
+      child: Center(child: Text(title, style: textStyle(color: Colors.white, weight: 600, size: 16.0)))
+    )
+  );
+}
+
+checkBoxWithText ({required context, required title, required condition, required tapAction}) {
+  TextStyle style = textStyle(color: Color(0xff636c73), weight: 400, size: 14.0);
+  return GestureDetector(
+    onTap: () {tapAction();},
+    child: Container(
+      height: 24,
+      width: MediaQuery.of(context).size.width - 42 * responsiveScale,
+      child: Row(
+        children: [
+          Container(
+            width: 24 * responsiveScale, height: 24 * responsiveScale,
+            child: SvgPicture.asset(condition
+              ? 'asset/image/checkBoxCheck.svg'
+              : 'asset/image/checkBoxUncheck.svg'),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 8),
+            width: MediaQuery.of(context).size.width - 98 * responsiveScale,
+            child: Text(title, style: style),
+          ),
+        ],
+      )
+    )
+  );
+}

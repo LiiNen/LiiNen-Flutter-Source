@@ -8,7 +8,9 @@ import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/loginView/loginWidgets.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/navView/profileView/modifyAccountView/deleteAccountView.dart';
 
+import '../../../infoView.dart';
 import '../profileView.dart';
 
 class ModifyProfileView extends StatefulWidget {
@@ -71,25 +73,18 @@ class _ModifyProfileView extends State<ModifyProfileView> {
                 ),
               ] + nameField() + introField() + phoneField() + [
                 sizedBox(36),
-                GestureDetector(
-                  onTap: () => {},
-                  child: Container(
-                    height: 52 * responsiveScale,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(4)
-                      ),
-                      color: nameController.text != '' || introController.text != '' ? Color(0xff0958c5) : Color(0xffd1d5d9)
-                    ),
-                    child: Center(child: Text('수정하기', style: textStyle(color: Colors.white, weight: 600, size: 16.0)))
-                  )
-                ),
+                confirmButton(title: '수정하기', confirmAction: confirm, condition: nameController.text != '' || introController.text != ''),
               ]
             )
           )
         )
       )
     );
+  }
+
+  void confirm() {
+    print('수정하기');
+    // navigatorPush(context: context, widget: DeleteAccountView());
   }
 
   List<Widget> nameField() {
