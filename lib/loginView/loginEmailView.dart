@@ -39,7 +39,8 @@ class _LoginEmailView extends State<LoginEmailView> {
             padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height - 116,
-            child: Stack(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -80,7 +81,7 @@ class _LoginEmailView extends State<LoginEmailView> {
                       style: textStyle(weight: 600, size: 12.0),
                       onChanged: (value) {setState(() {});},
                       textInputAction: TextInputAction.done,
-                      onSubmitted: (value) => {_loginAction(emailController.text, value)},
+                      onSubmitted: (value) => {_loginAction()},
                     ),
                     sizedBox(20),
                     Container(
@@ -88,38 +89,28 @@ class _LoginEmailView extends State<LoginEmailView> {
                       child: Text('아이디/비밀번호 찾기', style: textStyle(weight: 600, size: 12.0), textAlign: TextAlign.right),
                     ),
                     sizedBox(36),
-                    GestureDetector(
-                      onTap: () => {_loginAction(emailController.text, passwordController.text)},
-                      child: Container(
-                        height: 52 * responsiveScale,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(4)
-                          ),
-                          color: emailController.text != '' && passwordController.text != '' ? Color(0xff0958c5) : Color(0xffd1d5d9)
-                        ),
-                        child: Center(child: Text('로그인', style: textStyle(color: Colors.white, weight: 600, size: 16.0)))
-                      ),
-                    ),
+                    confirmButton(title: '로그인', confirmAction: _loginAction, condition: emailController.text != '' && passwordController.text != ''),
                   ]
                 ),
-                Positioned(
-                  bottom: 36 * responsiveScale,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width - 42 * responsiveScale,
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('아직 계정이 없으신가요? ', style: textStyle(weight: 400, size: 16.0)),
-                          GestureDetector(
-                            child: Text('회원가입', style: textStyle(weight: 600, size: 16.0)),
-                            onTap: _signUpBtnClick,
-                          )
-                        ]
+                Column(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width - 42 * responsiveScale,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('아직 계정이 없으신가요? ', style: textStyle(weight: 400, size: 16.0)),
+                            GestureDetector(
+                              child: Text('회원가입', style: textStyle(weight: 600, size: 16.0)),
+                              onTap: _signUpBtnClick,
+                            )
+                          ]
+                        )
                       )
-                    )
-                  )
+                    ),
+                    sizedBox(36),
+                  ],
                 )
               ]
             )
@@ -140,13 +131,11 @@ class _LoginEmailView extends State<LoginEmailView> {
   }
 
   //TODO : login implements
-  void _loginAction(email, password) {
-    print(email);
-    print(password);
-    Navigator.push(context, MaterialPageRoute(builder: (context) => NavView()));
+  void _loginAction() {
+    navigatorPush(context: context, widget: NavView());
   }
 
   void _signUpBtnClick() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => PolicyView()));
+    navigatorPush(context: context, widget: PolicyView(), replacement: true);
   }
 }

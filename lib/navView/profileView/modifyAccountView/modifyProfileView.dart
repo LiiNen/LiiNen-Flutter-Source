@@ -8,9 +8,7 @@ import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/loginView/loginWidgets.dart';
 import 'package:my_flutter_source/main.dart';
-import 'package:my_flutter_source/navView/profileView/modifyAccountView/deleteAccountView.dart';
 
-import '../../../infoView.dart';
 import '../profileView.dart';
 
 class ModifyProfileView extends StatefulWidget {
