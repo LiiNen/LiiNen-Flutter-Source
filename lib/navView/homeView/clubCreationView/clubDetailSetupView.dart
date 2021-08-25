@@ -68,7 +68,8 @@ class _ClubDetailSetupView extends State<ClubDetailSetupView> {
                     height: 52 * responsiveScale,
                     child: Center(child: Text('개설하기', style: textStyle(color: Colors.white, weight: 600, size: 16.0))),
                   )
-                )
+                ),
+                sizedBox(10),
               ]
             )
           )
@@ -88,8 +89,8 @@ class _ClubDetailSetupView extends State<ClubDetailSetupView> {
     return GestureDetector(
       onTap: _modifyImage,
       child: Container(
-        width: 333 * responsiveScale,
-        height: 160 * responsiveScale,
+        width: maxWidth,
+        height: maxWidth / 2,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(2)),
           border: Border.all(color: Color(0xffe4e4e4), width: 1),
@@ -104,7 +105,7 @@ class _ClubDetailSetupView extends State<ClubDetailSetupView> {
               Text('사진을 등록해주세요', style: textStyle(color: Color(0xffd1d5d9), weight: 400, size: 12.0))
             ],
           )
-        ) : Image.file(File(_clubImage!.path), width: 333 * responsiveScale, height: 160 * responsiveScale, fit: BoxFit.contain)
+        ) : Image.file(File(_clubImage!.path), width: 333 * responsiveScale, height: 160 * responsiveScale, fit: BoxFit.cover)
       )
     );
   }

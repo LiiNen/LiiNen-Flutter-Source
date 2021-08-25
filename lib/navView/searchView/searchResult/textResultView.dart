@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'resultItemContainer.dart';
 
@@ -67,7 +68,7 @@ class _TextAppBar extends State<TextAppBar> {
       automaticallyImplyLeading: false,
       flexibleSpace: Stack(children: [
         Positioned(
-          bottom: 8, left: 21,
+          bottom: 8, left: 21 * responsiveScale,
           child: GestureDetector(
             onTap: () {Navigator.pop(context);},
             child: SvgPicture.asset('asset/image/icoBack.svg', width: 24, height: 24),
@@ -91,7 +92,7 @@ class _TextAppBar extends State<TextAppBar> {
           )
         ),
         Positioned(
-          bottom: 0, right: 21,
+          bottom: 0, right: 21 * responsiveScale,
           child: GestureDetector(
             onTap: () => {setState(() {
               if(searchInputController.text == '') {

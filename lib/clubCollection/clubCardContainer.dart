@@ -41,13 +41,13 @@ class _ClubCardContainer extends State<ClubCardContainer> {
   Widget build(BuildContext context) {
     return Container(
       decoration: shadowBoxDecoration(),
-      width: MediaQuery.of(context).size.width, height: 152 * responsiveScale,
+      width: MediaQuery.of(context).size.width, height: 152,
       margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
       padding: EdgeInsets.all(12),
       child: Row(
         children: [
           Container(
-            width: 128 * responsiveScale, height: 128 * responsiveScale,
+            width: 128, height: 128,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(4)),
               image: DecorationImage(

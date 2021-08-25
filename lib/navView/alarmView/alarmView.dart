@@ -51,20 +51,22 @@ class _AlarmView extends State<AlarmView> {
               onTap: () => {},
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(horizontal: 21, vertical: 20),
+                margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale, vertical: 20),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(18 * responsiveScale),
+                      borderRadius: BorderRadius.circular(18),
                       child: item.thumbnailUrl == null
-                        ? Image.asset('asset/loginView/profile.png', width: 36 * responsiveScale, height: 36 * responsiveScale,)
-                        : Image.network(item.thumbnailUrl!, width: 36 * responsiveScale, height: 36 * responsiveScale, fit: BoxFit.cover,),
+                        ? Image.asset('asset/loginView/profile.png', width: 36, height: 36,)
+                        : Image.network(item.thumbnailUrl!, width: 36, height: 36, fit: BoxFit.cover,),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width - (86 * responsiveScale),
+                      width: maxWidth - 36 - 8 * responsiveScale,
                       margin: EdgeInsets.only(left: 8 * responsiveScale),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(item.context, style: textStyle(weight: 400, size: 14.0), textAlign: TextAlign.left, overflow: TextOverflow.ellipsis,),

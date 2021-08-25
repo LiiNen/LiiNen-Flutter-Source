@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 
 import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/main.dart';
 
 bool isRecruit = false;
 List<String> _filterList = ['추천순', '최신순'];
@@ -107,14 +108,14 @@ class FilterAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text('필터', style: textStyle(weight: 700, size: 16.0),),
       flexibleSpace: Stack(children: [
         Positioned(
-          bottom: 8, left: 21,
+          bottom: 8, left: 21 * responsiveScale,
           child: GestureDetector(
             onTap: () {Navigator.pop(context);},
             child: SvgPicture.asset('asset/image/icoBack.svg', width: 24, height: 24),
           ),
         ),
         Positioned(
-          bottom: 12, right: 21,
+          bottom: 12, right: 21 * responsiveScale,
           child: GestureDetector(
             // onTap: () => {_filterInit()}, // TODO : call other class func
             child: Text('초기화', style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 12.0),)
