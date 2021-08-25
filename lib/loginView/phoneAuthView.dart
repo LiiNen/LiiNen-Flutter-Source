@@ -28,88 +28,92 @@ class _PhoneAuthView extends State<PhoneAuthView> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         backgroundColor: Colors.white,
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         appBar: LoginViewAppBar(),
-        body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              sizedBox(24),
-              loginTitle('전화번호 인증'),
-              sizedBox(24),
-              loginSubtitle('휴대폰 번호'),
-              sizedBox(8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Container(
-                    width: 217 * responsiveScale,
-                    child: TextField(
-                      controller: phoneController,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 14 * responsiveScale),
-                        enabledBorder: enabledBorderDefault(),
-                        focusedBorder: focusedBorderDefault(),
-                        hintText: '휴대폰 번호(- 없이 입력)',
+        body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                sizedBox(24),
+                loginTitle('전화번호 인증'),
+                sizedBox(24),
+                loginSubtitle('휴대폰 번호'),
+                sizedBox(8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.58,
+                      height: 46,
+                      child: TextField(
+                        controller: phoneController,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 14 * responsiveScale),
+                          enabledBorder: enabledBorderDefault(),
+                          focusedBorder: focusedBorderDefault(),
+                          hintText: '휴대폰 번호(- 없이 입력)',
+                        ),
+                        style: textStyle(weight: 600, size: 12.0),
+                        onChanged: (value) {setState(() {
+                          isPhoneValid = phoneRegexCheck(value);
+                        });},
+                        keyboardType: TextInputType.number,
+                        textInputAction: TextInputAction.send,
+                        onSubmitted: (value) {if(isPhoneValid) sendAuth();},
                       ),
-                      style: textStyle(weight: 600, size: 12.0),
-                      onChanged: (value) {setState(() {
-                        isPhoneValid = phoneRegexCheck(value);
-                      });},
-                      keyboardType: TextInputType.number,
-                      textInputAction: TextInputAction.send,
-                      onSubmitted: (value) {if(isPhoneValid) sendAuth();},
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {if(isPhoneValid) sendAuth();},
-                    child: Container(
-                      width: 101 * responsiveScale,
-                      height: 46 * responsiveScale,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(4)),
-                        color: isPhoneValid ? Color(0xff0958c5) : Color(0xffd1d5d9),
-                      ),
-                      child: Center(
-                        child: Text('인증번호 전송', style: textStyle(color: isPhoneValid ? Colors.white : Color(0xff8a8a8a), weight: 400, size: 12.0))
+                    GestureDetector(
+                      onTap: () {if(isPhoneValid) sendAuth();},
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.27,
+                        height: 46,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(4)),
+                          color: isPhoneValid ? Color(0xff0958c5) : Color(0xffd1d5d9),
+                        ),
+                        child: Center(
+                          child: Text('인증번호 전송', style: textStyle(color: isPhoneValid ? Colors.white : Color(0xff8a8a8a), weight: 400, size: 12.0))
+                        )
                       )
                     )
-                  )
-                ]
-              )
-            ] + (isAuthSent ? [
-              sizedBox(20),
-              loginSubtitle('인증번호'),
-              sizedBox(8),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: TextField(
-                  controller: authController,
-                  focusNode: authFocusNode,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 14 * responsiveScale),
-                    enabledBorder: enabledBorderDefault(),
-                    focusedBorder: focusedBorderDefault(),
-                    hintText: '인증번호'
+                  ]
+                )
+              ] + (isAuthSent ? [
+                sizedBox(20),
+                loginSubtitle('인증번호'),
+                sizedBox(8),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 46,
+                  child: TextField(
+                    controller: authController,
+                    focusNode: authFocusNode,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 14 * responsiveScale),
+                      enabledBorder: enabledBorderDefault(),
+                      focusedBorder: focusedBorderDefault(),
+                      hintText: '인증번호'
+                    ),
+                    style: textStyle(weight: 600, size: 12.0),
+                    onChanged: (value) {setState(() {
+                      isAuthValid = authRegexCheck(value);
+                    });},
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.done,
+                    onSubmitted: (value) {_nextStep();}
                   ),
-                  style: textStyle(weight: 600, size: 12.0),
-                  onChanged: (value) {setState(() {
-                    isAuthValid = authRegexCheck(value);
-                  });},
-                  keyboardType: TextInputType.number,
-                  textInputAction: TextInputAction.done,
-                  onSubmitted: (value) {_nextStep();}
                 ),
-              ),
-              sizedBox(4),
-              Text(_leftTimeText, style: textStyle(color: Color(0xffd93826), weight: 400, size: 12.0),),
-              sizedBox(40),
-              confirmButton(title: '확인', confirmAction: _nextStep, condition: isAuthValid),
-            ] : []),
+                sizedBox(4),
+                Text(_leftTimeText, style: textStyle(color: Color(0xffd93826), weight: 400, size: 12.0),),
+                sizedBox(40),
+                confirmButton(title: '확인', confirmAction: _nextStep, condition: isAuthValid),
+              ] : []),
+            )
           )
         )
       )
@@ -125,7 +129,10 @@ class _PhoneAuthView extends State<PhoneAuthView> {
   }
 
   void _nextStep() {
-    if(isAuthValid) Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileSetupView()));
+    if(isAuthValid) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileSetupView()));
+      _authTimer.cancel();
+    }
   }
 
   late Timer _authTimer;

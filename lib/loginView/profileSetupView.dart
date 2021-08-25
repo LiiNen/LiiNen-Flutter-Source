@@ -30,51 +30,53 @@ class _ProfileSetupView extends State<ProfileSetupView> {
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: true,
         appBar: LoginViewAppBar(),
-        body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 21  * responsiveScale),
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(color: Colors.white),
-          child: Stack(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  sizedBox(24),
-                  loginTitle('사진과 닉네임을 등록해주세요'),
-                  sizedBox(24),
-                  Center(
-                    child: GestureDetector(
-                      onTap: _modifyImage,
-                      child: Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(60 * responsiveScale),
-                            child: _profileImage == null
-                              ? Image.asset('asset/loginView/profile.png', width: 120 * responsiveScale, height: 120 * responsiveScale,)
-                              : Image.file(File(_profileImage!.path), width: 120 * responsiveScale, height: 120 * responsiveScale, fit: BoxFit.cover,),
-                          ),
-                          Positioned(
-                            right: 5 * responsiveScale, bottom: 0,
-                            child: Container(
-                              width: 28 * responsiveScale, height: 28 * responsiveScale,
-                              decoration: BoxDecoration(
-                                color: const Color(0xffc2c6cd),
-                                borderRadius: BorderRadius.circular(14 * responsiveScale),
-                              ),
-                              child: Center(child: Container(width: 14 * responsiveScale, height: 14 * responsiveScale, child: SvgPicture.asset('asset/loginView/icoCamera.svg', fit: BoxFit.fill,)))
+        body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 21  * responsiveScale),
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(color: Colors.white),
+            child: Stack(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    sizedBox(24),
+                    loginTitle('사진과 닉네임을 등록해주세요'),
+                    sizedBox(24),
+                    Center(
+                      child: GestureDetector(
+                        onTap: _modifyImage,
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(60 * responsiveScale),
+                              child: _profileImage == null
+                                ? Image.asset('asset/loginView/profile.png', width: 120 * responsiveScale, height: 120 * responsiveScale,)
+                                : Image.file(File(_profileImage!.path), width: 120 * responsiveScale, height: 120 * responsiveScale, fit: BoxFit.cover,),
+                            ),
+                            Positioned(
+                              right: 5 * responsiveScale, bottom: 0,
+                              child: Container(
+                                width: 28 * responsiveScale, height: 28 * responsiveScale,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xffc2c6cd),
+                                  borderRadius: BorderRadius.circular(14 * responsiveScale),
+                                ),
+                                child: Center(child: Container(width: 14 * responsiveScale, height: 14 * responsiveScale, child: SvgPicture.asset('asset/loginView/icoCamera.svg', fit: BoxFit.fill,)))
+                              )
                             )
-                          )
-                        ],
+                          ],
+                        )
                       )
-                    )
-                  ),
-                ] + nameField() + introField() + [
-                  sizedBox(40),
-                  confirmButton(title: '다음으로', confirmAction: _nextStep, condition: nameController.text != '')
-                ],
-              ),
-            ],
+                    ),
+                  ] + nameField() + introField() + [
+                    sizedBox(40),
+                    confirmButton(title: '다음으로', confirmAction: _nextStep, condition: nameController.text != '')
+                  ],
+                ),
+              ],
+            )
           )
         )
       )

@@ -39,7 +39,7 @@ class LoginViewAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       flexibleSpace: Stack(children: [
         Positioned(
-          bottom: 8, left: 21,
+          bottom: 8, left: 21 * responsiveScale,
           child: GestureDetector(
             onTap: () {Navigator.pop(context);},
             child: SvgPicture.asset('asset/image/icoBack.svg', width: 24, height: 24),
@@ -72,7 +72,7 @@ class MainViewAppBar extends StatelessWidget implements PreferredSizeWidget {
       flexibleSpace: Stack(
         children: back ? [
           Positioned(
-            bottom: 8, left: 21,
+            bottom: 8, left: 21 * responsiveScale,
             child: GestureDetector(
               onTap: () {Navigator.pop(context);},
               child: SvgPicture.asset('asset/image/icoBack.svg', width: 24, height: 24),
@@ -122,7 +122,7 @@ confirmButton({required title, required confirmAction, required condition}){
   return GestureDetector(
     onTap: () {confirmAction();},
     child: Container(
-      height: 52 * responsiveScale,
+      height: 52,
       width: maxWidth,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(

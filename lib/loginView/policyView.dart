@@ -66,23 +66,27 @@ class _PolicyView extends State<PolicyView> {
     navigatorPush(context: context, widget: SignUpView());
   }
 
-  Container _checkBoxRow(int index, String title, bool detailBool, TextStyle style) {
-    return Container(
-      height: 24,
-      width: MediaQuery.of(context).size.width - 42 * responsiveScale,
-      child:
-      GestureDetector(
-        onTap: () => {_checkBoxTap(index)},
+  Widget _checkBoxRow(int index, String title, bool detailBool, TextStyle style) {
+    return GestureDetector(
+      onTap: () => {_checkBoxTap(index)},
+      child: Container(
+        height: 24,
+        width: MediaQuery.of(context).size.width,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: 24 * responsiveScale, height: 24 * responsiveScale,
-              child: SvgPicture.asset(_checkList[index] ? 'asset/image/checkBoxCheck.svg' : 'asset/image/checkBoxUncheck.svg'),
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 8),
-              width: MediaQuery.of(context).size.width - 98 * responsiveScale,
-              child: Text(title, style: style,),
+            Row(
+              children: [
+                Container(
+                  width: 24 * responsiveScale, height: 24 * responsiveScale,
+                  child: SvgPicture.asset(_checkList[index] ? 'asset/image/checkBoxCheck.svg' : 'asset/image/checkBoxUncheck.svg'),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 8),
+                  child: Text(title, style: style,),
+                ),
+              ]
             ),
             GestureDetector(
               // TODO: 상세 이용 약관 등등등 + > 버튼 크기 키우기
