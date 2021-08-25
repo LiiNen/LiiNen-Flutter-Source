@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_flutter_source/constraintCollection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,70 +13,82 @@ class LoginView extends StatefulWidget {
   State<LoginView> createState() => _LoginView();
 }
 class _LoginView extends State<LoginView> with TickerProviderStateMixin{
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+  Future<bool> _onWillPop() async {
+    return (await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('App terminate'),
+        content: Text('Do you want to exit epicure?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: new Text('No'),
+          ),
+          TextButton(
+            onPressed: () => SystemNavigator.pop(),
+            child: new Text('Yes'),
+          ),
+        ],
+      ),
+    )) ?? false;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: MaskAppBar(),
-      body: Container(
-        child: Center(
-          child: Column(
-            children: [
-              sizedBox(40),
-              Text(
-                "환영합니다 🙌",
-                style: const TextStyle(
-                  color:  const Color(0xff000000),
-                  fontWeight: FontWeight.w700,
-                  fontFamily: "AppleSDGothicNeo",
-                  fontStyle:  FontStyle.normal,
-                  fontSize: 28.0
-                )
-              ),
-              sizedBox(12),
-              Text(
-                "이건모임에서 목표를 달성해보세요!",
-                style: const TextStyle(
-                  color:  const Color(0xff4a4a4a),
-                  fontWeight: FontWeight.w400,
-                  fontFamily: "AppleSDGothicNeo",
-                  fontStyle:  FontStyle.normal,
-                  fontSize: 14.0
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: MaskAppBar(),
+        body: Container(
+          child: Center(
+            child: Column(
+              children: [
+                sizedBox(40),
+                Text(
+                  "환영합니다 🙌",
+                  style: const TextStyle(
+                    color:  const Color(0xff000000),
+                    fontWeight: FontWeight.w700,
+                    fontFamily: "AppleSDGothicNeo",
+                    fontStyle:  FontStyle.normal,
+                    fontSize: 28.0
+                  )
                 ),
-              ),
-              sizedBox(44),
-              GestureDetector(
-                onTap: _loginSuccess,
-                child: SvgPicture.asset('asset/loginView/appleBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
-              ),
-              sizedBox(8),
-              GestureDetector(
-                onTap: _loginSuccess,
-                child: SvgPicture.asset('asset/loginView/kakaoBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
-              ),
-              sizedBox(8),
-              GestureDetector(
-                onTap: _loginEmail,
-                child: SvgPicture.asset('asset/loginView/emailBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
-              )
-            ],
+                sizedBox(12),
+                Text(
+                  "이건모임에서 목표를 달성해보세요!",
+                  style: const TextStyle(
+                    color:  const Color(0xff4a4a4a),
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "AppleSDGothicNeo",
+                    fontStyle:  FontStyle.normal,
+                    fontSize: 14.0
+                  ),
+                ),
+                sizedBox(44),
+                GestureDetector(
+                  onTap: _loginSuccess,
+                  child: SvgPicture.asset('asset/loginView/appleBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
+                ),
+                sizedBox(8),
+                GestureDetector(
+                  onTap: _loginSuccess,
+                  child: SvgPicture.asset('asset/loginView/kakaoBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
+                ),
+                sizedBox(8),
+                GestureDetector(
+                  onTap: _loginEmail,
+                  child: SvgPicture.asset('asset/loginView/emailBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
+                )
+              ],
+            )
           )
         )
       )
     );
-
   }
+
   void _loginSuccess() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
