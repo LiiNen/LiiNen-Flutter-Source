@@ -51,5 +51,15 @@
 
   <key>GADApplicationIdentifier</key>
   <string>ca-app-pub-3940256099942544~1458002511</string>
+
+  <key>io.flutter.embedded_views_preview</key>
+  <string>YES</string>
+  <key>NSAppTransportSecurity</key>
+  <dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+    <key>NSAllowsArbitraryLoadsInWebContent</key>
+    <true/>
+  </dict>
 </dict>
 </plist>
