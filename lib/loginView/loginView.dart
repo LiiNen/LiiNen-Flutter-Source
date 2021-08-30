@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_flutter_source/constraintCollection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../functionCollection.dart';
 import '../navView/navView.dart';
 import 'loginEmailView.dart';
 import 'package:my_flutter_source/main.dart';
@@ -98,7 +99,8 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
   }
 
   void _loginEmail() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginEmailView()));
+    showExitDialog(context);
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginEmailView()));
   }
 
   void _loginApple() async {

@@ -4,6 +4,8 @@ import 'package:my_flutter_source/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import 'containerCollection.dart';
+
 void launchURL(_srcURL) async => await canLaunch(_srcURL) ? await launch(_srcURL) : throw 'url \"$_srcURL\" error';
 
 void showToast(String message){
@@ -123,4 +125,11 @@ navigatorPush({context, widget, replacement=false}) {
   replacement
     ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => widget))
     : Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
+}
+
+showExitDialog(BuildContext context) async {
+  return (await showDialog(
+    context: context,
+    builder: (context) => ExitDialog()
+  )) ?? false;
 }
