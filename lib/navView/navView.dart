@@ -16,30 +16,10 @@ class NavView extends StatefulWidget {
 class _NavView extends State<NavView> {
   int _selectedIndex = 0;
 
-  Future<bool> _onWillPop() async {
-    return (await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('App terminate'),
-        content: Text('이건모임을 종료할까요??'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: new Text('No'),
-          ),
-          TextButton(
-            onPressed: () => SystemNavigator.pop(),
-            child: new Text('Yes'),
-          ),
-        ],
-      ),
-    )) ?? false;
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onWillPop,
+      onWillPop: showExitDialog(context),
       child: Scaffold(
         backgroundColor: Colors.white,
         bottomNavigationBar: BottomNavigationBar(

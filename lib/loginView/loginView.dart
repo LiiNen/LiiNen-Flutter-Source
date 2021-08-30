@@ -13,31 +13,11 @@ class LoginView extends StatefulWidget {
   @override
   State<LoginView> createState() => _LoginView();
 }
-class _LoginView extends State<LoginView> with TickerProviderStateMixin{
-  Future<bool> _onWillPop() async {
-    return (await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('App terminate'),
-        content: Text('Do you want to exit epicure?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: new Text('No'),
-          ),
-          TextButton(
-            onPressed: () => SystemNavigator.pop(),
-            child: new Text('Yes'),
-          ),
-        ],
-      ),
-    )) ?? false;
-  }
-
+class _LoginView extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onWillPop,
+      onWillPop: showExitDialog(context),
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: MaskAppBar(),
@@ -99,8 +79,7 @@ class _LoginView extends State<LoginView> with TickerProviderStateMixin{
   }
 
   void _loginEmail() {
-    showExitDialog(context);
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginEmailView()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginEmailView()));
   }
 
   void _loginApple() async {
