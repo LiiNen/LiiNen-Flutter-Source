@@ -17,7 +17,7 @@ class _LoginView extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: showExitDialog(context),
+      onWillPop: () => showExitDialog(context),
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: MaskAppBar(),

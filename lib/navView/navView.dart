@@ -19,7 +19,7 @@ class _NavView extends State<NavView> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: showExitDialog(context),
+      onWillPop: () => showExitDialog(context),
       child: Scaffold(
         backgroundColor: Colors.white,
         bottomNavigationBar: BottomNavigationBar(
