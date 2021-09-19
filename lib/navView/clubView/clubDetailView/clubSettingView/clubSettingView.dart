@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
+import 'clubMemberSettingView.dart';
 import 'package:my_flutter_source/navView/homeView/clubCreationView/clubDetailSetupView.dart';
 
 class ClubSettingView extends StatefulWidget {
@@ -20,7 +21,7 @@ class _ClubSettingView extends State<ClubSettingView> {
           children: <Widget>[
             SizedBox(height: 28),
             settingItem(title: '모임정보 수정', route: ClubDetailSetupView()),
-            settingItem(title: '멤버 관리'),
+            settingItem(title: '멤버 관리', route: ClubMemberSettingView()),
           ]
         )
       )

@@ -56,7 +56,7 @@ class _ClubDetailHome extends State<ClubDetailHome> {
           width: MediaQuery.of(context).size.width,
           height: 12,
         ),
-        _clubCard(child: _clubMemberCard()),
+        _clubCard(child: clubMemberCard(clubMemberList: _clubMemberList!, context: context)),
       ]
     );
   }
@@ -84,52 +84,6 @@ class _ClubDetailHome extends State<ClubDetailHome> {
         SizedBox(height: 36),
         _clubInOutButton(false),
       ]
-    );
-  }
-  _clubMemberCard() {
-    var _temp = _clubMemberList!.member;
-    List<Widget> memberRowList = List.generate(_temp.length, (index) {
-      return _clubMemberRow(member: _temp[index], isHead: (index==0));
-    });
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text('모임 멤버 (${_clubMemberList!.currentNum}명/${_clubMemberList!.maxNum}명)', style: textStyle(weight: 700, size: 14.0)),
-        SizedBox(height: 14),
-      ] + memberRowList
-    );
-  }
-  _clubMemberRow({required ClubMember member, bool isHead=false}) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 16),
-      child: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () {},
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              width: 40, height: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.black),
-              )
-            ),
-            SizedBox(width: 8),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(member.userName, style: textStyle(weight: 600, size: 12.0)),
-                SizedBox(height: 2),
-                Text(member.userIntro, style: textStyle(weight: 400, size: 12.0))
-              ]
-            ),
-          ] + (isHead ? [Expanded(
-            child: Text('개설자', style: textStyle(color: Color(0xff0958c5), weight: 700, size: 12.0), textAlign: TextAlign.right,)
-          )] : [])
-        )
-      )
     );
   }
 
@@ -169,4 +123,80 @@ class _ClubDetailHome extends State<ClubDetailHome> {
   test2Func() {
     print('test2');
   }
+}
+
+clubMemberCard({required ClubMemberList clubMemberList, isAdmin=false, required BuildContext context}) {
+  var _temp = clubMemberList.member;
+  List<Widget> memberRowList = List.generate(_temp.length, (index) {
+    return clubMemberRow(member: _temp[index], isHead: (index==0), isAdmin: isAdmin, context: context);
+  });
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      Text('모임 멤버 (${clubMemberList.currentNum}명/${clubMemberList.maxNum}명)', style: textStyle(weight: 700, size: 14.0)),
+      SizedBox(height: 14),
+    ] + memberRowList
+  );
+}
+clubMemberRow({required ClubMember member, bool isHead=false, required bool isAdmin, required BuildContext context}) {
+  List<Widget> _rightElement = [];
+  if(isHead) {
+    _rightElement = [Expanded(
+      child: Text('개설자', style: textStyle(color: Color(0xff0958c5), weight: 700, size: 12.0), textAlign: TextAlign.right,)
+    )];
+  } else if(isAdmin) {
+    _rightElement = [Expanded(
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {showClubDialog(context: context, title: '${member.userName}님을 강퇴하시겠습니까?', positiveAction: testFunction, negativeAction: testFunction);},
+          child: Container(
+            width: 42, height: 24,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              color: Color(0xfff3f3f3)
+            ),
+            child: Center(
+              child: Text('강퇴', style: textStyle(color: Color(0xff666666), weight: 400, size: 10.0))
+            )
+          )
+        )
+      )
+    )];
+  }
+
+  return Container(
+    margin: EdgeInsets.only(bottom: 16),
+    child: GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () {},
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            width: 40, height: 40,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: Colors.black),
+            )
+          ),
+          SizedBox(width: 8),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(member.userName, style: textStyle(weight: 600, size: 12.0)),
+              SizedBox(height: 2),
+              Text(member.userIntro, style: textStyle(weight: 400, size: 12.0))
+            ]
+          ),
+        ] + _rightElement
+      )
+    )
+  );
+}
+
+testFunction() {
+  print('test');
 }
