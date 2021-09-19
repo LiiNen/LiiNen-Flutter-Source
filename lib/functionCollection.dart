@@ -126,9 +126,6 @@ navigatorPush({context, widget, replacement=false}) {
     ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => widget))
     : Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
 }
-dialogPop({context}) {
-  Navigator.pop(context);
-}
 
 showExitDialog(BuildContext context) async {
   return (await showDialog(

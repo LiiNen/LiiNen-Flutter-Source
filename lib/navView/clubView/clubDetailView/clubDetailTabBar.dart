@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 
 import '../../../main.dart';
+import 'clubSettingView/clubSettingView.dart';
 
 class ClubDetailTabBar extends StatelessWidget implements PreferredSizeWidget {
   ClubDetailTabBar({required this.controller, required this.title}) : preferredSize = Size.fromHeight(78.0);
@@ -18,7 +19,6 @@ class ClubDetailTabBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       elevation: 0,
       automaticallyImplyLeading: false,
-
       title: Text('코딩할 사람 모여라', style: textStyle(weight: 700, size: 16.0)),
       bottom: TabBar(
         controller: controller,
@@ -40,9 +40,18 @@ class ClubDetailTabBar extends StatelessWidget implements PreferredSizeWidget {
         Positioned(
           top: 52, left: 21 * responsiveScale,
           child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
             onTap: () {Navigator.pop(context);},
             child: SvgPicture.asset('asset/image/icoBack.svg', width: 24, height: 24),
           ),
+        ),
+        Positioned(
+          top: 52, right: 21 * responsiveScale,
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () {navigatorPush(context: context, widget: ClubSettingView());},
+            child: Icon(Icons.settings, size: 24),
+          )
         )
       ]),
     );
