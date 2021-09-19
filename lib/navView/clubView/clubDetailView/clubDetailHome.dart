@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 
+import 'clubDialog.dart';
+
 class ClubMember {
   int userId;
   String? imgSrc;
@@ -142,9 +144,11 @@ class _ClubDetailHome extends State<ClubDetailHome> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        if(boxContent == '가입하기') {}
-        else if(boxContent == '모임탈퇴') {}
-        else if(boxContent == '모집마감') {}
+        if(boxContent == '가입하기') {showClubDialog(context: context, title: '모임에 가입하시겠습니까?', positiveAction: testFunc, negativeAction: test2Func);}
+        else if(boxContent == '모임탈퇴') {showClubDialog(context: context, title: '모임을 나가시겠습니까?', positiveAction: testFunc, negativeAction: test2Func);}
+        else if(boxContent == '모집마감') {
+          // do nothing
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -156,5 +160,13 @@ class _ClubDetailHome extends State<ClubDetailHome> {
         child: Center(child: Text(boxContent, style: textStyle(color: Colors.white, weight: 600, size: 16.0)))
       )
     );
+  }
+
+
+  testFunc() {
+    print('test');
+  }
+  test2Func() {
+    print('test2');
   }
 }
