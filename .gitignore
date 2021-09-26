@@ -53,3 +53,5 @@ app.*.map.json
 
 # .env
 *.env
+
+*restApi.dart
