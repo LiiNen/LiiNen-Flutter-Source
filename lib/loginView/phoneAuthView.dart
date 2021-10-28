@@ -130,7 +130,7 @@ class _PhoneAuthView extends State<PhoneAuthView> {
 
   void _nextStep() {
     if(isAuthValid) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileSetupView()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileSetupView('', '')));
       _authTimer.cancel();
     }
   }

@@ -17,6 +17,8 @@ class _TextResultView extends State<TextResultView> {
   _TextResultView(this._text);
 
   @override
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,

@@ -3,7 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 
 import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/loginView/loginView.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/restApi/restApi.dart';
 import 'modifyProfileView.dart';
 import 'deleteAccountView.dart';
 
@@ -21,7 +23,9 @@ class ModifyAccountView extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 if(_modifyItem.route == null) {
-                  // TODO : 곧바로 로그아웃
+                  authToken['token'] = '';
+                  showToast('로그아웃되었습니다.');
+                  navigatorPush(context: context, widget: LoginView(), replacement: true, all: true);
                 } else {
                   navigatorPush(context: context, widget: _modifyItem.route);
                 }

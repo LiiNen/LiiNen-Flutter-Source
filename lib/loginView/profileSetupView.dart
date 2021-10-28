@@ -12,10 +12,18 @@ import 'package:my_flutter_source/constraintCollection.dart';
 import 'package:my_flutter_source/main.dart';
 
 class ProfileSetupView extends StatefulWidget {
+  final String email;
+  final String password;
+  ProfileSetupView(this.email, this.password);
+
   @override
-  State<ProfileSetupView> createState() => _ProfileSetupView();
+  State<ProfileSetupView> createState() => _ProfileSetupView(email, password);
 }
 class _ProfileSetupView extends State<ProfileSetupView> {
+  String email;
+  String password;
+  _ProfileSetupView(this.email, this.password);
+
   final nameController = TextEditingController();
   final introController = TextEditingController();
   FocusNode introFocusNode = FocusNode();
@@ -134,7 +142,9 @@ class _ProfileSetupView extends State<ProfileSetupView> {
 
 
   void _nextStep() {
-    if(nameController.text != '') Navigator.push(context, MaterialPageRoute(builder: (context) => CategorySetupView()));
+    if(nameController.text != '') {
+      navigatorPush(context: context, widget: CategorySetupView(nameController.text, email, password, introController.text));
+    }
   }
 
   // TODO: m1 이외에서 체크 필요

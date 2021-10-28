@@ -3,6 +3,7 @@ import 'package:my_flutter_source/constraintCollection.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/restApi/categoriesApi.dart';
 
 import 'clubDetailSetupView.dart';
 
@@ -11,8 +12,22 @@ class ClubCreationView extends StatefulWidget {
   State<ClubCreationView> createState() => _ClubCreationView();
 }
 class _ClubCreationView extends State<ClubCreationView> {
+  var _categories = [];
   String _selectedCategory = '';
-  
+
+  @override
+  void initState() {
+    super.initState();
+    _getCategories();
+  }
+
+  void _getCategories() async {
+    var _temp = await getCategories();
+    setState(() {
+      _categories = _temp;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +47,7 @@ class _ClubCreationView extends State<ClubCreationView> {
                 Wrap(
                   direction: Axis.horizontal,
                   spacing: 8, runSpacing: 8,
-                  children: categoryFullList.map((e) => _categorySetItem(e)).toList(),
+                  children: _categories.map((e) => _categorySetItem(e)).toList(),
                 )
               ],
             ),
@@ -58,15 +73,15 @@ class _ClubCreationView extends State<ClubCreationView> {
     );
   }
 
-  GestureDetector _categorySetItem(title) {
-    bool _isSelected = (_selectedCategory == title);
+  GestureDetector _categorySetItem(e) {
+    bool _isSelected = (_selectedCategory == e['name']);
     return GestureDetector(
       onTap: () {
         setState(() {
-          _selectedCategory = title;
+          _selectedCategory = e['name'];
         });
       },
-      child: categoryItem(title, _isSelected),
+      child: categoryItem(e['name'], _isSelected),
     );
   }
 

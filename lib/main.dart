@@ -11,6 +11,11 @@ void main()=> runApp(MyApp());
 double responsiveScale = 1.0;
 double maxWidth = 0.0;
 
+var userInfo = {
+  'name': '',
+  'email': '',
+};
+
 class MyApp extends StatelessWidget {
   Future<InitializationStatus> _initGoogleMobileAds() {
     return MobileAds.instance.initialize();

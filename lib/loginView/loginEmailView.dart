@@ -4,6 +4,7 @@ import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/navView/navView.dart';
 import 'package:my_flutter_source/constraintCollection.dart';
+import 'package:my_flutter_source/restApi/loginApi.dart';
 
 import 'loginWidgets.dart';
 import 'policyView.dart';
@@ -131,8 +132,13 @@ class _LoginEmailView extends State<LoginEmailView> {
   }
 
   //TODO : login implements
-  void _loginAction() {
-    navigatorPush(context: context, widget: NavView());
+  void _loginAction() async {
+    var response = await signInApi(email: emailController.text, password: passwordController.text);
+    if(response == true) {
+      showToast('로그인되었습니다.');
+      navigatorPush(context: context, widget: NavView());
+    }
+    else showToast('로그인 정보가 잘못되었습니다.');
   }
 
   void _signUpBtnClick() {

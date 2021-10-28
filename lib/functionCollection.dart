@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/restApi/restApi.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -121,15 +122,20 @@ unselectedFillColor() {return Color(0xffffffff);}
 selectedTextColor() {return Color(0xffffffff);}
 unselectedTextColor() {return Color(0xffd1d5d9);}
 
-navigatorPush({context, widget, replacement=false}) {
+navigatorPush({required context, required widget, replacement=false, all=false}) {
   replacement
-    ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => widget))
+    ? all
+      ? Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => widget), (route) => false)
+      : Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => widget))
     : Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
 }
-
 showExitDialog(BuildContext context) async {
   return (await showDialog(
     context: context,
     builder: (context) => ExitDialog()
   )) ?? false;
+}
+
+setToken(String token) {
+  authToken['token'] = token;
 }

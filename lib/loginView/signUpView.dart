@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/loginView/phoneAuthView.dart';
+import 'package:my_flutter_source/loginView/profileSetupView.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/constraintCollection.dart';
 
@@ -152,6 +153,9 @@ class _SignUpView extends State<SignUpView> {
   }
 
   void _nextStep() {
-    if(emailController.text != '' && pwSecondConfirm) Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneAuthView()));
+    if(emailController.text != '' && pwSecondConfirm) {
+      // Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneAuthView()));
+      navigatorPush(context: context, widget: ProfileSetupView(emailController.text, pwSecondController.text));
+    }
   }
 }

@@ -5,13 +5,40 @@ import 'package:my_flutter_source/loginView/loginWidgets.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/navView/navView.dart';
+import 'package:my_flutter_source/restApi/categoriesApi.dart';
+import 'package:my_flutter_source/restApi/loginApi.dart';
 
 class CategorySetupView extends StatefulWidget {
+  final String name;
+  final String email;
+  final String password;
+  final String introduce;
+  CategorySetupView(this.name, this.email, this.password, this.introduce);
+
   @override
-  State<CategorySetupView> createState() => _CategorySetupView();
+  State<CategorySetupView> createState() => _CategorySetupView(name, email, password, introduce);
 }
 class _CategorySetupView extends State<CategorySetupView> {
+  String name, email, password, introduce;
+  _CategorySetupView(this.name, this.email, this.password, this.introduce);
+
+  var _categories = [];
+  List<String> _selectedList = [];
   bool _selectedLeast = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _getCategories();
+  }
+
+  void _getCategories() async {
+    var _temp = await getCategories();
+    setState(() {
+      _categories = _temp;
+      print(_categories);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +62,7 @@ class _CategorySetupView extends State<CategorySetupView> {
                 Wrap(
                   direction: Axis.horizontal,
                   spacing: 8, runSpacing: 8,
-                  children: _titleList.map((e) => _categoryItem(e)).toList(),
+                  children: _categories.map((e) => _categoryItem(e)).toList(),
                 )
               ]
             ),
@@ -49,21 +76,30 @@ class _CategorySetupView extends State<CategorySetupView> {
     );
   }
 
-  GestureDetector _categoryItem(title) {
-    bool _selected = _selectedList[_titleList.indexOf(title)];
+  GestureDetector _categoryItem(e) {
+    bool _selected = _selectedList.indexOf(e['_id']) != -1;
     return GestureDetector(
       onTap: () => {setState(() {
-        _selectedList[_titleList.indexOf(title)] = !_selected;
-        _selectedLeast = _selectedList.indexOf(true) != -1 ? true : false;
+        if(_selected) {
+          _selectedList.remove(e['_id']);
+        }
+        else {
+          _selectedList.add(e['_id']);
+          _selectedLeast = (_selectedList.length != 0);
+        }
       })},
-      child: categoryItem(title, _selected)
+      child: categoryItem(e['name'], _selected)
     );
   }
 
-  void _submitSignUp() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => NavView()));
+  void _submitSignUp() async {
+    var result = await signUpApi(name: name, email: email, password: password, introduce: introduce, categories: _selectedList);
+    if(result) {
+      showToast('회원가입이 완료되었습니다!');
+      Navigator.push(context, MaterialPageRoute(builder: (context) => NavView()));
+    }
+    else {
+      showToast('문제가 발생했습니다. 문의해주세요');
+    }
   }
 }
-
-List<String> _titleList = categoryFullList;
-List<bool> _selectedList = List<bool>.generate(_titleList.length, (index) => false);
