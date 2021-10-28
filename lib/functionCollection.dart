@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/restApi/restApi.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -136,6 +137,8 @@ showExitDialog(BuildContext context) async {
   )) ?? false;
 }
 
-setToken(String token) {
+setToken({String token=''}) async {
+  final pref = await SharedPreferences.getInstance();
+  pref.setString('token', token);
   authToken['token'] = token;
 }

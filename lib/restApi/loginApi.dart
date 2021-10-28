@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../functionCollection.dart';
 import 'restApi.dart';
 
 signUpApi({required String name, required String email, required String password, required String introduce, required List<String> categories}) async {
@@ -21,7 +22,7 @@ signUpApi({required String name, required String email, required String password
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);
     print(responseBody['token']);
-    authToken['token'] = responseBody['token'];
+    setToken(token: responseBody['token']);
     return true;
   } else {
     print('error');
@@ -39,7 +40,7 @@ signInApi({required String email, required String password}) async {
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);
     print(responseBody['token']);
-    authToken['token'] = responseBody['token'];
+    setToken(token: responseBody['token']);
     return true;
   } else {
     print(response);

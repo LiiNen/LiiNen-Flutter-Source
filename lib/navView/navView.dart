@@ -33,7 +33,6 @@ class _NavView extends State<NavView> {
           onTap: (int index){
             setState(() {
               _selectedIndex = index;
-              showToast('index $index');
             });
           },
           items: [

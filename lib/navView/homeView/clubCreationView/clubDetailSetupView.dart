@@ -7,12 +7,19 @@ import 'package:my_flutter_source/constraintCollection.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/restApi/meetingsApi.dart';
 
 class ClubDetailSetupView extends StatefulWidget {
+  final String id;
+  ClubDetailSetupView(this.id);
+
   @override
-  State<ClubDetailSetupView> createState() => _ClubDetailSetupView();
+  State<ClubDetailSetupView> createState() => _ClubDetailSetupView(id);
 }
 class _ClubDetailSetupView extends State<ClubDetailSetupView> {
+  String categoryId;
+  _ClubDetailSetupView(this.categoryId);
+
   TextEditingController clubNameController = TextEditingController();
   TextEditingController clubIntroController = TextEditingController();
   TextEditingController clubLimitController = TextEditingController();
@@ -152,9 +159,18 @@ class _ClubDetailSetupView extends State<ClubDetailSetupView> {
     });
   }
 
-  void _nextStep() {
+  void _nextStep() async {
     if(_fieldComplete) {
-      // TODO : club creation done
+      if(categoryId == '') {
+
+      }
+      else {
+        var result = await postMeetings(name: clubNameController.text, introduction: clubIntroController.text, category: categoryId, maxPerson: clubLimitController.text);
+        if(result) {
+          print('done');
+          showToast('모임 생성 완료!');
+        }
+      }
     }
   }
 }

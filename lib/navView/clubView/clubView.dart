@@ -12,6 +12,9 @@ class ClubView extends StatefulWidget {
 class _ClubView extends State<ClubView> {
   bool? _hasClub;
   bool _loadComplete = false;
+
+  
+
   @override
   void initState() {
     super.initState();

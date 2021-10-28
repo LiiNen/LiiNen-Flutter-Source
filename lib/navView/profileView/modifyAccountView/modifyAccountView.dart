@@ -23,7 +23,7 @@ class ModifyAccountView extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 if(_modifyItem.route == null) {
-                  authToken['token'] = '';
+                  setToken();
                   showToast('로그아웃되었습니다.');
                   navigatorPush(context: context, widget: LoginView(), replacement: true, all: true);
                 } else {

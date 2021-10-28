@@ -12,6 +12,7 @@ class ClubCreationView extends StatefulWidget {
   State<ClubCreationView> createState() => _ClubCreationView();
 }
 class _ClubCreationView extends State<ClubCreationView> {
+  var _selectedId = '';
   var _categories = [];
   String _selectedCategory = '';
 
@@ -79,6 +80,7 @@ class _ClubCreationView extends State<ClubCreationView> {
       onTap: () {
         setState(() {
           _selectedCategory = e['name'];
+          _selectedId = e['_id'];
         });
       },
       child: categoryItem(e['name'], _isSelected),
@@ -86,6 +88,6 @@ class _ClubCreationView extends State<ClubCreationView> {
   }
 
   void _nextStep() {
-    if(_selectedCategory != '') Navigator.push(context, MaterialPageRoute(builder: (context) => ClubDetailSetupView()));
+    if(_selectedCategory != '') Navigator.push(context, MaterialPageRoute(builder: (context) => ClubDetailSetupView(_selectedId)));
   }
 }

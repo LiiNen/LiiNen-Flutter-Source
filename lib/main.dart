@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   }
 
   const MyApp({Key? key}) : super(key: key);
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -48,7 +48,7 @@ class _MainRouter extends State<MainRouter> {
   _checkLogin() async {
     final pref = await SharedPreferences.getInstance();
     setState(() {
-      _loginState = pref.getBool('login') ?? false;
+      _loginState = (pref.getString('token') != '');
     });
   }
 
