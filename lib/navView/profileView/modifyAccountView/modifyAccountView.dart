@@ -21,6 +21,7 @@ class ModifyAccountView extends StatelessWidget {
           children: List<Widget>.generate(_modifyItemList.length, (index) {
             var _modifyItem = _modifyItemList[index];
             return GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {
                 if(_modifyItem.route == null) {
                   setToken();

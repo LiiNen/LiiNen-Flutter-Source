@@ -41,6 +41,7 @@ dependencies:
   google_mobile_ads: ^0.13.3
   flutter_slidable: ^0.6.0
   webview_flutter: ^2.0.12
+  jwt_decode: ^0.3.1
 
 dev_dependencies:
   flutter_test:

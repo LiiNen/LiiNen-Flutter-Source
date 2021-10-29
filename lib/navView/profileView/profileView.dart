@@ -5,26 +5,37 @@ import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/constraintCollection.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/restApi/usersApi.dart';
 
 import 'modifyAccountView/modifyAccountView.dart';
 
-class ProfileItem {
-  String? profileUrl;
-  String name;
-  String intro;
-  String phone;
-  ProfileItem({this.profileUrl, required this.name, required this.intro, required this.phone});
+var userProfile;
+
+void getMyInfo() async {
+  userProfile = await getUsersById(userId: userInfo['_id']);
 }
-ProfileItem testUser = ProfileItem(name: '테스트계정', intro: '안녕하세요', phone: '010-0000-0000');
 
 class ProfileView extends StatefulWidget {
   @override
   State<ProfileView> createState() => _ProfileView();
 }
 class _ProfileView extends State<ProfileView> {
+
+  @override
+  void initState() {
+    super.initState();
+    _getUsers();
+  }
+
+  void _getUsers() async {
+    var _temp = await getUsersById(userId: userInfo['_id']);
+    setState(() {
+      userProfile = _temp;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    ProfileItem _user = testUser;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: MainViewAppBar(title: '더보기', back: false),
@@ -34,14 +45,15 @@ class _ProfileView extends State<ProfileView> {
           children: [
             sizedBox(28),
             GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {navigatorPush(context: context, widget: ModifyAccountView());},
               child: Row(
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(36 * responsiveScale),
-                    child: _user.profileUrl == null
+                    child: userProfile['imageUrl'] != '0'
                       ? Image.asset('asset/loginView/profile.png', width: 72 * responsiveScale, height: 72 * responsiveScale,)
-                      : Image.network(_user.profileUrl!, width: 72 * responsiveScale, height: 72 * responsiveScale, fit: BoxFit.cover,),
+                      : Image.network(userProfile['imageUrl'], width: 72 * responsiveScale, height: 72 * responsiveScale, fit: BoxFit.cover,),
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width - (130 * responsiveScale),
@@ -50,7 +62,7 @@ class _ProfileView extends State<ProfileView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(_user.name, style: textStyle(weight: 700, size: 18.0), textAlign: TextAlign.left, overflow: TextOverflow.ellipsis,),
+                        Text(userProfile['name'], style: textStyle(weight: 700, size: 18.0), textAlign: TextAlign.left, overflow: TextOverflow.ellipsis,),
                         sizedBox(6),
                         Text('계정 설정', style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 12.0))
                       ],
@@ -63,6 +75,7 @@ class _ProfileView extends State<ProfileView> {
           ] + List<Widget>.generate(_menuItemList.length, (index) {
             var _menuItem = _menuItemList[index];
             return GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {
                 if(_menuItem.linkUrl == null) {
                   // 공지사항 게시판??

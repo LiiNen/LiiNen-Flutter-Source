@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/restApi/restApi.dart';
+import 'package:my_flutter_source/restApi/usersApi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'containerCollection.dart';
+import 'navView/profileView/profileView.dart';
 
 void launchURL(_srcURL) async => await canLaunch(_srcURL) ? await launch(_srcURL) : throw 'url \"$_srcURL\" error';
 
@@ -141,4 +144,6 @@ setToken({String token=''}) async {
   final pref = await SharedPreferences.getInstance();
   pref.setString('token', token);
   authToken['token'] = token;
+  if (token != '') userInfo = Jwt.parseJwt(token);
+  userProfile = await getUsersById(userId: userInfo['_id']);
 }

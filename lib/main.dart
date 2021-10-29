@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/restApi/categoriesApi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -11,9 +13,8 @@ void main()=> runApp(MyApp());
 double responsiveScale = 1.0;
 double maxWidth = 0.0;
 
-var userInfo = {
-  'name': '',
-  'email': '',
+Map<String, dynamic> userInfo = {
+
 };
 
 class MyApp extends StatelessWidget {
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
+var categories = [];
+var categoriesString;
+
 class MainRouter extends StatefulWidget {
   @override
   State<MainRouter> createState() => _MainRouter();
@@ -42,6 +46,7 @@ class _MainRouter extends State<MainRouter> {
   @override
   initState() {
     super.initState();
+    _getCategories();
     new Future.delayed(new Duration(seconds: 2), _checkLogin);
   }
   
@@ -49,6 +54,21 @@ class _MainRouter extends State<MainRouter> {
     final pref = await SharedPreferences.getInstance();
     setState(() {
       _loginState = (pref.getString('token') != '');
+    });
+
+    String _token = pref.getString('token') ?? '';
+    setToken(token: _token);
+  }
+
+  _getCategories() async {
+    var _temp = await getCategories();
+    setState(() {
+      categories = _temp;
+      categoriesString = categories.map((e) {
+        return e['name'];
+      }).toList();
+      print(categories);
+      print(categoriesString);
     });
   }
 
@@ -77,9 +97,3 @@ class _MainRouter extends State<MainRouter> {
     );
   }
 }
-
-List<String> categoryNameList = ['운동', '공예', '예술', '자기계발', 'IT', '오락', '자유주제'];
-List<String> categoryDetailList = ['스포츠/피트니스', 'DIY', '악기/그림', '독서/스터디', '개발/디자인', '온라인/보드게임', '기타'];
-List<String> categoryFullList = List<String>.generate(categoryNameList.length, (index) {
-  return '${categoryNameList[index]} (${categoryDetailList[index]})';
-});

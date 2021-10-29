@@ -8,6 +8,7 @@ import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/loginView/loginWidgets.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/restApi/usersApi.dart';
 
 import '../profileView.dart';
 
@@ -20,8 +21,6 @@ class _ModifyProfileView extends State<ModifyProfileView> {
   final introController = TextEditingController();
   FocusNode introFocusNode = FocusNode();
   PickedFile? _profileImage;
-
-  ProfileItem _user = testUser;
 
   @override
   Widget build(BuildContext context) {
@@ -51,19 +50,19 @@ class _ModifyProfileView extends State<ModifyProfileView> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(60 * responsiveScale),
                           child: _profileImage == null
-                              ? Image.asset('asset/loginView/profile.png', width: 120 * responsiveScale, height: 120 * responsiveScale,)
-                              : Image.file(File(_profileImage!.path), width: 120 * responsiveScale, height: 120 * responsiveScale, fit: BoxFit.cover,),
+                            ? Image.asset('asset/loginView/profile.png', width: 120 * responsiveScale, height: 120 * responsiveScale,)
+                            : Image.file(File(_profileImage!.path), width: 120 * responsiveScale, height: 120 * responsiveScale, fit: BoxFit.cover,),
                         ),
                         Positioned(
-                            right: 5 * responsiveScale, bottom: 0,
-                            child: Container(
-                                width: 28 * responsiveScale, height: 28 * responsiveScale,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xffc2c6cd),
-                                  borderRadius: BorderRadius.circular(14 * responsiveScale),
-                                ),
-                                child: Center(child: Container(width: 14 * responsiveScale, height: 14 * responsiveScale, child: SvgPicture.asset('asset/loginView/icoCamera.svg', fit: BoxFit.fill,)))
-                            )
+                          right: 5 * responsiveScale, bottom: 0,
+                          child: Container(
+                            width: 28 * responsiveScale, height: 28 * responsiveScale,
+                            decoration: BoxDecoration(
+                              color: const Color(0xffc2c6cd),
+                              borderRadius: BorderRadius.circular(14 * responsiveScale),
+                            ),
+                            child: Center(child: Container(width: 14 * responsiveScale, height: 14 * responsiveScale, child: SvgPicture.asset('asset/loginView/icoCamera.svg', fit: BoxFit.fill,)))
+                          )
                         )
                       ],
                     )
@@ -80,9 +79,9 @@ class _ModifyProfileView extends State<ModifyProfileView> {
     );
   }
 
-  void confirm() {
-    print('수정하기');
-    // navigatorPush(context: context, widget: DeleteAccountView());
+  void confirm() async {
+    var response = await patchUsers(userId: userInfo['_id'], name: 'hello');
+    print(response);
   }
 
   List<Widget> nameField() {
@@ -97,7 +96,7 @@ class _ModifyProfileView extends State<ModifyProfileView> {
           contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
           enabledBorder: enabledBorderDefault(),
           focusedBorder: focusedBorderDefault(),
-          hintText: _user.name,
+          hintText: userProfile['name'],
           hintStyle: textStyle(color: Color(0xffd1d5d9), weight: 400, size: 12.0),
         ),
         style: textStyle(weight: 600, size: 12.0),
@@ -122,7 +121,7 @@ class _ModifyProfileView extends State<ModifyProfileView> {
           contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
           enabledBorder: enabledBorderDefault(),
           focusedBorder: focusedBorderDefault(),
-          hintText: _user.intro,
+          hintText: userProfile['introduce'],
           hintStyle: textStyle(color: Color(0xffd1d5d9), weight: 400, size: 12.0),
         ),
         style: textStyle(weight: 600, size: 12.0),
@@ -136,7 +135,7 @@ class _ModifyProfileView extends State<ModifyProfileView> {
   List<Widget> phoneField() {
     return [
       sizedBox(24),
-      loginSubtitle('전화번호'),
+      loginSubtitle('이메일'),
       sizedBox(8),
       TextField(
         readOnly: true,
@@ -146,7 +145,7 @@ class _ModifyProfileView extends State<ModifyProfileView> {
           contentPadding: EdgeInsets.symmetric(horizontal: 14.0),
           enabledBorder: disabledBorder(),
           focusedBorder: disabledBorder(),
-          hintText: _user.phone,
+          hintText: userProfile['email'],
           hintStyle: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 12.0),
         ),
       ),

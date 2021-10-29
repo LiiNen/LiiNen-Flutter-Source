@@ -97,21 +97,7 @@ List<CategoryItemClass> categoryList = [
   CategoryItemClass(title: '자기계발', context: '(독서/스터디)', imgSrc: 'asset/category/reading.jpeg'),
   CategoryItemClass(title: 'IT', context: '(개발/디자인)', imgSrc: 'asset/category/it.jpeg'),
   CategoryItemClass(title: '오락', context: '(온라인/보드게임)', imgSrc: 'asset/category/boardGame.jpeg'),
-  CategoryItemClass(title: '자유주제', context: '(기타)', imgSrc: 'asset/category/etc.jpeg'),
-  // CategoryItemClass(title: '운동', context: '(스포츠/피트니스)', imgSrc: 'asset/category/sport.jpeg'),
-  // CategoryItemClass(title: '공예', context: '(DIY)', imgSrc: 'asset/category/diy.jpeg'),
-  // CategoryItemClass(title: '예술', context: '(악기/그림)', imgSrc: 'asset/category/art.jpeg'),
-  // CategoryItemClass(title: '자기계발', context: '(독서/스터디)', imgSrc: 'asset/category/reading.jpeg'),
-  // CategoryItemClass(title: 'IT', context: '(개발/디자인)', imgSrc: 'asset/category/it.jpeg'),
-  // CategoryItemClass(title: '오락', context: '(온라인/보드게임)', imgSrc: 'asset/category/boardGame.jpeg'),
-  // CategoryItemClass(title: '자유주제', context: '(기타)', imgSrc: 'asset/category/etc.jpeg'),
-  // CategoryItemClass(title: '운동', context: '(스포츠/피트니스)', imgSrc: 'asset/category/sport.jpeg'),
-  // CategoryItemClass(title: '공예', context: '(DIY)', imgSrc: 'asset/category/diy.jpeg'),
-  // CategoryItemClass(title: '예술', context: '(악기/그림)', imgSrc: 'asset/category/art.jpeg'),
-  // CategoryItemClass(title: '자기계발', context: '(독서/스터디)', imgSrc: 'asset/category/reading.jpeg'),
-  // CategoryItemClass(title: 'IT', context: '(개발/디자인)', imgSrc: 'asset/category/it.jpeg'),
-  // CategoryItemClass(title: '오락', context: '(온라인/보드게임)', imgSrc: 'asset/category/boardGame.jpeg'),
-  // CategoryItemClass(title: '자유주제', context: '(기타)', imgSrc: 'asset/category/etc.jpeg'),
+  CategoryItemClass(title: '자유주제', context: '', imgSrc: 'asset/category/etc.jpeg'),
 ];
 
 Widget categoryGridContainer(BuildContext context) {
@@ -134,7 +120,7 @@ Widget categoryGridContainer(BuildContext context) {
                     return GestureDetector(
                       onTap: () {
                         FocusManager.instance.primaryFocus?.unfocus();
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryResultView(categoryList[index].title)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryResultView('${categoryList[index].title} ${categoryList[index].context}')));
                       },
                       child: Container(
                         width: constraints.maxWidth, height: constraints.maxHeight,
@@ -158,7 +144,7 @@ Widget categoryGridContainer(BuildContext context) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(categoryList[index].title, style: textStyle(color: Colors.white, weight: 400, size: 12.0), textAlign: TextAlign.left,),
-                    Text(categoryList[index].context, style: textStyle(color: Colors.white, weight: 400, size: 10.0), textAlign: TextAlign.left,)
+                    categoryList[index].context != '' ? Text(categoryList[index].context, style: textStyle(color: Colors.white, weight: 400, size: 10.0), textAlign: TextAlign.left,) : Container()
                   ],
                 )
               )

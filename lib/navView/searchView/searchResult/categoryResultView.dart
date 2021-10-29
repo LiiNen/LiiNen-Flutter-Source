@@ -39,16 +39,21 @@ class _CategoryAppBar extends State<CategoryAppBar> {
   _CategoryAppBar(this._currentCategory);
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    int categoryIndex = categoryNameList.indexOf(_currentCategory);
+    int categoryIndex = categoriesString.indexOf(_currentCategory);
     return AppBar(
       elevation: 1,
-      brightness: Brightness.light,
       backgroundColor: Colors.white,
       automaticallyImplyLeading: false,
       centerTitle: true,
       title: Container(
         child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
           onTap: () => {
             setState(() {
               showCategoryList();
@@ -60,7 +65,7 @@ class _CategoryAppBar extends State<CategoryAppBar> {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 24),
                 child: Text(
-                  '$_currentCategory (${categoryDetailList[categoryIndex]})',
+                  '$_currentCategory',
                   style: textStyle(weight: 700, size: 16.0),
                   textAlign: TextAlign.center,
                 ),
@@ -111,8 +116,8 @@ class _CategoryAppBar extends State<CategoryAppBar> {
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  children: List<Widget>.generate(categoryList.length, (index) {
-                    var _selected = (_currentCategory == categoryList[index].name);
+                  children: List<Widget>.generate(categories.length, (index) {
+                    var _selected = (_currentCategory == categories[index]['name']);
                     return GestureDetector(
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -122,7 +127,7 @@ class _CategoryAppBar extends State<CategoryAppBar> {
                           children: [
                             Container(
                               child: Text(
-                                '${categoryList[index].name} (${categoryList[index].detail})',
+                                '${categories[index]['name']}',
                                 style: _selected
                                   ? textStyle(color: Color(0xff0958c5), weight: 700, size: 14.0)
                                   : textStyle(color: Colors.black, weight: 600, size: 14.0)
@@ -140,7 +145,7 @@ class _CategoryAppBar extends State<CategoryAppBar> {
                       ),
                       onTap: ((){
                         Navigator.pop(context);
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CategoryResultView(categoryList[index].name)));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CategoryResultView(categories[index]['name'])));
                       })
                     );
                   }),
@@ -157,8 +162,6 @@ class _CategoryAppBar extends State<CategoryAppBar> {
 
 class CategoryComponent {
   final String name;
-  final String detail;
-  CategoryComponent(this.name, this.detail);
+  final String id;
+  CategoryComponent(this.name, this.id);
 }
-
-var categoryList = List<CategoryComponent>.generate(categoryNameList.length, (index) => CategoryComponent(categoryNameList[index], categoryDetailList[index]));
