@@ -143,7 +143,7 @@ showExitDialog(BuildContext context) async {
 setToken({String token=''}) async {
   final pref = await SharedPreferences.getInstance();
   pref.setString('token', token);
-  authToken['token'] = token;
+  authToken['Authorization'] = token;
   if (token != '') userInfo = Jwt.parseJwt(token);
   userProfile = await getUsersById(userId: userInfo['_id']);
 }

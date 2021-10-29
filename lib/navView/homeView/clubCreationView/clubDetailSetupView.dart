@@ -134,7 +134,6 @@ class _ClubDetailSetupView extends State<ClubDetailSetupView> {
       maxLines: isIntro ? null : 1,
       onChanged: (value) {
         setState(() {
-          print(isIntro);
           _fieldComplete = (clubNameController.text != '' && clubIntroController.text != '' && (clubLimitController.text != '' && int.parse(clubLimitController.text) > 0));
         });
       },

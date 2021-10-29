@@ -87,18 +87,20 @@ class CategoryItemClass {
   final String title;
   final String context;
   final String imgSrc;
-  CategoryItemClass({required this.title, required this.context, required this.imgSrc});
+  final String id;
+  CategoryItemClass({required this.title, required this.context, required this.imgSrc, required this.id});
 }
 
-List<CategoryItemClass> categoryList = [
-  CategoryItemClass(title: '운동', context: '(스포츠/피트니스)', imgSrc: 'asset/category/sport.jpeg'),
-  CategoryItemClass(title: '공예', context: '(DIY)', imgSrc: 'asset/category/diy.jpeg'),
-  CategoryItemClass(title: '예술', context: '(악기/그림)', imgSrc: 'asset/category/art.jpeg'),
-  CategoryItemClass(title: '자기계발', context: '(독서/스터디)', imgSrc: 'asset/category/reading.jpeg'),
-  CategoryItemClass(title: 'IT', context: '(개발/디자인)', imgSrc: 'asset/category/it.jpeg'),
-  CategoryItemClass(title: '오락', context: '(온라인/보드게임)', imgSrc: 'asset/category/boardGame.jpeg'),
-  CategoryItemClass(title: '자유주제', context: '', imgSrc: 'asset/category/etc.jpeg'),
+var imgSrcList = [
+  'asset/category/sport.jpeg', 'asset/category/diy.jpeg', 'asset/category/art.jpeg', 'asset/category/reading.jpeg',
+  'asset/category/it.jpeg', 'asset/category/boardGame.jpeg', 'asset/category/etc.jpeg'
 ];
+
+List<CategoryItemClass> categoryList = List.generate(categories.length, (index) {
+  var _split = categories[index]['name'].split(' ');
+  print(_split);
+  return CategoryItemClass(title: _split[0], context: _split.length == 1 ? '' : _split[1], imgSrc: imgSrcList[index], id: categories[index]['_id']);
+});
 
 Widget categoryGridContainer(BuildContext context) {
   return Container(
@@ -120,7 +122,7 @@ Widget categoryGridContainer(BuildContext context) {
                     return GestureDetector(
                       onTap: () {
                         FocusManager.instance.primaryFocus?.unfocus();
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryResultView('${categoryList[index].title} ${categoryList[index].context}')));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryResultView('${categoryList[index].title} ${categoryList[index].context}', categoryList[index].id)));
                       },
                       child: Container(
                         width: constraints.maxWidth, height: constraints.maxHeight,

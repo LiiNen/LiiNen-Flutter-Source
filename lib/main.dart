@@ -7,6 +7,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'loginView/loginView.dart';
 import 'navView/navView.dart';
+import 'navView/profileView/profileView.dart';
 
 void main()=> runApp(MyApp());
 
@@ -57,7 +58,9 @@ class _MainRouter extends State<MainRouter> {
     });
 
     String _token = pref.getString('token') ?? '';
-    setToken(token: _token);
+    await setToken(token: _token);
+    print('유저프로필');
+    print(userProfile);
   }
 
   _getCategories() async {

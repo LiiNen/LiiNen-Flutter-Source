@@ -2,25 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/restApi/searchApi.dart';
 import 'resultItemContainer.dart';
 
 class CategoryResultView extends StatefulWidget {
   final String _category;
-  CategoryResultView(this._category);
+  final String _id;
+  CategoryResultView(this._category, this._id);
 
   @override
-  State<CategoryResultView> createState() => _CategoryResultView(_category);
+  State<CategoryResultView> createState() => _CategoryResultView(_category, _id);
 }
 class _CategoryResultView extends State<CategoryResultView> {
   String _category;
-  _CategoryResultView(this._category);
+  String _id;
+  _CategoryResultView(this._category, this._id);
+
+  var results = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _searchWithCategory();
+  }
+
+  void _searchWithCategory() async {
+    var _temp = await searchWithCategory(categoryId: _id);
+    setState(() {
+      print(_id);
+      results = _temp;
+      print(results);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CategoryAppBar(currentCategory: _category,),
-      body: ResultItemContainer()
+      body: results != [] ? ResultItemContainer(results) : Container()
     );
   }
 }
@@ -45,7 +65,6 @@ class _CategoryAppBar extends State<CategoryAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    int categoryIndex = categoriesString.indexOf(_currentCategory);
     return AppBar(
       elevation: 1,
       backgroundColor: Colors.white,
@@ -145,7 +164,7 @@ class _CategoryAppBar extends State<CategoryAppBar> {
                       ),
                       onTap: ((){
                         Navigator.pop(context);
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CategoryResultView(categories[index]['name'])));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CategoryResultView(categories[index]['name'], categories[index]['_id'])));
                       })
                     );
                   }),

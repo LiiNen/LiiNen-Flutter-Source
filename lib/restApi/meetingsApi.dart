@@ -10,10 +10,8 @@ getMeetings({int page=1, int limit=50}) async {
 
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);
-    print(responseBody);
     return responseBody;
   } else {
-    print('error');
     return null;
   }
 }
@@ -27,8 +25,6 @@ postMeetings({required String name, required String introduction, required Strin
 
   var response = await http.post(Uri.parse('$baseUrl$pathMeetings'),
     body: requestBody, headers: authToken);
-
-  print(response.statusCode);
 
   if(response.statusCode == 201) {
     return true;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/restApi/searchApi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'resultItemContainer.dart';
 
@@ -16,7 +17,21 @@ class _TextResultView extends State<TextResultView> {
   String _text;
   _TextResultView(this._text);
 
+  var results = [];
+
   @override
+  void initState() {
+    super.initState();
+    _searchWithText();
+  }
+
+  void _searchWithText() async {
+    var _temp = await searchWithWord(word: _text);
+    setState(() {
+      results = _temp;
+      print(results);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +41,7 @@ class _TextResultView extends State<TextResultView> {
       appBar: TextAppBar(text: _text),
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: ResultItemContainer(),
+        child: results != [] ? ResultItemContainer(results) : Container(),
       )
     );
   }
