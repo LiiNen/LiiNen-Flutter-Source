@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_flutter_source/navView/profileView/profileView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_flutter_source/clubObject.dart';
 
@@ -13,8 +14,6 @@ class _ClubView extends State<ClubView> {
   bool? _hasClub;
   bool _loadComplete = false;
 
-
-
   @override
   void initState() {
     super.initState();
@@ -23,7 +22,8 @@ class _ClubView extends State<ClubView> {
   void _checkClub() async {
     final pref = await SharedPreferences.getInstance();
     setState(() {
-      _hasClub = pref.getBool('hasClub') ?? false;
+      _hasClub = userProfile['meetings']['joining'].length > 0;
+      print(_hasClub);
       _loadComplete = true;
     });
   }
