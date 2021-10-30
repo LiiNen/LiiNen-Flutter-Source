@@ -86,7 +86,7 @@ class _ClubExist extends State<ClubExist> {
 
   @override
   Widget build(BuildContext context) {
-    return ResultItemContainer(_results);
+    return ResultItemContainer(results: _results, isSearch: false);
   }
 }
 

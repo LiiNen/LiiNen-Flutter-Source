@@ -39,7 +39,7 @@ class _CategoryResultView extends State<CategoryResultView> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CategoryAppBar(currentCategory: _category,),
-      body: results != [] ? ResultItemContainer(results) : Container()
+      body: results != [] ? ResultItemContainer(results: results) : Container()
     );
   }
 }

@@ -40,7 +40,7 @@ class _TextResultView extends State<TextResultView> {
       appBar: TextAppBar(text: _text),
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: results != [] ? ResultItemContainer(results) : Container(),
+        child: results != [] ? ResultItemContainer(results: results) : Container(),
       )
     );
   }

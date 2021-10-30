@@ -5,19 +5,18 @@ import 'package:my_flutter_source/functionCollection.dart';
 import 'resultItemObject.dart';
 import 'searchFilterView.dart';
 
-import 'package:my_flutter_source/clubCollection/clubCardContainer.dart';
-
-
 class ResultItemContainer extends StatefulWidget {
-  final List<dynamic> _results;
-  ResultItemContainer(this._results);
+  final List<dynamic> results;
+  final bool isSearch;
+  ResultItemContainer({required this.results, this.isSearch=true});
 
   @override
-  State<ResultItemContainer> createState() => _ResultItemContainer(_results);
+  State<ResultItemContainer> createState() => _ResultItemContainer(results, isSearch);
 }
 class _ResultItemContainer extends State<ResultItemContainer> {
   List<dynamic> _results;
-  _ResultItemContainer(this._results);
+  bool isSearch;
+  _ResultItemContainer(this._results, this.isSearch);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +30,7 @@ class _ResultItemContainer extends State<ResultItemContainer> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 21 * responsiveScale),
               width: MediaQuery.of(context).size.width,
-              child: Row(
+              child: isSearch ? Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -50,7 +49,7 @@ class _ResultItemContainer extends State<ResultItemContainer> {
                     )
                   )
                 ]
-              )
+              ) : Text('${_results.length}개의 모임', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,)
             )
           ),
           Container(
@@ -59,7 +58,7 @@ class _ResultItemContainer extends State<ResultItemContainer> {
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               children: [
-                ResultClubContainer(_results)
+                ResultClubContainer(_results, isSearch)
               ],
             )
           )
@@ -73,7 +72,7 @@ class _ResultItemContainer extends State<ResultItemContainer> {
             children: [
               SvgPicture.asset('asset/image/icoFail.svg', width: 28, height: 48),
               SizedBox(height: 24),
-              Text('검색 결과가 없습니다.', style: textStyle(weight: 600, size: 16.0),),
+              Text(isSearch ? '검색 결과가 없습니다.' : '가입된 모임이 없습니다.', style: textStyle(weight: 600, size: 16.0),),
             ],
           )
         )

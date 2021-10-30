@@ -20,13 +20,15 @@ class ClubCardObject {
 
 class ClubCardContainer extends StatefulWidget {
   final dynamic _result;
-  ClubCardContainer(this._result);
+  final bool isSearch;
+  ClubCardContainer(this._result, this.isSearch);
   @override
-  State<ClubCardContainer> createState() => _ClubCardContainer(_result);
+  State<ClubCardContainer> createState() => _ClubCardContainer(_result, isSearch);
 }
 class _ClubCardContainer extends State<ClubCardContainer> {
   dynamic _result;
-  _ClubCardContainer(this._result);
+  bool isSearch;
+  _ClubCardContainer(this._result, this.isSearch);
 
   @override
   Widget build(BuildContext context) {
@@ -77,16 +79,17 @@ class _ClubCardContainer extends State<ClubCardContainer> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
+                              children: <Widget>[
                                 SizedBox(width: 10 * responsiveScale),
                                 SvgPicture.asset('asset/image/icoUser.svg', width: 10, height: 10, color: Colors.black),
                                 SizedBox(width: 4 * responsiveScale),
                                 Text('(${_result['personsCount']}/${_result['maxPerson']}명)', style: textStyle(weight: 600, size: 10.0),),
-                                SizedBox(width: 6 * responsiveScale),
-                                _result['isRecruiting']
-                                  ? Text('모집중', style: textStyle(color: Color(0xff0958c5), weight: 700, size: 16.0))
-                                  : Text('모집마감', style: textStyle(color: Color(0xff636c73), weight: 700, size: 16.0))
-                              ],
+                              ] + (isSearch ? [
+                              SizedBox(width: 6 * responsiveScale),
+                              _result['isRecruiting']
+                                ? Text('모집중', style: textStyle(color: Color(0xff0958c5), weight: 700, size: 16.0))
+                                : Text('모집마감', style: textStyle(color: Color(0xff636c73), weight: 700, size: 16.0))
+                              ] : []),
                             )
                           ),
                         ],
