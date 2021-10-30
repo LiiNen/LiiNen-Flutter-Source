@@ -24,7 +24,7 @@ class _ResultItemContainer extends State<ResultItemContainer> {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(color: Colors.white),
-      child: testObjectList.length != 0 ? Stack(
+      child: _results.length != 0 ? Stack(
         children: [
           Positioned(
             top: 16 * responsiveScale,
@@ -35,7 +35,7 @@ class _ResultItemContainer extends State<ResultItemContainer> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('${testObjectList.length}건의 검색결과', style: textStyle(weight: 700, size: 14.0)),
+                  Text('${_results.length}건의 검색결과', style: textStyle(weight: 700, size: 14.0)),
                   GestureDetector(
                     onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => SearchFilterView()));},
                     child: Container(
@@ -59,7 +59,7 @@ class _ResultItemContainer extends State<ResultItemContainer> {
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               children: [
-                ResultClubContainer()
+                ResultClubContainer(_results)
               ],
             )
           )

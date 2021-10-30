@@ -29,7 +29,6 @@ class _TextResultView extends State<TextResultView> {
     var _temp = await searchWithWord(word: _text);
     setState(() {
       results = _temp;
-      print(results);
     });
   }
 

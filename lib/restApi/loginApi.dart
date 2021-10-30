@@ -13,15 +13,11 @@ signUpApi({required String name, required String email, required String password
   temp['introduce'] = introduce;
   temp['categories'] = categories;
   var requestBody = json.encode(temp);
-  print(requestBody);
 
   var response = await http.post(Uri.parse('$baseUrl$pathSignUp'), body: requestBody, headers: {'Content-type': 'application/json'});
 
-  print(response.statusCode);
-  print(response.body);
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);
-    print(responseBody['token']);
     setToken(token: responseBody['token']);
     return true;
   } else {
@@ -39,11 +35,9 @@ signInApi({required String email, required String password}) async {
 
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);
-    print(responseBody['token']);
     setToken(token: responseBody['token']);
     return true;
   } else {
-    print(response);
     return false;
   }
 }

@@ -41,7 +41,6 @@ getMeetingsText({required String text, int page=1, int limit=50}) async {
 
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);
-    print(responseBody);
   } else {
     print('error');
     return null;

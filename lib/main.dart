@@ -70,8 +70,8 @@ class _MainRouter extends State<MainRouter> {
       categoriesString = categories.map((e) {
         return e['name'];
       }).toList();
+      print('카테고리');
       print(categories);
-      print(categoriesString);
     });
   }
 

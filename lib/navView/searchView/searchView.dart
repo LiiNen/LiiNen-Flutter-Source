@@ -98,7 +98,6 @@ var imgSrcList = [
 
 List<CategoryItemClass> categoryList = List.generate(categories.length, (index) {
   var _split = categories[index]['name'].split(' ');
-  print(_split);
   return CategoryItemClass(title: _split[0], context: _split.length == 1 ? '' : _split[1], imgSrc: imgSrcList[index], id: categories[index]['_id']);
 });
 

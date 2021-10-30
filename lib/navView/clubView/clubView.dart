@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_source/navView/profileView/profileView.dart';
+import 'package:my_flutter_source/navView/searchView/searchResult/resultItemContainer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_flutter_source/clubObject.dart';
 
@@ -11,7 +12,7 @@ class ClubView extends StatefulWidget {
 }
 
 class _ClubView extends State<ClubView> {
-  bool? _hasClub;
+  bool _hasClub = (userProfile['meetings']['joining'] != []);
   bool _loadComplete = false;
 
   @override
@@ -20,10 +21,8 @@ class _ClubView extends State<ClubView> {
     _checkClub();
   }
   void _checkClub() async {
-    final pref = await SharedPreferences.getInstance();
     setState(() {
-      _hasClub = userProfile['meetings']['joining'].length > 0;
-      print(_hasClub);
+      _hasClub = (userProfile['meetings']['joining'] != []);
       _loadComplete = true;
     });
   }
@@ -31,12 +30,12 @@ class _ClubView extends State<ClubView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: _loadComplete ? (_hasClub! ? AlarmDrawer() : null) : null,
+      endDrawer: _loadComplete ? (_hasClub ? AlarmDrawer() : null) : null,
       appBar: MainViewAppBar(title: '내 모임'),
       body: Container(
         decoration: BoxDecoration(color: Colors.white),
         child: (
-          _loadComplete ? (_hasClub! ? ClubExist() : ClubNotExist()) : Center(child: CircularProgressIndicator())
+          _loadComplete ? (_hasClub ? ClubExist() : ClubNotExist()) : Center(child: CircularProgressIndicator())
         )
       )
     );
@@ -83,31 +82,11 @@ class ClubExist extends StatefulWidget {
   State<ClubExist> createState() => _ClubExist();
 }
 class _ClubExist extends State<ClubExist> {
-  final _scrollController = ScrollController();
+  var _results = userProfile['meetings']['joining'];
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      children: [
-        Column(
-          children: [
-            Text('모임이 존재합니다'),
-            TextButton(
-              child: Text('모임 삭제하기'),
-              onPressed: _removeClub,
-            )
-        ]),
-        MyClubListContainer(),
-        MyQuestListContainer(),
-      ],
-      controller: _scrollController,
-    );
-  }
-  void _removeClub() async {
-    final pref = await SharedPreferences.getInstance();
-    pref.setBool('hasClub', false);
+    return ResultItemContainer(_results);
   }
 }
 

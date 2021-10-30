@@ -80,8 +80,10 @@ class _ModifyProfileView extends State<ModifyProfileView> {
   }
 
   void confirm() async {
-    var response = await patchUsers(userId: userInfo['_id'], name: 'hello');
-    print(response);
+    var response = await patchUsers(userId: userInfo['_id'], name: nameController.text, intro: introController.text);
+    await setToken(id: response);
+    Navigator.pop(context);
+    Navigator.pop(context);
   }
 
   List<Widget> nameField() {

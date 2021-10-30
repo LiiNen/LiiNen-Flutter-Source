@@ -36,7 +36,6 @@ class _CategorySetupView extends State<CategorySetupView> {
     var _temp = await getCategories();
     setState(() {
       _categories = _temp;
-      print(_categories);
     });
   }
 

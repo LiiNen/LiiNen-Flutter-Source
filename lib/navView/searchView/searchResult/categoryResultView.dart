@@ -31,7 +31,6 @@ class _CategoryResultView extends State<CategoryResultView> {
     setState(() {
       print(_id);
       results = _temp;
-      print(results);
     });
   }
 

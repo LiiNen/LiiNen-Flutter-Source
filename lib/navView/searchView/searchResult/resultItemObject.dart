@@ -8,14 +8,20 @@ import 'package:my_flutter_source/clubCollection/clubCardContainer.dart';
 
 
 class ResultClubContainer extends StatefulWidget {
+  final List<dynamic> _results;
+  ResultClubContainer(this._results);
+
   @override
-  State<ResultClubContainer> createState() => _ResultClubContainer();
+  State<ResultClubContainer> createState() => _ResultClubContainer(_results);
 }
 class _ResultClubContainer extends State<ResultClubContainer> {
+  List<dynamic> _results;
+  _ResultClubContainer(this._results);
+
   @override
   Widget build(BuildContext context) {
-    var _resultClubListView = List<Widget>.generate(testObjectList.length * 2, (index) {
-      return index%2 == 0 ? ClubCardContainer(testObjectList[(index/2).floor()]) : sizedBox(8);
+    var _resultClubListView = List<Widget>.generate(_results.length * 2, (index) {
+      return index%2 == 0 ? ClubCardContainer(_results[(index/2).floor()]) : sizedBox(8);
     });
 
     // 광고 삭제할 수 있도록 만들어야함

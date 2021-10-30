@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:my_flutter_source/clubCollection/clubCardContainer.dart';
 import 'package:my_flutter_source/constraintCollection.dart';
@@ -13,6 +15,8 @@ class _ClubSuggestionContainer extends State<ClubSuggestionContainer> {
   List<ClubCardObject> _clubObjectList = [];
   var futureTestObject;
 
+  var results = [];
+
   @override
   void initState() {
     super.initState();
@@ -22,16 +26,18 @@ class _ClubSuggestionContainer extends State<ClubSuggestionContainer> {
   @override
   Widget build(BuildContext context) {
     var _clubSuggestionList = List<Widget>.generate(_clubObjectList.length * 2, (index){
-      return index%2 == 0 ? ClubCardContainer(_clubObjectList[(index/2).floor()]) : sizedBox(8);
+      /// HACK: card container fixing
+      return Container();
+      // return index%2 == 0 ? ClubCardContainer(_clubObjectList[(index/2).floor()]) : sizedBox(8);
     });
 
     return Column(
       children: <Widget>[TitleContainer(title: '추천 모임', size: 20.0)] + _clubSuggestionList
-        + (_clubObjectList.length < testObjectList.length ? [
+        + (_clubObjectList.length < results.length ? [
           GestureDetector(
             onTap: () {
               setState(() {
-                _clubObjectList.add(testObjectList[_clubObjectList.length]);
+                _clubObjectList.add(results[_clubObjectList.length]);
               });
             },
             child: Container(
@@ -48,8 +54,8 @@ class _ClubSuggestionContainer extends State<ClubSuggestionContainer> {
 
   void _loadTestSuggestion() async {
     setState(() {
-      _clubObjectList = List<ClubCardObject>.generate(3, (index) {
-        return testObjectList[index];
+      _clubObjectList = List<ClubCardObject>.generate(min(results.length, 3), (index) {
+        return results[index];
       });
     });
   }

@@ -140,10 +140,17 @@ showExitDialog(BuildContext context) async {
   )) ?? false;
 }
 
-setToken({String token=''}) async {
+setToken({String token='', String id=''}) async {
   final pref = await SharedPreferences.getInstance();
-  pref.setString('token', token);
-  authToken['Authorization'] = token;
+  if(token != '' && id == '') {
+    pref.setString('token', token);
+    authToken['Authorization'] = token;
+  }
   if (token != '') userInfo = Jwt.parseJwt(token);
-  userProfile = await getUsersById(userId: userInfo['_id']);
+  userProfile = await getUsersById(userId: (id != '') ? id : userInfo['_id']);
+}
+
+getCategoryName(String id) {
+  final name = categories.firstWhere((e) => e['_id'] == id);
+  return name['name'];
 }

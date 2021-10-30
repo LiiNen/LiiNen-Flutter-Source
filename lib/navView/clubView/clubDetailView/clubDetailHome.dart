@@ -98,8 +98,8 @@ class _ClubDetailHome extends State<ClubDetailHome> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        if(boxContent == '가입하기') {showClubDialog(context: context, title: '모임에 가입하시겠습니까?', positiveAction: testFunc, negativeAction: test2Func);}
-        else if(boxContent == '모임탈퇴') {showClubDialog(context: context, title: '모임을 나가시겠습니까?', positiveAction: testFunc, negativeAction: test2Func);}
+        if(boxContent == '가입하기') {showClubDialog(context: context, title: '모임에 가입하시겠습니까?', positiveAction: (){}, negativeAction: (){});}
+        else if(boxContent == '모임탈퇴') {showClubDialog(context: context, title: '모임을 나가시겠습니까?', positiveAction: (){}, negativeAction: (){});}
         else if(boxContent == '모집마감') {
           // do nothing
         }
@@ -116,13 +116,6 @@ class _ClubDetailHome extends State<ClubDetailHome> {
     );
   }
 
-
-  testFunc() {
-    print('test');
-  }
-  test2Func() {
-    print('test2');
-  }
 }
 
 clubMemberCard({required ClubMemberList clubMemberList, isAdmin=false, required BuildContext context}) {
@@ -151,7 +144,7 @@ clubMemberRow({required ClubMember member, bool isHead=false, required bool isAd
         alignment: Alignment.centerRight,
         child: GestureDetector(
           behavior: HitTestBehavior.translucent,
-          onTap: () {showClubDialog(context: context, title: '${member.userName}님을 강퇴하시겠습니까?', positiveAction: testFunction, negativeAction: testFunction);},
+          onTap: () {showClubDialog(context: context, title: '${member.userName}님을 강퇴하시겠습니까?', positiveAction: (){}, negativeAction: (){});},
           child: Container(
             width: 42, height: 24,
             decoration: BoxDecoration(
@@ -195,8 +188,4 @@ clubMemberRow({required ClubMember member, bool isHead=false, required bool isAd
       )
     )
   );
-}
-
-testFunction() {
-  print('test');
 }
