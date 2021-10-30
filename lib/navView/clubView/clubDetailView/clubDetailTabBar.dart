@@ -19,7 +19,7 @@ class ClubDetailTabBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       elevation: 0,
       automaticallyImplyLeading: false,
-      title: Text('코딩할 사람 모여라', style: textStyle(weight: 700, size: 16.0)),
+      title: Text(title, style: textStyle(weight: 700, size: 16.0)),
       bottom: TabBar(
         controller: controller,
         indicator: UnderlineTabIndicator(

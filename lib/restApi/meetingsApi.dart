@@ -16,6 +16,17 @@ getMeetings({int page=1, int limit=50}) async {
   }
 }
 
+getMeetingById(String id) async {
+  var query = '/$id';
+  var response = await http.get(Uri.parse('$baseUrl$pathMeetings$query'));
+
+  if(response.statusCode == 200) {
+    var responseBody = json.decode(response.body);
+    return responseBody;
+  }
+  else return null;
+}
+
 postMeetings({required String name, required String introduction, required String category, required String maxPerson}) async {
   var requestBody = Map();
   requestBody['name'] = name;
@@ -53,4 +64,22 @@ patchMeetings({required String meetingId}) async {
   var response = await http.patch(Uri.parse('$baseUrl$pathMeetings$query'));
 
 
+}
+
+quitMeeting({required String meetingId, isPresident=false}) async {
+  var query = '/$meetingId';
+  if(!isPresident) query = query + '/quit';
+
+  var response = await (isPresident
+    ? http.delete(Uri.parse('$baseUrl$pathMeetings$query'), headers: authToken)
+    : http.patch(Uri.parse('$baseUrl$pathMeetings$query'), headers: authToken)
+  );
+
+  if(response.statusCode == 200) {
+    print('success');
+    return true;
+  }
+  else {
+    return null;
+  }
 }

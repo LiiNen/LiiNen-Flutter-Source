@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/restApi/meetingsApi.dart';
 
 import 'clubDialog.dart';
 
@@ -18,10 +20,16 @@ class ClubMemberList {
 }
 
 class ClubDetailHome extends StatefulWidget {
+  final dynamic result;
+  ClubDetailHome(this.result);
+
   @override
-  State<ClubDetailHome> createState() => _ClubDetailHome();
+  State<ClubDetailHome> createState() => _ClubDetailHome(result);
 }
 class _ClubDetailHome extends State<ClubDetailHome> {
+  dynamic result;
+  _ClubDetailHome(this.result);
+
   String? _clubCategory;
   String? _clubTitle;
   String? _clubIntro;
@@ -34,15 +42,16 @@ class _ClubDetailHome extends State<ClubDetailHome> {
   }
   void _getClubInfo() {
     // todo: get data from server
-    _clubCategory = 'IT(개발/디자인)';
-    _clubTitle = '코딩할 사람 모여라';
-    _clubIntro = '코딩할 사람을 구해요. 우리 다같이 킹짱 개발자가 되기 위해 노력해보아요. 같이 스터디도 진행하고 개발 관련 정보도 공유해요';
+    _clubCategory = getCategoryName(result['category']['_id']);
+    _clubTitle = result['name'];
+    _clubIntro = result['introduction'];
     List<ClubMember> temp = [
-      ClubMember(userName: '김정훈', userIntro: '안녕하세요 김정훈입니다.'),
-      ClubMember(userName: '김한슬', userIntro: '안녕하세요 김한슬입니다.'),
-      ClubMember(userName: '박상욱', userIntro: '안녕하세요 박상욱입니다.')
+      ClubMember(userName: result['persons']['president']['name'], userIntro: result['persons']['president']['introduce'])
     ];
-    _clubMemberList = ClubMemberList(currentNum: 3, maxNum: 5, member: temp);
+    result['persons']['members'].toList().map((e) {
+      temp.add(ClubMember(userName: e['name'], userIntro: e['introduce']));
+    });
+    _clubMemberList = ClubMemberList(currentNum: result['personsCount'], maxNum: result['maxPerson'], member: temp);
   }
 
 
@@ -71,6 +80,18 @@ class _ClubDetailHome extends State<ClubDetailHome> {
     );
   }
   _clubTitleCard() {
+    bool _isMember = false;
+    if(result['persons']['president']['_id'] == userInfo['_id']) {
+      _isMember = true;
+      print('president');
+    }
+    else {
+      result['persons']['members'].toList().map((e) {
+        if (e['_id'] == userInfo['_id']) _isMember = true;
+      });
+    }
+    print(_isMember ? 'member' : 'not member');
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +103,7 @@ class _ClubDetailHome extends State<ClubDetailHome> {
         Text(_clubIntro!, style: textStyle(weight: 400, size: 12.0)),
       ] + [
         SizedBox(height: 36),
-        _clubInOutButton(false),
+        _clubInOutButton(_isMember),
       ]
     );
   }
@@ -90,7 +111,8 @@ class _ClubDetailHome extends State<ClubDetailHome> {
   _clubInOutButton(bool isMember) {
     Color boxColor = (!isMember && (_clubMemberList!.currentNum < _clubMemberList!.maxNum) ? Color(0xff0958c5) : Color(0xffd1d5d9));
     String boxContent;
-    if(!isMember) {
+    if(result['persons']['president']['_id'] == userInfo['_id']) boxContent = '모임 삭제';
+    else if(!isMember) {
       if(_clubMemberList!.currentNum < _clubMemberList!.maxNum) boxContent = '가입하기';
       else boxContent = '모집마감';
     } else boxContent = '모임탈퇴';
@@ -99,9 +121,12 @@ class _ClubDetailHome extends State<ClubDetailHome> {
       behavior: HitTestBehavior.translucent,
       onTap: () {
         if(boxContent == '가입하기') {showClubDialog(context: context, title: '모임에 가입하시겠습니까?', positiveAction: (){}, negativeAction: (){});}
-        else if(boxContent == '모임탈퇴') {showClubDialog(context: context, title: '모임을 나가시겠습니까?', positiveAction: (){}, negativeAction: (){});}
+        else if(boxContent == '모임탈퇴') {showClubDialog(context: context, title: '모임을 나가시겠습니까?', positiveAction: quitClub, negativeAction: (){});}
         else if(boxContent == '모집마감') {
           // do nothing
+        }
+        else if(boxContent == '모임 삭제') {
+          showClubDialog(context: context, title: '모임을 삭제하시겠습니까?', positiveAction: deleteClub, negativeAction: (){});
         }
       },
       child: Container(
@@ -116,6 +141,14 @@ class _ClubDetailHome extends State<ClubDetailHome> {
     );
   }
 
+  quitClub() async {
+    var response = await quitMeeting(meetingId: result['_id']);
+    print(response);
+  }
+  deleteClub() async {
+    var response = await quitMeeting(meetingId: result['_id'], isPresident: true);
+    print(response);
+  }
 }
 
 clubMemberCard({required ClubMemberList clubMemberList, isAdmin=false, required BuildContext context}) {

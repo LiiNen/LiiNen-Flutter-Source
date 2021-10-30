@@ -32,7 +32,7 @@ class _ClubCardContainer extends State<ClubCardContainer> {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: () {navigatorPush(context: context, widget: ClubDetailView());},
+      onTap: () {navigatorPush(context: context, widget: ClubDetailView(_result['_id']));},
       child: Container(
         decoration: shadowBoxDecoration(),
         width: MediaQuery.of(context).size.width, height: 152,
