@@ -1,14 +1,15 @@
 import 'dart:io';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/loginView/categorySetupView.dart';
 import 'package:my_flutter_source/loginView/loginWidgets.dart';
 import 'package:my_flutter_source/constraintCollection.dart';
-
 import 'package:my_flutter_source/main.dart';
 
 class ProfileSetupView extends StatefulWidget {
@@ -27,7 +28,7 @@ class _ProfileSetupView extends State<ProfileSetupView> {
   final nameController = TextEditingController();
   final introController = TextEditingController();
   FocusNode introFocusNode = FocusNode();
-  PickedFile? _profileImage;
+  File? _profileImage;
 
   // TODO : overflow 37 pixel in android device when keyboard up
   @override
@@ -141,9 +142,12 @@ class _ProfileSetupView extends State<ProfileSetupView> {
   }
 
 
-  void _nextStep() {
+  void _nextStep() async {
     if(nameController.text != '') {
-      navigatorPush(context: context, widget: CategorySetupView(nameController.text, email, password, introController.text));
+      if(_profileImage == null) {
+        _profileImage = await getImageFileFromAssets('asset/loginView/profile.png');
+      }
+      navigatorPush(context: context, widget: CategorySetupView(nameController.text, email, password, introController.text, _profileImage!));
     }
   }
 
@@ -153,8 +157,7 @@ class _ProfileSetupView extends State<ProfileSetupView> {
     final _pickedImage = await _imagePicker.getImage(source: ImageSource.gallery);
     setState(() {
       if (_pickedImage != null) {
-        print('hello');
-        _profileImage = _pickedImage;
+        _profileImage = File(_pickedImage.path);
       } else {
         print('No image selected.');
       }

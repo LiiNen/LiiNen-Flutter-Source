@@ -36,6 +36,7 @@ class _ProfileView extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    print(userProfile['imageUrl']);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: MainViewAppBar(title: '더보기', back: false),
@@ -51,7 +52,7 @@ class _ProfileView extends State<ProfileView> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(36 * responsiveScale),
-                    child: userProfile['imageUrl'] != '0'
+                    child: userProfile['imageUrl'] == ''
                       ? Image.asset('asset/loginView/profile.png', width: 72 * responsiveScale, height: 72 * responsiveScale,)
                       : Image.network(userProfile['imageUrl'], width: 72 * responsiveScale, height: 72 * responsiveScale, fit: BoxFit.cover,),
                   ),

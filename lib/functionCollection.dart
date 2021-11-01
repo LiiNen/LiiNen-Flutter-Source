@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:my_flutter_source/main.dart';
@@ -153,4 +157,15 @@ setToken({String token='', String id=''}) async {
 getCategoryName(String id) {
   final name = categories.firstWhere((e) => e['_id'] == id);
   return name['name'];
+}
+
+Future<File> getImageFileFromAssets(String path) async {
+  final byteData = await rootBundle.load('$path');
+  final buffer = byteData.buffer;
+  Directory tempDir = await getTemporaryDirectory();
+  String tempPath = tempDir.path + '/temp_img.tmp';
+  final file = File(tempPath).writeAsBytes(
+      buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes)
+  );
+  return file;
 }

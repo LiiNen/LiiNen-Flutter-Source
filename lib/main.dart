@@ -53,11 +53,10 @@ class _MainRouter extends State<MainRouter> {
   
   _checkLogin() async {
     final pref = await SharedPreferences.getInstance();
-    setState(() {
-      _loginState = (pref.getString('token') != '');
-    });
-
     String _token = pref.getString('token') ?? '';
+    setState(() {
+      _loginState = (_token != '');
+    });
     await setToken(token: _token);
     print('유저프로필');
     print(userProfile);

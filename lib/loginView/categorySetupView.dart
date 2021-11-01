@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:my_flutter_source/constraintCollection.dart';
 import 'package:my_flutter_source/containerCollection.dart';
@@ -13,14 +15,16 @@ class CategorySetupView extends StatefulWidget {
   final String email;
   final String password;
   final String introduce;
-  CategorySetupView(this.name, this.email, this.password, this.introduce);
+  final File profileImage;
+  CategorySetupView(this.name, this.email, this.password, this.introduce, this.profileImage);
 
   @override
-  State<CategorySetupView> createState() => _CategorySetupView(name, email, password, introduce);
+  State<CategorySetupView> createState() => _CategorySetupView(name, email, password, introduce, profileImage);
 }
 class _CategorySetupView extends State<CategorySetupView> {
   String name, email, password, introduce;
-  _CategorySetupView(this.name, this.email, this.password, this.introduce);
+  File profileImage;
+  _CategorySetupView(this.name, this.email, this.password, this.introduce, this.profileImage);
 
   var _categories = [];
   List<String> _selectedList = [];
@@ -92,7 +96,7 @@ class _CategorySetupView extends State<CategorySetupView> {
   }
 
   void _submitSignUp() async {
-    var result = await signUpApi(name: name, email: email, password: password, introduce: introduce, categories: _selectedList);
+    var result = await signUpApi(name: name, email: email, password: password, introduce: introduce, categories: _selectedList, profileImage: profileImage);
     if(result) {
       showToast('회원가입이 완료되었습니다!');
       Navigator.push(context, MaterialPageRoute(builder: (context) => NavView()));

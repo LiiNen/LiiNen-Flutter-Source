@@ -20,7 +20,7 @@ class _ModifyProfileView extends State<ModifyProfileView> {
   final nameController = TextEditingController();
   final introController = TextEditingController();
   FocusNode introFocusNode = FocusNode();
-  PickedFile? _profileImage;
+  File? _profileImage;
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +49,9 @@ class _ModifyProfileView extends State<ModifyProfileView> {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(60 * responsiveScale),
-                          child: _profileImage == null
+                          child: userProfile == ''
                             ? Image.asset('asset/loginView/profile.png', width: 120 * responsiveScale, height: 120 * responsiveScale,)
-                            : Image.file(File(_profileImage!.path), width: 120 * responsiveScale, height: 120 * responsiveScale, fit: BoxFit.cover,),
+                            : Image.network(userProfile['imageUrl'], width: 120 * responsiveScale, height: 120 * responsiveScale, fit: BoxFit.cover,),
                         ),
                         Positioned(
                           right: 5 * responsiveScale, bottom: 0,
@@ -80,6 +80,11 @@ class _ModifyProfileView extends State<ModifyProfileView> {
   }
 
   void confirm() async {
+    if(nameController.text != '') {
+      if(_profileImage == null) {
+        _profileImage = await getImageFileFromAssets('asset/loginView/profile.png');
+      }
+    }
     var response = await patchUsers(userId: userInfo['_id'], name: nameController.text, intro: introController.text);
     await setToken(id: response);
     Navigator.pop(context);
@@ -159,8 +164,7 @@ class _ModifyProfileView extends State<ModifyProfileView> {
     final _pickedImage = await _imagePicker.getImage(source: ImageSource.gallery);
     setState(() {
       if (_pickedImage != null) {
-        print('hello');
-        _profileImage = _pickedImage;
+        _profileImage = File(_pickedImage.path);
       } else {
         print('No image selected.');
       }
