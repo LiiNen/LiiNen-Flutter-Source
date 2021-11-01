@@ -49,11 +49,11 @@ class _ClubObjectItem extends State<ClubObjectItem> {
             child: GestureDetector(
               child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(_size/2)),
-                    border: Border.all()
+                  borderRadius: BorderRadius.all(Radius.circular(_size/2)),
+                  border: Border.all()
                 ),
                 child: Center(
-                    child: Text(_inputClubObject.clubName, style: textStyle(weight: 700, size: 20.0))
+                  child: Text(_inputClubObject.clubName, style: textStyle(weight: 700, size: 20.0))
                 )
               ),
               onTap: () => _loadClubView(_inputClubObject.clubId)

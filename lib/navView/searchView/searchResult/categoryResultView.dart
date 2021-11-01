@@ -138,6 +138,7 @@ class _CategoryAppBar extends State<CategoryAppBar> {
                   children: List<Widget>.generate(categories.length, (index) {
                     var _selected = (_currentCategory == categories[index]['name']);
                     return GestureDetector(
+                      behavior: HitTestBehavior.translucent,
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.symmetric(vertical: 16),

@@ -30,6 +30,8 @@ class _CategorySetupView extends State<CategorySetupView> {
   List<String> _selectedList = [];
   bool _selectedLeast = false;
 
+  bool isLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -96,10 +98,11 @@ class _CategorySetupView extends State<CategorySetupView> {
   }
 
   void _submitSignUp() async {
+    loadingDialog(context);
     var result = await signUpApi(name: name, email: email, password: password, introduce: introduce, categories: _selectedList, profileImage: profileImage);
     if(result) {
       showToast('회원가입이 완료되었습니다!');
-      Navigator.push(context, MaterialPageRoute(builder: (context) => NavView()));
+      navigatorPush(context: context, widget: NavView(), replacement: true, all: true );
     }
     else {
       showToast('문제가 발생했습니다. 문의해주세요');

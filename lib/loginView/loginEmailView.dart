@@ -21,6 +21,8 @@ class _LoginEmailView extends State<LoginEmailView> {
   var emailFocus = FocusNode();
   var passwordFocus = FocusNode();
 
+  bool isLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -133,12 +135,15 @@ class _LoginEmailView extends State<LoginEmailView> {
 
   //TODO : login implements
   void _loginAction() async {
+    loadingDialog(context);
     var response = await signInApi(email: emailController.text, password: passwordController.text);
     if(response == true) {
       showToast('로그인되었습니다.');
-      navigatorPush(context: context, widget: NavView());
+      navigatorPush(context: context, widget: NavView(), replacement: true, all: true);
     }
-    else showToast('로그인 정보가 잘못되었습니다.');
+    else {
+      showToast('로그인 정보가 잘못되었습니다.');
+    }
   }
 
   void _signUpBtnClick() {

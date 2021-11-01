@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -151,6 +152,10 @@ setToken({String token='', String id=''}) async {
     authToken['Authorization'] = token;
   }
   if (token != '') userInfo = Jwt.parseJwt(token);
+  else {
+    pref.setString('token', '');
+    authToken['Authorization'] = '';
+  }
   userProfile = await getUsersById(userId: (id != '') ? id : userInfo['_id']);
 }
 
@@ -168,4 +173,29 @@ Future<File> getImageFileFromAssets(String path) async {
       buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes)
   );
   return file;
+}
+
+void loadingDialog(context) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      const oneSec = Duration(seconds:1);
+      Timer.periodic(oneSec, (Timer t) {
+        if(authToken['Authorization'] != '') {
+          Navigator.pop(context);
+          t.cancel();
+        }
+      });
+      return Dialog(
+        child: new Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(),
+            Text('암호화 진행 중입니다...'),
+          ],
+        ),
+      );
+    },
+  );
 }

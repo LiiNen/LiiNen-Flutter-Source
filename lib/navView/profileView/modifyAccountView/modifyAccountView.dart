@@ -5,7 +5,6 @@ import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/loginView/loginView.dart';
 import 'package:my_flutter_source/main.dart';
-import 'package:my_flutter_source/restApi/restApi.dart';
 import 'modifyProfileView.dart';
 import 'deleteAccountView.dart';
 

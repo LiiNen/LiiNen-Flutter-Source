@@ -57,7 +57,7 @@ class _ClubCardContainer extends State<ClubCardContainer> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(getCategoryName(_result['category']['_id']), style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0), textAlign: TextAlign.left,),
+                    Text(getCategoryName(_result['category'] is String ? _result['category'] : _result['category']['_id']), style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0), textAlign: TextAlign.left,),
                     sizedBox(6),
                     Text(_result['name'], style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis,
