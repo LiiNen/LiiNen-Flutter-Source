@@ -27,8 +27,10 @@ class _ResultClubContainer extends State<ResultClubContainer> {
     });
 
     // 광고 삭제할 수 있도록 만들어야함
-    _resultClubListView.insert(2, AdMobBanner());
-    _resultClubListView.insert(3, LineDivider());
+    if(_resultClubListView.length > 2) {
+      _resultClubListView.insert(2, AdMobBanner());
+      _resultClubListView.insert(3, LineDivider());
+    }
 
     return Column(
       children: _resultClubListView

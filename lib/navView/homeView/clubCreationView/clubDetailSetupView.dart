@@ -28,7 +28,7 @@ class _ClubDetailSetupView extends State<ClubDetailSetupView> {
   FocusNode clubIntroFocusNode = FocusNode();
   FocusNode clubLimitFocusNode = FocusNode();
 
-  PickedFile? _clubImage;
+  File? _clubImage;
   bool _fieldComplete = false;
 
   @override
@@ -150,8 +150,7 @@ class _ClubDetailSetupView extends State<ClubDetailSetupView> {
     final _pickedImage = await _imagePicker.getImage(source: ImageSource.gallery);
     setState(() {
       if (_pickedImage != null) {
-        print('hello');
-        _clubImage = _pickedImage;
+        _clubImage = File(_pickedImage.path);
       } else {
         print('No image selected.');
       }
@@ -164,7 +163,14 @@ class _ClubDetailSetupView extends State<ClubDetailSetupView> {
 
       }
       else {
-        var result = await postMeetings(name: clubNameController.text, introduction: clubIntroController.text, category: categoryId, maxPerson: clubLimitController.text);
+        var result;
+        if(_clubImage == null) {
+          File _temp = await getImageFileFromAssets('asset/loginView/bannerImg.png');
+          result = await postMeetings(name: clubNameController.text, introduction: clubIntroController.text, category: categoryId, maxPerson: clubLimitController.text, clubImage: _temp);
+        }
+        else {
+          result = await postMeetings(name: clubNameController.text, introduction: clubIntroController.text, category: categoryId, maxPerson: clubLimitController.text, clubImage: _clubImage!);
+        }
         if(result) {
           print('done');
           showToast('모임 생성 완료!');

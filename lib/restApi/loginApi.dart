@@ -6,19 +6,9 @@ import '../functionCollection.dart';
 import 'restApi.dart';
 
 signUpApi({required String name, required String email, required String password, required String introduce, required List<String> categories, required File profileImage}) async {
-  var temp = Map();
-  temp['name'] = name;
-  temp['email'] = email;
-  temp['password'] = password;
-  temp['introduce'] = introduce;
-  temp['categories'] = categories;
-
-  var requestBody = json.encode(temp);
-
-  // var response = await http.post(Uri.parse('$baseUrl$pathSignUp'), body: requestBody, headers: {'Content-type': 'application/json'});
 
   var request = http.MultipartRequest('POST', Uri.parse('$baseUrl$pathSignUp'))
-    ..headers['Content-type']='application/json'
+    ..headers['Content-type'] = 'application/json'
     ..fields['name'] = name
     ..fields['email'] = email
     ..fields['password'] = password

@@ -5,6 +5,7 @@ import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/navView/alarmView/alarmItemContainer.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/restApi/alarmApi.dart';
 
 class AlarmView extends StatefulWidget {
   @override
@@ -14,6 +15,12 @@ class _AlarmView extends State<AlarmView> {
   @override
   void initState() {
     super.initState();
+    _getAlarm();
+  }
+
+  void _getAlarm() async {
+    var _temp = await getAlarm(userId: userInfo['_id']);
+    print(_temp);
   }
 
   @override
@@ -84,15 +91,17 @@ class _AlarmView extends State<AlarmView> {
     );
   }
 
-  removeAlarm(index) {
-    alarmItemList.removeAt(index);
+  removeAlarm(index) async {
+    var result = await deleteAlarm(alarmId: 'alarmId');
+    if(result == true) alarmItemList.removeAt(index);
+    else showToast('네트워크 상태를 확인해주세요');
   }
 }
 
 List<AlarmItemObject> alarmItemList = [
-  AlarmItemObject(context: '모각까가가가가가가ㅏ가가가가가가가가ㅏ모각까가가가가가가ㅏ가가가가가가가가ㅏ모각까가가가가가가ㅏ가가가가가가가가ㅏ모각까가가가가가가ㅏ가가가가가가가가ㅏ', time: 60),
-  AlarmItemObject(context: '모각까가가가가가가ㅏ가가가가가가가가ㅏ', time: 60),
-  AlarmItemObject(context: '모각까가가가가가가ㅏ가가가가가가가가ㅏ', time: 60),
-  AlarmItemObject(context: '모각까가가가가가가ㅏ가가가가가가가가ㅏ', time: 60),
-  AlarmItemObject(context: '모각까가가가가가가ㅏ가가가가가가가가ㅏ', time: 60),
+  AlarmItemObject(alarmId: '1', context: '모각까가가가가가가ㅏ가가가가가가가가ㅏ모각까가가가가가가ㅏ가가가가가가가가ㅏ모각까가가가가가가ㅏ가가가가가가가가ㅏ모각까가가가가가가ㅏ가가가가가가가가ㅏ', time: 60),
+  AlarmItemObject(alarmId: '1', context: '모각까가가가가가가ㅏ가가가가가가가가ㅏ', time: 60),
+  AlarmItemObject(alarmId: '1', context: '모각까가가가가가가ㅏ가가가가가가가가ㅏ', time: 60),
+  AlarmItemObject(alarmId: '1', context: '모각까가가가가가가ㅏ가가가가가가가가ㅏ', time: 60),
+  AlarmItemObject(alarmId: '1', context: '모각까가가가가가가ㅏ가가가가가가가가ㅏ', time: 60),
 ];

@@ -18,6 +18,7 @@ class _TextResultView extends State<TextResultView> {
   _TextResultView(this._text);
 
   var results = [];
+  bool isLoaded = false;
 
   @override
   void initState() {
@@ -29,6 +30,7 @@ class _TextResultView extends State<TextResultView> {
     var _temp = await searchWithWord(word: _text);
     setState(() {
       results = _temp;
+      isLoaded = true;
     });
   }
 
@@ -40,7 +42,7 @@ class _TextResultView extends State<TextResultView> {
       appBar: TextAppBar(text: _text),
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: results != [] ? ResultItemContainer(results: results) : Container(),
+        child: isLoaded ? ResultItemContainer(results: results) : Container(),
       )
     );
   }
@@ -79,7 +81,6 @@ class _TextAppBar extends State<TextAppBar> {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 1,
-      brightness: Brightness.light,
       backgroundColor: Colors.white,
       automaticallyImplyLeading: false,
       flexibleSpace: Stack(children: [

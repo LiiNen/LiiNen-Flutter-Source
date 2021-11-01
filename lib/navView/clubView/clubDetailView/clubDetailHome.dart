@@ -120,7 +120,7 @@ class _ClubDetailHome extends State<ClubDetailHome> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        if(boxContent == '가입하기') {showClubDialog(context: context, title: '모임에 가입하시겠습니까?', positiveAction: (){}, negativeAction: (){});}
+        if(boxContent == '가입하기') {showClubDialog(context: context, title: '모임에 가입하시겠습니까?', positiveAction: joinClub, negativeAction: (){});}
         else if(boxContent == '모임탈퇴') {showClubDialog(context: context, title: '모임을 나가시겠습니까?', positiveAction: quitClub, negativeAction: (){});}
         else if(boxContent == '모집마감') {
           // do nothing
@@ -148,6 +148,9 @@ class _ClubDetailHome extends State<ClubDetailHome> {
   deleteClub() async {
     var response = await quitMeeting(meetingId: result['_id'], isPresident: true);
     print(response);
+  }
+  joinClub() async {
+    var response = await actionMeeting(meetingId: result['_id'], userId: userInfo['_id'], type: 'join');
   }
 }
 

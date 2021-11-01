@@ -19,6 +19,7 @@ class _CategoryResultView extends State<CategoryResultView> {
   _CategoryResultView(this._category, this._id);
 
   var results = [];
+  bool isLoaded = false;
 
   @override
   void initState() {
@@ -29,8 +30,8 @@ class _CategoryResultView extends State<CategoryResultView> {
   void _searchWithCategory() async {
     var _temp = await searchWithCategory(categoryId: _id);
     setState(() {
-      print(_id);
       results = _temp;
+      isLoaded = true;
     });
   }
 
@@ -39,7 +40,7 @@ class _CategoryResultView extends State<CategoryResultView> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CategoryAppBar(currentCategory: _category,),
-      body: results != [] ? ResultItemContainer(results: results) : Container()
+      body: isLoaded ? ResultItemContainer(results: results) : Container()
     );
   }
 }

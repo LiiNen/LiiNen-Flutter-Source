@@ -42,15 +42,11 @@ class _ClubCardContainer extends State<ClubCardContainer> {
         padding: EdgeInsets.all(12),
         child: Row(
           children: [
-            Container(
-              width: 128, height: 128,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(4)),
-                image: DecorationImage(
-                  image: AssetImage('asset/category/it.jpeg'),
-                  fit: BoxFit.fill,
-                )
-              ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: _result['imageUrls'] == []
+                ? Image.asset('asset/loginView/profile.png', width: 128 * responsiveScale, height: 128 * responsiveScale,)
+                : Image.network(_result['imageUrls'][0], width: 128 * responsiveScale, height: 128 * responsiveScale, fit: BoxFit.cover,),
             ),
             Expanded(
               child: Container(
@@ -61,7 +57,7 @@ class _ClubCardContainer extends State<ClubCardContainer> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(getCategoryName(_result['category']), style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0), textAlign: TextAlign.left,),
+                    Text(getCategoryName(_result['category']['_id']), style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0), textAlign: TextAlign.left,),
                     sizedBox(6),
                     Text(_result['name'], style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis,

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import 'restApi.dart';
@@ -27,20 +28,38 @@ getMeetingById(String id) async {
   else return null;
 }
 
-postMeetings({required String name, required String introduction, required String category, required String maxPerson}) async {
+postMeetings({required String name, required String introduction, required String category, required String maxPerson, required File clubImage}) async {
   var requestBody = Map();
   requestBody['name'] = name;
   requestBody['introduction'] = introduction;
   requestBody['category'] = category;
   requestBody['maxPerson'] = maxPerson;
 
-  var response = await http.post(Uri.parse('$baseUrl$pathMeetings'),
-    body: requestBody, headers: authToken);
+  var request = http.MultipartRequest('POST', Uri.parse('$baseUrl$pathMeetings'))
+    ..headers['Content-type'] = 'application/json'
+    ..headers['Authorization'] = authToken['Authorization']!
+    ..fields['name'] = name
+    ..fields['introduction'] = introduction
+    ..fields['category'] = category
+    ..fields['maxPerson'] = maxPerson
+    ..files.add(http.MultipartFile('images',
+      clubImage.readAsBytes().asStream(),
+      clubImage.lengthSync(),
+      filename: 'image'
+    ));
 
+  var response = await request.send();
+  print(response.statusCode);
   if(response.statusCode == 201) {
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
+    });
     return true;
   }
   else {
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
+    });
     return false;
   }
 }
@@ -82,4 +101,13 @@ quitMeeting({required String meetingId, isPresident=false}) async {
   else {
     return null;
   }
+}
+
+actionMeeting({required String meetingId, required String userId, required String type}) async {
+  var query = '/$meetingId/$type';
+  var response = await http.patch(Uri.parse('$baseUrl$pathMeetings$query'), headers: authToken);
+  if(response.statusCode == 200) {
+    return true;
+  }
+  return null;
 }
