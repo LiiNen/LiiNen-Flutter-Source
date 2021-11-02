@@ -41,7 +41,6 @@ class _ClubDetailHome extends State<ClubDetailHome> {
     _getClubInfo();
   }
   void _getClubInfo() {
-    // todo: get data from server
     _clubCategory = getCategoryName(result['category']['_id']);
     _clubTitle = result['name'];
     _clubIntro = result['introduction'];
@@ -151,6 +150,13 @@ class _ClubDetailHome extends State<ClubDetailHome> {
   }
   joinClub() async {
     var response = await actionMeeting(meetingId: result['_id'], userId: userInfo['_id'], type: 'join');
+    print(response);
+    if(response) {
+      showClubDialog(context: context, title: '모임 가입 신청 완료', positiveAction: (){}, negativeAction: (){}, confirmAction: (){});
+    }
+    else {
+      showToast('네트워크 상태를 확인해주세요');
+    }
   }
 }
 
@@ -194,6 +200,10 @@ clubMemberRow({required ClubMember member, bool isHead=false, required bool isAd
         )
       )
     )];
+  }
+
+  kickUser() {
+
   }
 
   return Container(

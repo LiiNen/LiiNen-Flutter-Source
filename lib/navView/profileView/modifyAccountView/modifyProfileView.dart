@@ -49,9 +49,11 @@ class _ModifyProfileView extends State<ModifyProfileView> {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(60 * responsiveScale),
-                          child: userProfile == ''
-                            ? Image.asset('asset/loginView/profile.png', width: 120 * responsiveScale, height: 120 * responsiveScale,)
-                            : Image.network(userProfile['imageUrl'], width: 120 * responsiveScale, height: 120 * responsiveScale, fit: BoxFit.cover,),
+                          child: _profileImage != null
+                            ? Image.file(File(_profileImage!.path), width: 120 * responsiveScale, height: 120 * responsiveScale, fit: BoxFit.cover,)
+                            : userProfile == ''
+                              ? Image.asset('asset/loginView/profile.png', width: 120 * responsiveScale, height: 120 * responsiveScale,)
+                              : Image.network(userProfile['imageUrl'], width: 120 * responsiveScale, height: 120 * responsiveScale, fit: BoxFit.cover,),
                         ),
                         Positioned(
                           right: 5 * responsiveScale, bottom: 0,
@@ -80,13 +82,16 @@ class _ModifyProfileView extends State<ModifyProfileView> {
   }
 
   void confirm() async {
-    if(nameController.text != '') {
-      if(_profileImage == null) {
-        _profileImage = await getImageFileFromAssets('asset/loginView/profile.png');
+    if(_profileImage != null) {
+      var response = await patchUsersImage(userId: userInfo['_id'], profileImage: _profileImage!);
+      if(response != true) {
+        showToast('네트워크를 확인해주세요');
       }
     }
-    var response = await patchUsers(userId: userInfo['_id'], name: nameController.text, intro: introController.text);
-    await setToken(id: response);
+    if(nameController.text != '' || introController.text != '') {
+      var response = await patchUsers(userId: userInfo['_id'], name: nameController.text, intro: introController.text);
+      if(response != false) await setToken(id: response);
+    }
     Navigator.pop(context);
     Navigator.pop(context);
   }

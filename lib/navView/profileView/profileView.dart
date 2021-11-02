@@ -36,7 +36,6 @@ class _ProfileView extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
-    print(userProfile['imageUrl']);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: MainViewAppBar(title: '더보기', back: false),

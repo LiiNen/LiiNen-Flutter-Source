@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:my_flutter_source/functionCollection.dart';
 
-showClubDialog({required BuildContext context, required title, required positiveAction, required negativeAction}) async {
+showClubDialog({required BuildContext context, required title, required positiveAction, required negativeAction, dynamic confirmAction}) async {
   return (await showDialog(
     context: context,
-    builder: (context) => ClubDialog(title: title, positiveAction: positiveAction, negativeAction: negativeAction)
+    builder: (context) => ClubDialog(title: title, positiveAction: positiveAction, negativeAction: negativeAction, confirmAction: confirmAction)
   )) ?? false;
 }
 
@@ -13,17 +13,19 @@ class ClubDialog extends StatefulWidget {
   final String title;
   final dynamic positiveAction;
   final dynamic negativeAction;
-  ClubDialog({required this.title, required this.positiveAction, required this.negativeAction});
+  final dynamic confirmAction;
+  ClubDialog({required this.title, required this.positiveAction, required this.negativeAction, required this.confirmAction});
 
   @override
-  State<ClubDialog> createState() => _ClubDialog(title: title, positiveAction: positiveAction, negativeAction: negativeAction);
+  State<ClubDialog> createState() => _ClubDialog(title: title, positiveAction: positiveAction, negativeAction: negativeAction, confirmAction: confirmAction);
 }
 
 class _ClubDialog extends State<ClubDialog> {
   String title;
   dynamic positiveAction;
   dynamic negativeAction;
-  _ClubDialog({required this.title, required this.positiveAction, required this.negativeAction});
+  dynamic confirmAction;
+  _ClubDialog({required this.title, required this.positiveAction, required this.negativeAction, required this.confirmAction});
 
   @override
   Widget build(BuildContext context) {
@@ -60,13 +62,14 @@ class _ClubDialog extends State<ClubDialog> {
     );
   }
   dialogSelection() {
-
     return Container(
       height: 52,
       child: Row(
-        children: [
+        children: confirmAction == null ? [
           selectionBox('아니요', negativeAction),
           selectionBox('네', positiveAction),
+        ] : [
+          selectionBox('확인', confirmAction),
         ],
       )
     );

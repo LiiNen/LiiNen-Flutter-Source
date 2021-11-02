@@ -105,9 +105,13 @@ quitMeeting({required String meetingId, isPresident=false}) async {
 
 actionMeeting({required String meetingId, required String userId, required String type}) async {
   var query = '/$meetingId/$type';
-  var response = await http.patch(Uri.parse('$baseUrl$pathMeetings$query'), headers: authToken);
+  var requestBody = Map();
+  requestBody['user_id'] = userId;
+  var response = await http.patch(Uri.parse('$baseUrl$pathMeetings$query'), body: requestBody, headers: authToken);
+  print('$baseUrl$pathMeetings$query');
+  print(response.body);
   if(response.statusCode == 200) {
     return true;
   }
-  return null;
+  return false;
 }

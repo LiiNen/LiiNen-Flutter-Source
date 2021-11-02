@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:my_flutter_source/navView/profileView/profileView.dart';
 
@@ -30,6 +31,26 @@ patchUsers({required userId, name='', intro=''}) async {
       body: requestBody, headers: authToken);
   if(response.statusCode == 200) {
     return json.decode(response.body)['_id'];
+  }
+  else return false;
+}
+
+patchUsersImage({required userId, required File profileImage}) async {
+  var query = '/$userId/image';
+  var request = http.MultipartRequest('PATCH', Uri.parse('$baseUrl$pathUsers$query'))
+    ..headers['Content-type'] = 'application/json'
+    ..headers['Authorization'] = authToken['Authorization']!
+    ..files.add(http.MultipartFile('image',
+      profileImage.readAsBytes().asStream(),
+      profileImage.lengthSync(),
+      filename: 'image'
+    ));
+
+  var response = await request.send();
+  print(response.statusCode);
+
+  if(response.statusCode == 200) {
+    return true;
   }
   else return false;
 }
