@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/navView/navView.dart';
 import 'package:my_flutter_source/restApi/meetingsApi.dart';
 
 import 'clubDialog.dart';
@@ -142,11 +143,19 @@ class _ClubDetailHome extends State<ClubDetailHome> {
 
   quitClub() async {
     var response = await quitMeeting(meetingId: result['_id']);
-    print(response);
+    if(response == true) {
+      showToast('모임에서 탈퇴하셨습니다.');
+      await reloadUserData();
+      navigatorPush(context: context, widget: NavView(selectedIndex: 2,), replacement: true, all: true);
+    }
   }
   deleteClub() async {
     var response = await quitMeeting(meetingId: result['_id'], isPresident: true);
-    print(response);
+    if(response == true) {
+      showToast('모임이 성공적으로 삭제되었습니다.');
+      await reloadUserData();
+      navigatorPush(context: context, widget: NavView(selectedIndex: 2), replacement: true, all: true);
+    }
   }
   joinClub() async {
     var response = await actionMeeting(meetingId: result['_id'], userId: userInfo['_id'], type: 'join');

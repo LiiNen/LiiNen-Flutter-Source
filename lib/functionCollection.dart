@@ -138,10 +138,62 @@ navigatorPush({required context, required widget, replacement=false, all=false})
       : Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => widget))
     : Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
 }
+
 showExitDialog(BuildContext context) async {
   return (await showDialog(
     context: context,
     builder: (context) => ExitDialog()
+  )) ?? false;
+}
+
+showAlertDialog(BuildContext context, String title) async {
+  return (await showDialog(
+    context: context,
+    builder: (context) => Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.white,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 112,
+              child: Center(
+                child: Text(title, style: textStyle(weight: 400, size: 16.0))
+              )
+            ),
+            IntrinsicHeight(
+              child: Container(
+                height: 52,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(child: Container(child: GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () {Navigator.of(context).pop(false);},
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Color(0xffebebeb), width: 1),
+                          color: Color(0xfffbfbfb),
+                        ),
+                        child: Center(
+                          child: Text('확인', style: textStyle(color: Color(0xff0958c5), weight: 600, size: 14.0))
+                        )
+                      )
+                    )))
+                  ]
+                )
+              )
+            )
+          ]
+        )
+      )
+    )
   )) ?? false;
 }
 
@@ -198,4 +250,10 @@ void loadingDialog(context) {
       );
     },
   );
+}
+
+reloadUserData() async {
+  final pref = await SharedPreferences.getInstance();
+  String _token = pref.getString('token')!;
+  await setToken(token: _token);
 }

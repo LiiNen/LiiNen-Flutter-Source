@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'homeView/homeView.dart';
 import 'searchView/searchView.dart';
@@ -10,11 +11,21 @@ import 'profileView/profileView.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 
 class NavView extends StatefulWidget {
+  final int selectedIndex;
+  NavView({this.selectedIndex=0});
+
   @override
-  State<NavView> createState() => _NavView();
+  State<NavView> createState() => _NavView(selectedIndex);
 }
 class _NavView extends State<NavView> {
-  int _selectedIndex = 0;
+  int _selectedIndex;
+  _NavView(this._selectedIndex);
+
+  @override
+  void initState() {
+    super.initState();
+    reloadUserData();
+  }
 
   @override
   Widget build(BuildContext context) {

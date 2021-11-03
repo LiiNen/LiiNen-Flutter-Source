@@ -35,7 +35,7 @@ class _ClubView extends State<ClubView> {
       body: Container(
         decoration: BoxDecoration(color: Colors.white),
         child: (
-          _loadComplete ? (_hasClub ? ClubExist() : ClubNotExist()) : Center(child: CircularProgressIndicator())
+          _loadComplete ? ClubExist() : Center(child: CircularProgressIndicator())
         )
       )
     );
@@ -108,40 +108,6 @@ class _MyClubListContainer extends State<MyClubListContainer> {
             itemBuilder: (BuildContext context, int index) {
               return ClubObjectItem(clubObjectList[index]);
             },
-          )
-        )
-      ]
-    );
-  }
-}
-
-class MyQuestListContainer extends StatefulWidget {
-  @override
-  State<MyQuestListContainer> createState() => _MyQuestListContainer();
-}
-class _MyQuestListContainer extends State<MyQuestListContainer> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children:[
-        TitleContainer(title: '내 퀘스트 목록'),
-        Container(
-          padding: EdgeInsets.all(10),
-          width: MediaQuery.of(context).size.width,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              border: Border.all(),
-            ),
-            child: Column(
-              children: [
-                Text('퀘1'),
-                Text('퀘2'),
-                Text('퀘3'),
-                Text('퀘4'),
-                Text('퀘5'),
-                Text('퀘6'),
-              ],
-            )
           )
         )
       ]

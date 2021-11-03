@@ -7,6 +7,7 @@ import 'package:my_flutter_source/constraintCollection.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/navView/navView.dart';
 import 'package:my_flutter_source/restApi/meetingsApi.dart';
 
 class ClubDetailSetupView extends StatefulWidget {
@@ -167,13 +168,15 @@ class _ClubDetailSetupView extends State<ClubDetailSetupView> {
         if(_clubImage == null) {
           File _temp = await getImageFileFromAssets('asset/loginView/bannerImg.png');
           result = await postMeetings(name: clubNameController.text, introduction: clubIntroController.text, category: categoryId, maxPerson: clubLimitController.text, clubImage: _temp);
+          await reloadUserData();
         }
         else {
           result = await postMeetings(name: clubNameController.text, introduction: clubIntroController.text, category: categoryId, maxPerson: clubLimitController.text, clubImage: _clubImage!);
+          await reloadUserData();
         }
         if(result) {
-          print('done');
           showToast('모임 생성 완료!');
+          navigatorPush(context: context, widget: NavView(selectedIndex: 2,), replacement: true, all: true);
         }
       }
     }

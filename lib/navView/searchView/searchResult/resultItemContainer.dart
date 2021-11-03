@@ -23,7 +23,7 @@ class _ResultItemContainer extends State<ResultItemContainer> {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(color: Colors.white),
-      child: _results != [] ? Stack(
+      child: _results.length > 0 ? Stack(
         children: [
           Positioned(
             top: 16 * responsiveScale,
