@@ -16,6 +16,9 @@ class _ClubDetailBoard extends State<ClubDetailBoard> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              boardItemBox(),
+              boardItemBox(),
+              boardItemBox(),
               boardItemBox()
             ]
           )
@@ -26,8 +29,13 @@ class _ClubDetailBoard extends State<ClubDetailBoard> {
 
   boardItemBox() {
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () {
+
+      },
       child: Container(
         width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(4)),
           boxShadow: [BoxShadow(
