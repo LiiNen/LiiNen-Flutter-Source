@@ -35,13 +35,13 @@ class LoginViewAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      brightness: Brightness.light,
       backgroundColor: const Color(0xffffffff),
       automaticallyImplyLeading: false,
       flexibleSpace: Stack(children: [
         Positioned(
           bottom: 8, left: 21 * responsiveScale,
           child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
             onTap: () {Navigator.pop(context);},
             child: SvgPicture.asset('asset/image/icoBack.svg', width: 24, height: 24),
           ),
@@ -75,6 +75,7 @@ class MainViewAppBar extends StatelessWidget implements PreferredSizeWidget {
           Positioned(
             bottom: 8, left: 21 * responsiveScale,
             child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () {Navigator.pop(context);},
               child: SvgPicture.asset('asset/image/icoBack.svg', width: 24, height: 24),
             ),
@@ -121,6 +122,7 @@ categoryItem(String title, bool condition) {
 
 confirmButton({required title, required confirmAction, required condition}){
   return GestureDetector(
+    behavior: HitTestBehavior.translucent,
     onTap: () {confirmAction();},
     child: Container(
       height: 52,
@@ -139,6 +141,7 @@ confirmButton({required title, required confirmAction, required condition}){
 checkBoxWithText ({required context, required title, required condition, required tapAction}) {
   TextStyle style = textStyle(color: Color(0xff636c73), weight: 400, size: 14.0);
   return GestureDetector(
+    behavior: HitTestBehavior.translucent,
     onTap: () {tapAction();},
     child: Container(
       height: 24,
@@ -212,6 +215,7 @@ class _ExitDialog extends State<ExitDialog> {
   actionBox(bool action) {
     return Expanded(child: Container(
       child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: () {
           action ? SystemNavigator.pop() : Navigator.of(context).pop(false);
         },

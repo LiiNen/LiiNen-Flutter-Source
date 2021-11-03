@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/restApi/meetingsApi.dart';
 
-import 'clubDetailHome.dart';
-import 'clubDetailBoard.dart';
-import 'clubDetailCalendar.dart';
-import 'clubDetailChat.dart';
-
+import 'clubDetailAppBar.dart';
 import 'clubDetailTabBar.dart';
 
 class ClubDetailView extends StatefulWidget {
@@ -19,6 +16,7 @@ class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderSta
   String _id;
   _ClubDetailView(this._id);
   dynamic result;
+  bool _isMember=false;
 
   late TabController clubDetailTabController;
 
@@ -26,29 +24,47 @@ class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderSta
   void initState() {
     super.initState();
     clubDetailTabController = TabController(length: 4, vsync: this, initialIndex: 0);
+    clubDetailTabController.addListener(tabChangeListener);
     _getMeeting();
+  }
+
+  @override
+  void dispose() {
+    clubDetailTabController.dispose();
+    super.dispose();
+  }
+
+  tabChangeListener() {
+    if(clubDetailTabController.indexIsChanging) setState(() {});
   }
 
   void _getMeeting() async {
     var _temp = await getMeetingById(_id);
     setState(() {
       result = _temp;
-      print(result);
+      if(result['persons']['president']['_id'] == userInfo['_id']) {
+        _isMember = true;
+        print('president');
+      }
+      else {
+        result['persons']['members'].toList().map((e) {
+          if (e['_id'] == userInfo['_id']) _isMember = true;
+        });
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ClubDetailTabBar(controller: clubDetailTabController, title: result != null ? result['name'] : ''),
-      body: result != null ? TabBarView(
-        controller: clubDetailTabController,
-        children: [
-          ClubDetailHome(result),
-          ClubDetailBoard(),
-          ClubDetailCalendar(),
-          ClubDetailChat(),
-        ]
+      appBar: ClubDetailAppBar(title: result != null ? result['name'] : '', isPresident: result != null ? userInfo['_id'] == result['persons']['president']['_id'] : false),
+      body: result != null ? SingleChildScrollView(
+        child: Column(
+          children: [
+            ClubDetailTabBar(controller: clubDetailTabController, isMember: _isMember),
+            clubDetailTabBarView(controller: clubDetailTabController, result: result)
+          ]
+        )
       ) : Container()
     );
   }

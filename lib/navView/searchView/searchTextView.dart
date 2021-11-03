@@ -16,8 +16,9 @@ class _SearchTextView extends State<SearchTextView> {
 
   List<String> searchHistoryList = [];
 
-  // TODO: 서버 연결 초기화
-  List<String> popularList = ['소프트웨어 마에스트로소프트웨어 마에스트로소프트웨어 마에스트로소프트웨어 마에스트로소프트웨어 마에스트로', '소프트웨어 마에스트로', '리그 오브 레전드', '구글 플러터', '이디야 아이스 아메리카노'];
+  // TODO: 추천 인기검색어 제작시 삽입
+  // List<String> popularList = ['소프트웨어 마에스트로소프트웨어 마에스트로소프트웨어 마에스트로소프트웨어 마에스트로소프트웨어 마에스트로', '소프트웨어 마에스트로', '리그 오브 레전드', '구글 플러터', '이디야 아이스 아메리카노'];
+  List<String> popularList = [];
   @override
   void initState() {
     super.initState();
@@ -54,21 +55,29 @@ class _SearchTextView extends State<SearchTextView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                //TODO : why textfield going up when text inserted?
                 Container(
                   height: 40,
                   margin: EdgeInsets.only(top: 16 * responsiveScale),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(2)),
-                    color: Color(0xfff5f5f5),
-                  ),
                   child: TextField(
                     controller: searchInputController,
                     focusNode: searchInputFocusNode,
                     autofocus: false,
                     textInputAction: TextInputAction.search,
                     decoration: InputDecoration(
-                      border: InputBorder.none,
+                      filled: true,
+                      fillColor: Color(0xfff5f5f5),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(2)),
+                        borderSide: BorderSide(color: Color(0xfff5f5f5)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(2)),
+                        borderSide: BorderSide(color: Color(0xfff5f5f5)),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(2)),
+                        borderSide: BorderSide(color: Color(0xfff5f5f5)),
+                      ),
                       contentPadding: EdgeInsets.only(left: 14, right: 14),
                       hintText: '어떤 모임을 찾으시나요?',
                       hintStyle: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 12.0),

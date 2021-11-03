@@ -1,26 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:my_flutter_source/functionCollection.dart';
 
+import '../../../functionCollection.dart';
 import '../../../main.dart';
-import 'clubSettingView/clubSettingView.dart';
+import 'clubDetailBoard.dart';
+import 'clubDetailCalendar.dart';
+import 'clubDetailChat.dart';
+import 'clubDetailHome.dart';
+
+clubDetailTabBarView({required TabController controller, required dynamic result}) {
+  return Container(
+    child: [
+      ClubDetailHome(result),
+      ClubDetailBoard(),
+      ClubDetailCalendar(),
+      ClubDetailChat(),
+    ][controller.index],
+  );
+}
 
 class ClubDetailTabBar extends StatelessWidget implements PreferredSizeWidget {
-  ClubDetailTabBar({required this.controller, required this.title}) : preferredSize = Size.fromHeight(78.0);
+  ClubDetailTabBar({required this.controller, required this.isMember}) : preferredSize = Size.fromHeight(38.0);
   @override
   final Size preferredSize;
   final TabController controller;
-  final String title;
+  final bool isMember;
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      centerTitle: true,
-      backgroundColor: Colors.white,
-      elevation: 0,
-      automaticallyImplyLeading: false,
-      title: Text(title, style: textStyle(weight: 700, size: 16.0)),
-      bottom: TabBar(
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Color(0xffededed), width: 1),
+        color: Colors.white
+      ),
+      child: TabBar(
+        onTap: (index) {
+          if(isMember == false) {
+            showAlertDialog(context, '모임을 가입해주세요.');
+            controller.index = controller.previousIndex;
+          }
+        },
         controller: controller,
         indicator: UnderlineTabIndicator(
           borderSide: BorderSide(width: 1.0, color: Color(0xff0958c5)),
@@ -35,25 +53,7 @@ class ClubDetailTabBar extends StatelessWidget implements PreferredSizeWidget {
           Tab(text: '퀘스트'),
           Tab(text: '캘린더'),
         ]
-      ),
-      flexibleSpace: Stack(children: [
-        Positioned(
-          top: 52, left: 21 * responsiveScale,
-          child: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () {Navigator.pop(context);},
-            child: SvgPicture.asset('asset/image/icoBack.svg', width: 24, height: 24),
-          ),
-        ),
-        Positioned(
-          top: 52, right: 21 * responsiveScale,
-          child: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () {navigatorPush(context: context, widget: ClubSettingView());},
-            child: Icon(Icons.settings, size: 24),
-          )
-        )
-      ]),
+      )
     );
   }
 }
