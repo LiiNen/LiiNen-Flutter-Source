@@ -49,12 +49,12 @@ class _LoginView extends State<LoginView> {
                 ),
                 sizedBox(44),
                 GestureDetector(
-                  onTap: _loginSuccess,
+                  onTap: () { showAlertDialog(context, '준비 중입니다.'); },
                   child: SvgPicture.asset('asset/loginView/appleBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
                 ),
                 sizedBox(8),
                 GestureDetector(
-                  onTap: _loginSuccess,
+                  onTap: () { showAlertDialog(context, '준비 중입니다.'); },
                   child: SvgPicture.asset('asset/loginView/kakaoBtn.svg', width: 333 * responsiveScale, height: 52 * responsiveScale)
                 ),
                 sizedBox(8),

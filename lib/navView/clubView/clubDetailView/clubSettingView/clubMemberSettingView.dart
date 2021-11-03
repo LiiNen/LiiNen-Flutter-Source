@@ -3,21 +3,34 @@ import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/navView/clubView/clubDetailView/clubDetailHome.dart';
 
 class ClubMemberSettingView extends StatefulWidget {
+  final dynamic result;
+  ClubMemberSettingView(this.result);
+
   @override
-  State<ClubMemberSettingView> createState() => _ClubMemberSettingView();
+  State<ClubMemberSettingView> createState() => _ClubMemberSettingView(result);
 }
 class _ClubMemberSettingView extends State<ClubMemberSettingView> {
+  dynamic result;
+  _ClubMemberSettingView(this.result);
+
   ClubMemberList? _clubMemberList;
 
   @override
   void initState() {
     super.initState();
+    getClubMemberList();
+  }
+
+  getClubMemberList() {
     List<ClubMember> temp = [
-      ClubMember(userName: '김정훈', userIntro: '안녕하세요 김정훈입니다.'),
-      ClubMember(userName: '김한슬', userIntro: '안녕하세요 김한슬입니다.'),
-      ClubMember(userName: '박상욱', userIntro: '안녕하세요 박상욱입니다.')
+      ClubMember(userId: result['persons']['president']['_id'], imgSrc: result['persons']['president']['imageUrl'], userName: result['persons']['president']['name'], userIntro: result['persons']['president']['introduce'])
     ];
-    _clubMemberList = ClubMemberList(currentNum: 3, maxNum: 5, member: temp);
+    result['persons']['members'].toList().map((e) {
+      temp.add(ClubMember(userId: e['_id'], imgSrc: e['imageUrl'], userName: e['name'], userIntro: e['introduce']));
+    });
+    setState(() {
+      _clubMemberList = ClubMemberList(currentNum: result['personsCount'], maxNum: result['maxPerson'], member: temp);
+    });
   }
 
   @override

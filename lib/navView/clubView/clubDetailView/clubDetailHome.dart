@@ -7,11 +7,11 @@ import 'package:my_flutter_source/restApi/meetingsApi.dart';
 import 'clubDialog.dart';
 
 class ClubMember {
-  int userId;
-  String? imgSrc;
+  String userId;
+  String imgSrc;
   String userName;
   String userIntro;
-  ClubMember({this.userId=0, this.imgSrc, required this.userName, required this.userIntro});
+  ClubMember({this.userId='', this.imgSrc='', required this.userName, required this.userIntro});
 }
 class ClubMemberList {
   int currentNum;
@@ -46,14 +46,13 @@ class _ClubDetailHome extends State<ClubDetailHome> {
     _clubTitle = result['name'];
     _clubIntro = result['introduction'];
     List<ClubMember> temp = [
-      ClubMember(userName: result['persons']['president']['name'], userIntro: result['persons']['president']['introduce'])
+      ClubMember(userId: result['persons']['president']['_id'], imgSrc: result['persons']['president']['imageUrl'], userName: result['persons']['president']['name'], userIntro: result['persons']['president']['introduce'])
     ];
     result['persons']['members'].toList().map((e) {
-      temp.add(ClubMember(userName: e['name'], userIntro: e['introduce']));
+      temp.add(ClubMember(userId: e['_id'], imgSrc: e['imageUrl'], userName: e['name'], userIntro: e['introduce']));
     });
     _clubMemberList = ClubMemberList(currentNum: result['personsCount'], maxNum: result['maxPerson'], member: temp);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -183,6 +182,7 @@ clubMemberCard({required ClubMemberList clubMemberList, isAdmin=false, required 
     ] + memberRowList
   );
 }
+
 clubMemberRow({required ClubMember member, bool isHead=false, required bool isAdmin, required BuildContext context}) {
   List<Widget> _rightElement = [];
   if(isHead) {
@@ -222,13 +222,12 @@ clubMemberRow({required ClubMember member, bool isHead=false, required bool isAd
       onTap: () {},
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: 40, height: 40,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.black),
-            )
+        children: <Widget>[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20 * responsiveScale),
+            child: member.imgSrc == ''
+              ? Image.asset('asset/loginView/profile.png', width: 40 * responsiveScale, height: 40 * responsiveScale,)
+              : Image.network(httpsToHttp(member.imgSrc), width: 40 * responsiveScale, height: 40 * responsiveScale, fit: BoxFit.cover,),
           ),
           SizedBox(width: 8),
           Column(

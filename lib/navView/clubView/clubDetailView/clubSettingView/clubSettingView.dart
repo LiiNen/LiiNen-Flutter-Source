@@ -6,12 +6,19 @@ import 'clubMemberSettingView.dart';
 import 'package:my_flutter_source/navView/homeView/clubCreationView/clubDetailSetupView.dart';
 
 class ClubSettingView extends StatefulWidget {
+  final dynamic result;
+  ClubSettingView(this.result);
+
   @override
-  State<ClubSettingView> createState() => _ClubSettingView();
+  State<ClubSettingView> createState() => _ClubSettingView(result);
 }
 class _ClubSettingView extends State<ClubSettingView> {
+  dynamic result;
+  _ClubSettingView(this.result);
+
   @override
   Widget build(BuildContext context) {
+    print(result);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: MainViewAppBar(title: '모임설정', back: true),
@@ -21,7 +28,7 @@ class _ClubSettingView extends State<ClubSettingView> {
           children: <Widget>[
             SizedBox(height: 28),
             settingItem(title: '모임정보 수정', route: ClubDetailSetupView('')),
-            settingItem(title: '멤버 관리', route: ClubMemberSettingView()),
+            settingItem(title: '멤버 관리', route: ClubMemberSettingView(result)),
           ]
         )
       )

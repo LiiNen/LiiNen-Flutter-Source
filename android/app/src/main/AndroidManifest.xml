@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.my_flutter_source">
    <application
-        android:label="my_flutter_source"
+        android:label="이건모임"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
         <activity

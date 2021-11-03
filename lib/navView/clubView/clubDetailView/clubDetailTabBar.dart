@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../functionCollection.dart';
-import '../../../main.dart';
 import 'clubDetailBoard.dart';
 import 'clubDetailCalendar.dart';
 import 'clubDetailChat.dart';

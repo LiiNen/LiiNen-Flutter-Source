@@ -44,7 +44,6 @@ class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderSta
       result = _temp;
       if(result['persons']['president']['_id'] == userInfo['_id']) {
         _isMember = true;
-        print('president');
       }
       else {
         result['persons']['members'].toList().map((e) {
@@ -57,7 +56,11 @@ class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderSta
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ClubDetailAppBar(title: result != null ? result['name'] : '', isPresident: result != null ? userInfo['_id'] == result['persons']['president']['_id'] : false),
+      appBar: ClubDetailAppBar(
+        title: result != null ? result['name'] : '',
+        isPresident: result != null ? userInfo['_id'] == result['persons']['president']['_id'] : false,
+        result: result
+      ),
       body: result != null ? SingleChildScrollView(
         child: Column(
           children: [
