@@ -12,7 +12,6 @@ class ClubView extends StatefulWidget {
 }
 
 class _ClubView extends State<ClubView> {
-  bool _hasClub = (userProfile['meetings']['joining'] != []);
   bool _loadComplete = false;
 
   @override
@@ -22,7 +21,6 @@ class _ClubView extends State<ClubView> {
   }
   void _checkClub() async {
     setState(() {
-      _hasClub = (userProfile['meetings']['joining'] != []);
       _loadComplete = true;
     });
   }
@@ -30,48 +28,12 @@ class _ClubView extends State<ClubView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: _loadComplete ? (_hasClub ? AlarmDrawer() : null) : null,
       appBar: MainViewAppBar(title: '내 모임'),
       body: Container(
         decoration: BoxDecoration(color: Colors.white),
         child: (
           _loadComplete ? ClubExist() : Center(child: CircularProgressIndicator())
         )
-      )
-    );
-  }
-}
-
-class AlarmDrawer extends StatefulWidget {
-  @override
-  State<AlarmDrawer> createState() => _AlarmDrawer();
-}
-class _AlarmDrawer extends State<AlarmDrawer> {
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.all(10),
-        children: [
-          DrawerHeader(
-            child: Text('알림', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
-          ),
-          ListTile(
-            leading: Icon(Icons.person),
-            title: Text('alarm 1'),
-            onTap: () => {},
-          ),
-          ListTile(
-            leading: Icon(Icons.person),
-            title: Text('alarm 2'),
-            onTap: () => {},
-          ),
-          ListTile(
-            leading: Icon(Icons.person),
-            title: Text('alarm 1'),
-            onTap: () => {},
-          ),
-        ],
       )
     );
   }
@@ -112,28 +74,5 @@ class _MyClubListContainer extends State<MyClubListContainer> {
         )
       ]
     );
-  }
-}
-
-class ClubNotExist extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Column(
-          children: [
-            Text('모임이 존재하지 않아요'),
-            TextButton(
-              child: Text('모임 추가하기'),
-              onPressed: _addClub,
-            )
-          ],
-        )
-      )
-    );
-  }
-  void _addClub() async {
-    final pref = await SharedPreferences.getInstance();
-    pref.setBool('hasClub', true);
   }
 }

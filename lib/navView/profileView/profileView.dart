@@ -53,7 +53,7 @@ class _ProfileView extends State<ProfileView> {
                     borderRadius: BorderRadius.circular(36 * responsiveScale),
                     child: userProfile['imageUrl'] == ''
                       ? Image.asset('asset/loginView/profile.png', width: 72 * responsiveScale, height: 72 * responsiveScale,)
-                      : Image.network(userProfile['imageUrl'], width: 72 * responsiveScale, height: 72 * responsiveScale, fit: BoxFit.cover,),
+                      : Image.network(httpsToHttp(userProfile['imageUrl']), width: 72 * responsiveScale, height: 72 * responsiveScale, fit: BoxFit.cover,),
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width - (130 * responsiveScale),

@@ -257,3 +257,7 @@ reloadUserData() async {
   String _token = pref.getString('token')!;
   await setToken(token: _token);
 }
+
+String httpsToHttp(String target) {
+  return target.replaceAll('https', 'http');
+}

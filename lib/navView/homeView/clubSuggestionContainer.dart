@@ -6,57 +6,66 @@ import 'package:my_flutter_source/constraintCollection.dart';
 import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/navView/searchView/searchResult/searchFilterView.dart';
+import 'package:my_flutter_source/restApi/meetingsApi.dart';
+
+import '../navView.dart';
 
 class ClubSuggestionContainer extends StatefulWidget {
   @override
   State<ClubSuggestionContainer> createState() => _ClubSuggestionContainer();
 }
 class _ClubSuggestionContainer extends State<ClubSuggestionContainer> {
-  List<ClubCardObject> _clubObjectList = [];
-  var futureTestObject;
-
-  var results = [];
+  List<dynamic> _allSuggestionList = [];
+  List<dynamic> _clubSuggestionList = [];
+  int take = 3;
 
   @override
   void initState() {
     super.initState();
-    futureTestObject = new Future.delayed(Duration(seconds: 2), _loadTestSuggestion);
+    _getClubSuggestion();
+  }
+
+  void _getClubSuggestion() async {
+    _allSuggestionList = await getMeetings();
+    _allSuggestionList.shuffle();
+    setState(() {
+      _clubSuggestionList = _allSuggestionList.take(take).toList();
+      take = take + 3;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var _clubSuggestionList = List<Widget>.generate(_clubObjectList.length * 2, (index){
-      /// HACK: card container fixing
-      return Container();
-      // return index%2 == 0 ? ClubCardContainer(_clubObjectList[(index/2).floor()]) : sizedBox(8);
-    });
-
     return Column(
-      children: <Widget>[TitleContainer(title: '추천 모임', size: 20.0)] + _clubSuggestionList
-        + (_clubObjectList.length < results.length ? [
-          GestureDetector(
-            onTap: () {
+      children: <Widget>[TitleContainer(title: '추천 모임', size: 20.0)] +
+        List<Widget>.generate(_clubSuggestionList.length * 2, (index){
+          return index%2 == 0 ? ClubCardContainer(_clubSuggestionList[(index/2).floor()], true) : sizedBox(8);
+        }) + [
+        GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            if(take == 12 || take > _allSuggestionList.length) {
+              navigatorPush(context: context, widget: NavView(selectedIndex: 1), replacement: true, all: true);
+            }
+            else {
               setState(() {
-                _clubObjectList.add(results[_clubObjectList.length]);
+                _clubSuggestionList = _allSuggestionList.take(take).toList();
+                take = take + 3;
               });
-            },
-            child: Container(
-              decoration: shadowBoxDecoration(),
-              width: MediaQuery.of(context).size.width,
-              height: 48 * responsiveScale,
-              margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale, vertical: 16 * responsiveScale),
-              child: Center(child: Text('모임 더 보기', style: textStyle(weight: 700, size: 14.0)),)
-            )
+            }
+          },
+          child: Container(
+            decoration: shadowBoxDecoration(),
+            width: MediaQuery.of(context).size.width,
+            height: 48 * responsiveScale,
+            margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale, vertical: 16 * responsiveScale),
+            child: Center(child: Text('모임 더 보기', style: textStyle(weight: 700, size: 14.0)),)
           )
-        ] : [sizedBox(16)]) + [LineDivider()],
+        ),
+        LineDivider()
+      ]
     );
   }
 
-  void _loadTestSuggestion() async {
-    setState(() {
-      _clubObjectList = List<ClubCardObject>.generate(min(results.length, 3), (index) {
-        return results[index];
-      });
-    });
-  }
 }

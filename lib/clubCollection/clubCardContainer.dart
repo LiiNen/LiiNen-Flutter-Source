@@ -5,19 +5,6 @@ import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/navView/clubView/clubDetailView/clubDetailView.dart';
 
-class ClubCardObject {
-  String? thumbnailUrl;
-  String clubTitle;
-  String clubContext;
-  int current;
-  int total;
-  bool isRecruit;
-  ClubCardObject({
-    this.thumbnailUrl, required this.clubTitle, required this.clubContext,
-    this.current=0, this.total=5, this.isRecruit=false,
-  });
-}
-
 class ClubCardContainer extends StatefulWidget {
   final dynamic _result;
   final bool isSearch;
@@ -44,9 +31,9 @@ class _ClubCardContainer extends State<ClubCardContainer> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(4),
-              child: _result['imageUrls'] == []
+              child: _result['imageUrls'].length == 0
                 ? Image.asset('asset/loginView/profile.png', width: 128 * responsiveScale, height: 128 * responsiveScale,)
-                : Image.network(_result['imageUrls'][0], width: 128 * responsiveScale, height: 128 * responsiveScale, fit: BoxFit.cover,),
+                : Image.network(httpsToHttp(_result['imageUrls'][0]), width: 128 * responsiveScale, height: 128 * responsiveScale, fit: BoxFit.cover,),
             ),
             Expanded(
               child: Container(

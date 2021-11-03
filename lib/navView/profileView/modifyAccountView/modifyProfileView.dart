@@ -53,7 +53,7 @@ class _ModifyProfileView extends State<ModifyProfileView> {
                             ? Image.file(File(_profileImage!.path), width: 120 * responsiveScale, height: 120 * responsiveScale, fit: BoxFit.cover,)
                             : userProfile == ''
                               ? Image.asset('asset/loginView/profile.png', width: 120 * responsiveScale, height: 120 * responsiveScale,)
-                              : Image.network(userProfile['imageUrl'], width: 120 * responsiveScale, height: 120 * responsiveScale, fit: BoxFit.cover,),
+                              : Image.network(httpsToHttp(userProfile['imageUrl']), width: 120 * responsiveScale, height: 120 * responsiveScale, fit: BoxFit.cover,),
                         ),
                         Positioned(
                           right: 5 * responsiveScale, bottom: 0,
