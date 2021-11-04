@@ -29,6 +29,8 @@ patchUsers({required userId, name='', intro=''}) async {
 
   var response = await http.patch(Uri.parse('$baseUrl$pathUsers$query'),
       body: requestBody, headers: authToken);
+
+  print(response.body);
   if(response.statusCode == 200) {
     return json.decode(response.body)['_id'];
   }
@@ -47,8 +49,6 @@ patchUsersImage({required userId, required File profileImage}) async {
     ));
 
   var response = await request.send();
-  print(response.statusCode);
-
   if(response.statusCode == 200) {
     return true;
   }

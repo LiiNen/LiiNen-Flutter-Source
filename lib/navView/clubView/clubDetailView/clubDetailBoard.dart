@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/navView/clubView/clubDetailView/clubDetailBoard/clubBoardDetailView.dart';
 
 class ClubDetailBoard extends StatefulWidget {
   @override
@@ -31,7 +32,7 @@ class _ClubDetailBoard extends State<ClubDetailBoard> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-
+        navigatorPush(context: context, widget: ClubBoardDetailView());
       },
       child: Container(
         width: MediaQuery.of(context).size.width,

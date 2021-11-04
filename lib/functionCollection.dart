@@ -204,7 +204,7 @@ setToken({String token='', String id=''}) async {
     authToken['Authorization'] = token;
   }
   if (token != '') userInfo = Jwt.parseJwt(token);
-  else {
+  else if (id == ''){
     pref.setString('token', '');
     authToken['Authorization'] = '';
   }

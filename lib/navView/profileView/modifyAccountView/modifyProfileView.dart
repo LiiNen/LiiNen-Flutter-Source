@@ -8,6 +8,7 @@ import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/loginView/loginWidgets.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/navView/navView.dart';
 import 'package:my_flutter_source/restApi/usersApi.dart';
 
 import '../profileView.dart';
@@ -82,18 +83,34 @@ class _ModifyProfileView extends State<ModifyProfileView> {
   }
 
   void confirm() async {
-    if(_profileImage != null) {
-      var response = await patchUsersImage(userId: userInfo['_id'], profileImage: _profileImage!);
-      if(response != true) {
-        showToast('네트워크를 확인해주세요');
+    if(_profileImage == null && nameController.text == '' && introController.text == '' ) {
+      showToast('변경사항이 없습니다.');
+      return;
+    }
+    else {
+      if(_profileImage != null) {
+        var response = await patchUsersImage(userId: userInfo['_id'], profileImage: _profileImage!);
+        if(response != true) {
+          showToast('네트워크를 확인해주세요');
+          return;
+        }
       }
+      if(nameController.text != '' || introController.text != '') {
+        String _name = nameController.text != '' ? nameController.text : userProfile['name'];
+        String _intro = introController.text != '' ? introController.text : userProfile['introduce'];
+        var response = await patchUsers(userId: userInfo['_id'], name: _name, intro: _intro);
+        print(response);
+        if(response == false) {
+          showToast('네트워크를 확인해주세요');
+          return;
+        }
+        if(response != false) {
+          await setToken(id: response);
+        }
+      }
+      await reloadUserData();
+      navigatorPush(context: context, widget: NavView(selectedIndex: 4), replacement: true, all: true);
     }
-    if(nameController.text != '' || introController.text != '') {
-      var response = await patchUsers(userId: userInfo['_id'], name: nameController.text, intro: introController.text);
-      if(response != false) await setToken(id: response);
-    }
-    Navigator.pop(context);
-    Navigator.pop(context);
   }
 
   List<Widget> nameField() {

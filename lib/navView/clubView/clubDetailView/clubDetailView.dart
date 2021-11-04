@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_flutter_source/main.dart';
-import 'package:my_flutter_source/navView/clubView/clubDetailView/clubDetailBoardView.dart';
+import 'package:my_flutter_source/navView/clubView/clubDetailView/clubDetailBoard/clubBoardAddView.dart';
 import 'package:my_flutter_source/restApi/meetingsApi.dart';
 
 import 'clubDetailAppBar.dart';
@@ -74,7 +74,7 @@ class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderSta
       floatingActionButton: clubDetailTabController.index == 1 ? Container(
         width: 48, height: 48,
         child: FloatingActionButton(
-          onPressed: () => {Navigator.push(context, MaterialPageRoute(builder: (context) => ClubDetailBoardView()))},
+          onPressed: () => {Navigator.push(context, MaterialPageRoute(builder: (context) => ClubBoardAddView()))},
           backgroundColor: Color(0xff0958c5),
           child: SvgPicture.asset('asset/image/icoPlus.svg', width: 20, height: 20),
         )
