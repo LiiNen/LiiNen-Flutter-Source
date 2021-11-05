@@ -41,8 +41,10 @@ postMeetings({required String name, required String introduction, required Strin
   temp['imageUrls'] = imageUrls;
 
   var requestBody = json.encode(temp);
+  var headers = authToken;
+  headers['Content-type'] = 'application/json';
   var response = await http.post(Uri.parse('$baseUrl$pathMeetings'),
-    headers: authToken, body: requestBody
+    headers: headers, body: requestBody
   );
 
   print(response.statusCode);
@@ -52,6 +54,7 @@ postMeetings({required String name, required String introduction, required Strin
   }
   else {
     print(false);
+    print(response.body);
     return false;
   }
 }

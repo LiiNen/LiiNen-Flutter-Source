@@ -88,18 +88,20 @@ class _ModifyProfileView extends State<ModifyProfileView> {
       return;
     }
     else {
+      String _name = nameController.text != '' ? nameController.text : userProfile['name'];
+      String _intro = introController.text != '' ? introController.text : userProfile['introduce'];
       if(_profileImage != null) {
-        var response = await patchUsersImage(userId: userInfo['_id'], profileImage: _profileImage!);
-        if(response != true) {
+        var response = await patchUsers(userId: userInfo['_id'], name: _name, intro: _intro, profileImage: _profileImage!);
+        if(response == false) {
           showToast('네트워크를 확인해주세요');
           return;
         }
+        if(response != false) {
+          await setToken(id: response);
+        }
       }
-      if(nameController.text != '' || introController.text != '') {
-        String _name = nameController.text != '' ? nameController.text : userProfile['name'];
-        String _intro = introController.text != '' ? introController.text : userProfile['introduce'];
+      else {
         var response = await patchUsers(userId: userInfo['_id'], name: _name, intro: _intro);
-        print(response);
         if(response == false) {
           showToast('네트워크를 확인해주세요');
           return;

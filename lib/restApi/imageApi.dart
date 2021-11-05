@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'restApi.dart';
 
 postImage({required File image, required String type}) async {
-  var request = http.MultipartRequest('POST', Uri.parse('$baseUrl$pathImage'))
+  var request = http.MultipartRequest('POST', Uri.parse('$baseUrl$pathImage?type=$type'))
     ..headers['Content-type'] = 'application/json'
     ..files.add(http.MultipartFile('images',
       image.readAsBytes().asStream(),

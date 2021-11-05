@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:my_flutter_source/navView/profileView/profileView.dart';
 
+import 'imageApi.dart';
 import 'restApi.dart';
 
 getUsersById({required userId}) async {
@@ -18,7 +19,12 @@ getUsersById({required userId}) async {
   }
 }
 
-patchUsers({required userId, name='', intro=''}) async {
+patchUsers({required userId, name='', intro='', File? profileImage}) async {
+  var imageUrl = '';
+  if(profileImage != null) {
+    imageUrl = (await postImage(image: profileImage, type: 'users'))[0];
+    print(imageUrl);
+  }
   if(name == '') name = userProfile['name'];
   if(intro == '') intro = userProfile['introduce'];
 
@@ -26,31 +32,17 @@ patchUsers({required userId, name='', intro=''}) async {
   var requestBody = Map();
   requestBody['name'] = name;
   requestBody['introduce'] = intro;
+  if(imageUrl != '') requestBody['imageUrl'] = imageUrl;
+  var requestBodyJson = json.encode(requestBody);
 
+  var headers = authToken;
+  headers['Content-type'] = 'application/json';
   var response = await http.patch(Uri.parse('$baseUrl$pathUsers$query'),
-      body: requestBody, headers: authToken);
+    body: requestBodyJson, headers: headers);
 
   print(response.body);
   if(response.statusCode == 200) {
     return json.decode(response.body)['_id'];
-  }
-  else return false;
-}
-
-patchUsersImage({required userId, required File profileImage}) async {
-  var query = '/$userId/image';
-  var request = http.MultipartRequest('PATCH', Uri.parse('$baseUrl$pathUsers$query'))
-    ..headers['Content-type'] = 'application/json'
-    ..headers['Authorization'] = authToken['Authorization']!
-    ..files.add(http.MultipartFile('image',
-      profileImage.readAsBytes().asStream(),
-      profileImage.lengthSync(),
-      filename: 'image'
-    ));
-
-  var response = await request.send();
-  if(response.statusCode == 200) {
-    return true;
   }
   else return false;
 }
