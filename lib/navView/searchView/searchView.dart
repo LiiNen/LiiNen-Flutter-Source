@@ -149,7 +149,7 @@ Widget categoryGridContainer(BuildContext context) {
                   ],
                 )
               )
-           ],
+            ],
           )
         );
       })

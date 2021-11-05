@@ -98,8 +98,10 @@ class _CategorySetupView extends State<CategorySetupView> {
   }
 
   void _submitSignUp() async {
+    isLoading = true;
     loadingDialog(context);
     var result = await signUpApi(name: name, email: email, password: password, introduce: introduce, categories: _selectedList, profileImage: profileImage);
+    isLoading = false;
     if(result) {
       showToast('회원가입이 완료되었습니다!');
       navigatorPush(context: context, widget: NavView(), replacement: true, all: true );
@@ -109,3 +111,5 @@ class _CategorySetupView extends State<CategorySetupView> {
     }
   }
 }
+
+bool isLoading = false;

@@ -56,8 +56,7 @@ class _ClubDetailHome extends State<ClubDetailHome> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
+    return Column(
       children: [
         _clubCard(child: _clubTitleCard()),
         Container(
@@ -65,6 +64,11 @@ class _ClubDetailHome extends State<ClubDetailHome> {
           height: 12,
         ),
         _clubCard(child: clubMemberCard(clubMemberList: _clubMemberList!, context: context)),
+        _clubCard(child: clubMemberCard(clubMemberList: _clubMemberList!, context: context)),
+        _clubCard(child: clubMemberCard(clubMemberList: _clubMemberList!, context: context)),
+        _clubCard(child: clubMemberCard(clubMemberList: _clubMemberList!, context: context)),
+        _clubCard(child: clubMemberCard(clubMemberList: _clubMemberList!, context: context)),
+
       ]
     );
   }
@@ -82,14 +86,12 @@ class _ClubDetailHome extends State<ClubDetailHome> {
     bool _isMember = false;
     if(result['persons']['president']['_id'] == userInfo['_id']) {
       _isMember = true;
-      print('president');
     }
     else {
       result['persons']['members'].toList().map((e) {
         if (e['_id'] == userInfo['_id']) _isMember = true;
       });
     }
-    print(_isMember ? 'member' : 'not member');
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,

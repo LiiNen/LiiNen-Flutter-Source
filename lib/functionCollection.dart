@@ -14,6 +14,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'containerCollection.dart';
+import 'loginView/categorySetupView.dart';
 import 'navView/profileView/profileView.dart';
 
 void launchURL(_srcURL) async => await canLaunch(_srcURL) ? await launch(_srcURL) : throw 'url \"$_srcURL\" error';
@@ -234,7 +235,7 @@ void loadingDialog(context) {
     builder: (BuildContext context) {
       const oneSec = Duration(seconds:1);
       Timer.periodic(oneSec, (Timer t) {
-        if(authToken['Authorization'] != '') {
+        if(authToken['Authorization'] != '' || isLoading == false) {
           Navigator.pop(context);
           t.cancel();
         }

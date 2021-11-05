@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:my_flutter_source/restApi/imageApi.dart';
 
 import 'restApi.dart';
 
@@ -29,37 +30,28 @@ getMeetingById(String id) async {
 }
 
 postMeetings({required String name, required String introduction, required String category, required String maxPerson, required File clubImage}) async {
-  var requestBody = Map();
-  requestBody['name'] = name;
-  requestBody['introduction'] = introduction;
-  requestBody['category'] = category;
-  requestBody['maxPerson'] = maxPerson;
 
-  var request = http.MultipartRequest('POST', Uri.parse('$baseUrl$pathMeetings'))
-    ..headers['Content-type'] = 'application/json'
-    ..headers['Authorization'] = authToken['Authorization']!
-    ..fields['name'] = name
-    ..fields['introduction'] = introduction
-    ..fields['category'] = category
-    ..fields['maxPerson'] = maxPerson
-    ..files.add(http.MultipartFile('images',
-      clubImage.readAsBytes().asStream(),
-      clubImage.lengthSync(),
-      filename: 'image'
-    ));
+  var imageUrls = await postImage(image: clubImage, type: 'meetings');
 
-  var response = await request.send();
+  var temp = Map();
+  temp['name'] = name;
+  temp['introduction'] = introduction;
+  temp['category'] = category;
+  temp['maxPerson'] = maxPerson;
+  temp['imageUrls'] = imageUrls;
+
+  var requestBody = json.encode(temp);
+  var response = await http.post(Uri.parse('$baseUrl$pathMeetings'),
+    headers: authToken, body: requestBody
+  );
+
   print(response.statusCode);
   if(response.statusCode == 201) {
-    response.stream.transform(utf8.decoder).listen((value) {
-      print(value);
-    });
+    print(true);
     return true;
   }
   else {
-    response.stream.transform(utf8.decoder).listen((value) {
-      print(value);
-    });
+    print(false);
     return false;
   }
 }

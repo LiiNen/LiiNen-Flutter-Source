@@ -37,6 +37,7 @@ class _CategoryResultView extends State<CategoryResultView> {
 
   @override
   Widget build(BuildContext context) {
+    _category = _category.replaceAll(' ', '');
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CategoryAppBar(currentCategory: _category,),

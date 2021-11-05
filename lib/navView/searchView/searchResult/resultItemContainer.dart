@@ -35,19 +35,20 @@ class _ResultItemContainer extends State<ResultItemContainer> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('${_results.length}건의 검색결과', style: textStyle(weight: 700, size: 14.0)),
-                  GestureDetector(
-                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => SearchFilterView()));},
-                    child: Container(
-                      width: 42 * responsiveScale, height: 24 * responsiveScale,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(4)),
-                        color: Color(0xfff3f3f3),
-                      ),
-                      child: Center(
-                        child: Text('필터', style: textStyle(color: Color(0xff666666), weight: 400, size: 10.0))
-                      )
-                    )
-                  )
+                  /// HACK : logic about filtering does not exists
+                  // GestureDetector(
+                  //   onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => SearchFilterView()));},
+                  //   child: Container(
+                  //     width: 42 * responsiveScale, height: 24 * responsiveScale,
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.all(Radius.circular(4)),
+                  //       color: Color(0xfff3f3f3),
+                  //     ),
+                  //     child: Center(
+                  //       child: Text('필터', style: textStyle(color: Color(0xff666666), weight: 400, size: 10.0))
+                  //     )
+                  //   )
+                  // )
                 ]
               ) : Text('${_results.length}개의 모임', style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,)
             )
