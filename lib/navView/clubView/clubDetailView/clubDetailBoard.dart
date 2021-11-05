@@ -2,12 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/navView/clubView/clubDetailView/clubDetailBoard/clubBoardDetailView.dart';
+import 'package:my_flutter_source/restApi/boardApi.dart';
 
 class ClubDetailBoard extends StatefulWidget {
+  final dynamic result;
+  ClubDetailBoard(this.result);
   @override
-  State<ClubDetailBoard> createState() => _ClubDetailBoard();
+  State<ClubDetailBoard> createState() => _ClubDetailBoard(result);
 }
 class _ClubDetailBoard extends State<ClubDetailBoard> {
+  dynamic result;
+  _ClubDetailBoard(this.result);
+
+  @override
+  void initState() {
+    super.initState();
+    _getBoard();
+  }
+
+  _getBoard() async {
+    var response = await getClubBoard(meetingId: result['_id']);
+    print(response);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

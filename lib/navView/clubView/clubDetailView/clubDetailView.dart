@@ -9,15 +9,17 @@ import 'clubDetailAppBar.dart';
 import 'clubDetailTabBar.dart';
 
 class ClubDetailView extends StatefulWidget {
-  final String _id;
-  ClubDetailView(this._id);
+  final String id;
+  final initIndex;
+  ClubDetailView({required this.id, this.initIndex=0});
 
   @override
-  State<ClubDetailView> createState() => _ClubDetailView(_id);
+  State<ClubDetailView> createState() => _ClubDetailView(id, initIndex);
 }
 class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderStateMixin {
   String _id;
-  _ClubDetailView(this._id);
+  int initIndex;
+  _ClubDetailView(this._id, this.initIndex);
   dynamic result;
   bool _isMember=false;
 
@@ -29,7 +31,7 @@ class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderSta
   @override
   void initState() {
     super.initState();
-    _clubDetailTabController = TabController(length: 4, vsync: this, initialIndex: 0);
+    _clubDetailTabController = TabController(length: 4, vsync: this, initialIndex: initIndex);
     _clubDetailTabController.addListener(tabChangeListener);
     _scrollController.addListener(scrollListener);
     _getMeeting();
@@ -104,7 +106,7 @@ class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderSta
       floatingActionButton: _clubDetailTabController.index == 1 ? Container(
         width: 48, height: 48,
         child: FloatingActionButton(
-          onPressed: () => {Navigator.push(context, MaterialPageRoute(builder: (context) => ClubBoardAddView()))},
+          onPressed: () => {Navigator.push(context, MaterialPageRoute(builder: (context) => ClubBoardAddView(result)))},
           backgroundColor: Color(0xff0958c5),
           child: SvgPicture.asset('asset/image/icoPlus.svg', width: 20, height: 20),
         )

@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:my_flutter_source/restApi/imageApi.dart';
 import 'restApi.dart';
 
 getBoard({int page=1, int limit=50, postId=''}) async {
@@ -12,13 +14,21 @@ getBoard({int page=1, int limit=50, postId=''}) async {
 
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);
-    return responseBody['imageUrls'];
+    return responseBody;
   } else {
     return null;
   }
 }
 
-postBoard({required String meetingId, required String userId, required String title, required String content, required List<String> imageUrls}) async {
+postBoard({required String meetingId, required String userId, required String title, required String content, List<File>? boardImageList}) async {
+  var imageUrls = [];
+  if(boardImageList != null) {
+    for(File boardImage in boardImageList) {
+      var tempUrl = (await postImage(image: boardImage, type: 'posts'))[0];
+      imageUrls.add(tempUrl);
+    }
+  }
+
   var temp = Map();
   temp['meeting'] = meetingId;
   temp['author'] = userId;
@@ -27,11 +37,14 @@ postBoard({required String meetingId, required String userId, required String ti
   temp['imageUrls'] = imageUrls;
 
   var requestBody = json.encode(temp);
+  var headers = authToken;
+  headers['Content-type'] = 'application/json';
 
   var response = await http.post(Uri.parse('$baseUrl$pathBoard'),
-    headers: authToken, body: requestBody
+    headers: headers, body: requestBody
   );
 
+  print(response.statusCode);
   if(response.statusCode == 200) {
     return true;
   }
@@ -50,4 +63,13 @@ patchBoardLike({required String postId, required String userId}) async {
     return true;
   }
   else return false;
+}
+
+getClubBoard({required String meetingId}) async {
+  var response = await http.get(Uri.parse('$baseUrl$pathClubBoard$meetingId'));
+
+  if(response.statusCode == 200) {
+    return json.decode(response.body);
+  }
+  else return null;
 }

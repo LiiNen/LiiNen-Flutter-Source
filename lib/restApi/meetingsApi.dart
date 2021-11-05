@@ -72,12 +72,28 @@ getMeetingsText({required String text, int page=1, int limit=50}) async {
   }
 }
 
-patchMeetings({required String meetingId}) async {
+patchMeetings({required String meetingId, File? clubImage}) async {
+  var imageUrls = [];
+  if(clubImage != null) {
+    imageUrls = await postImage(image: clubImage, type: 'meetings');
+  }
+
   var query = '/$meetingId';
 
-  var response = await http.patch(Uri.parse('$baseUrl$pathMeetings$query'));
+  var requestBody = Map();
+  if(imageUrls != []) requestBody['imageUrls'] = imageUrls;
 
+  var requestBodyJson = json.encode(requestBody);
 
+  var headers = authToken;
+  headers['Content-type'] = 'application/json';
+  var response = await http.patch(Uri.parse('$baseUrl$pathMeetings$query'),
+    body: requestBodyJson, headers: headers
+  );
+  if(response.statusCode == 200) {
+    return true;
+  }
+  else return false;
 }
 
 quitMeeting({required String meetingId, isPresident=false}) async {

@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/restApi/boardApi.dart';
 
 import '../../../../containerCollection.dart';
 import '../../../../main.dart';
+import '../clubDetailView.dart';
 
 class ClubBoardAddView extends StatefulWidget {
+  final dynamic result;
+  ClubBoardAddView(this.result);
+
   @override
-  State<ClubBoardAddView> createState() => _ClubBoardAddView();
+  State<ClubBoardAddView> createState() => _ClubBoardAddView(result);
 }
 class _ClubBoardAddView extends State<ClubBoardAddView> {
+  dynamic result;
+  _ClubBoardAddView(this.result);
+
   final titleController = TextEditingController();
   final contentController = TextEditingController();
   FocusNode titleFocusNode = FocusNode();
@@ -80,7 +88,12 @@ class _ClubBoardAddView extends State<ClubBoardAddView> {
 
   submitAction() async {
     if(isComplete == true) {
-      //todo: post
+      var response = await postBoard(meetingId: result['_id'], userId: userInfo['_id'], title: titleController.text, content: contentController.text);
+      if(response == true) {
+        Navigator.pop(context);
+        Navigator.pop(context);
+        navigatorPush(context: context, widget: ClubDetailView(id: result['_id'], initIndex: 1,));
+      }
     }
     else {
       showToast('제목과 내용 모두 작성해주세요.');

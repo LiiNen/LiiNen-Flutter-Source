@@ -10,7 +10,7 @@ clubDetailTabBarView({required TabController controller, required dynamic result
   return Container(
     child: [
       ClubDetailHome(result),
-      ClubDetailBoard(),
+      ClubDetailBoard(result),
       ClubDetailCalendar(),
       ClubDetailChat(),
     ][controller.index],
