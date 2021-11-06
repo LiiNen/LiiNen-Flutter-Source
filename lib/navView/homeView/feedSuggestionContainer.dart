@@ -35,10 +35,11 @@ class _FeedSuggestionContainer extends State<FeedSuggestionContainer> {
   
   @override
   Widget build(BuildContext context) {
+    print(_feedSuggestionList);
     return Column(
       children: <Widget>[TitleContainer(title: '뭐하고 있을까?', size: 20.0)] +
         List<Widget>.generate(_feedSuggestionList.length * 2, (index){
-          return index%2 == 0 ? FeedCardContainer(_feedSuggestionList[(index/2).floor()]) : sizedBox(8);
+          return index%2 == 0 ? FeedCardContainer(feedObject: _feedSuggestionList[(index/2).floor()], isSuggestion: true) : sizedBox(8);
         }) + [
         GestureDetector(
           onTap: () {
