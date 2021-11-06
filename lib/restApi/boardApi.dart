@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_flutter_source/restApi/imageApi.dart';
 import 'restApi.dart';
@@ -45,7 +44,7 @@ postBoard({required String meetingId, required String userId, required String ti
   );
 
   print(response.statusCode);
-  if(response.statusCode == 200) {
+  if(response.statusCode == 201) {
     return true;
   }
   else return null;
@@ -66,8 +65,10 @@ patchBoardLike({required String postId, required String userId}) async {
 }
 
 getClubBoard({required String meetingId}) async {
-  var response = await http.get(Uri.parse('$baseUrl$pathClubBoard$meetingId'));
+  var response = await http.get(Uri.parse('$baseUrl$pathClubBoard/$meetingId'));
 
+  print(response.statusCode);
+  print(json.decode(response.body));
   if(response.statusCode == 200) {
     return json.decode(response.body);
   }

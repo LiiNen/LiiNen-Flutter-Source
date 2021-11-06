@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_flutter_source/functionCollection.dart';
+import 'package:my_flutter_source/main.dart';
 import 'package:my_flutter_source/navView/clubView/clubDetailView/clubDetailBoard/clubBoardDetailView.dart';
 import 'package:my_flutter_source/restApi/boardApi.dart';
 
@@ -13,6 +14,8 @@ class ClubDetailBoard extends StatefulWidget {
 class _ClubDetailBoard extends State<ClubDetailBoard> {
   dynamic result;
   _ClubDetailBoard(this.result);
+  List clubBoardList = [];
+  bool isLoaded = false;
 
   @override
   void initState() {
@@ -22,7 +25,15 @@ class _ClubDetailBoard extends State<ClubDetailBoard> {
 
   _getBoard() async {
     var response = await getClubBoard(meetingId: result['_id']);
-    print(response);
+    if(response != null) {
+      setState(() {
+        clubBoardList = response;
+        isLoaded = true;
+      });
+    }
+    else {
+      showToast('네트워크를 확인해주세요.');
+    }
   }
 
   @override
@@ -32,25 +43,33 @@ class _ClubDetailBoard extends State<ClubDetailBoard> {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 21, vertical: 12),
         padding: EdgeInsets.symmetric(vertical: 12),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              boardItemBox(),
-              boardItemBox(),
-              boardItemBox(),
-              boardItemBox(),
-              boardItemBox(),
-              boardItemBox(),
-              boardItemBox(),
-              boardItemBox(),
-            ]
-          )
-        )
+        child: isLoaded ?
+          (clubBoardList.length != 0 ?
+            SingleChildScrollView(
+              child: Column(
+                children: List.generate(clubBoardList.length, (index) {
+                  return boardItemBox(clubBoardList[index]);
+                })
+              )
+            ) : Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 238 * responsiveScale),
+                  SvgPicture.asset('asset/image/icoFail.svg', width: 28, height: 48),
+                  SizedBox(height: 24),
+                  Text('게시물이 없습니다.', style: textStyle(weight: 600, size: 16.0),),
+                ],
+              )
+            )
+          ) : Center(child: CircularProgressIndicator()),
       )
     );
   }
 
-  boardItemBox() {
+  boardItemBox(clubBoard) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
@@ -74,11 +93,11 @@ class _ClubDetailBoard extends State<ClubDetailBoard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('title', style: textStyle(weight: 700, size: 14.0)),
+              Text(clubBoard['title'], style: textStyle(weight: 700, size: 14.0)),
               SizedBox(height: 4),
-              Text('근로소득이 높은 분들도 있겠지만  근데 그거 외에 어떻게 자산 증식 하고있는지 궁금해~!  나는 집 조그만거(저렴이지만 현 차익은 1.4억이라 나름.. 만족😭) 하나 사놓았구… 부동산은 계속 공…', style: textStyle(weight: 400, size: 10.0)),
+              Text(clubBoard['contents'], style: textStyle(weight: 400, size: 10.0)),
               SizedBox(height: 24),
-              Text('username', style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0)),
+              Text(clubBoard['author'], style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0)),
               SizedBox(height: 4),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,14 +106,14 @@ class _ClubDetailBoard extends State<ClubDetailBoard> {
                     children: [
                       SvgPicture.asset('asset/image/heartIco.svg', width: 16, height: 16),
                       SizedBox(width: 4),
-                      Text('4', style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0)),
+                      Text(clubBoard['likesCount'].toString(), style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0)),
                       SizedBox(width: 12),
                       SvgPicture.asset('asset/image/messageIco.svg', width: 16, height: 16),
                       SizedBox(width: 4),
-                      Text('4', style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0)),
+                      Text(clubBoard['commentsCount'].toString(), style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0)),
                     ]
                   ),
-                  Text('10월 30일 오후04:14', style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0))
+                  Text(timeParser(clubBoard['createdAt']), style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0))
                 ]
               )
             ]

@@ -32,6 +32,7 @@ class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderSta
   void initState() {
     super.initState();
     _clubDetailTabController = TabController(length: 4, vsync: this, initialIndex: initIndex);
+    if(_clubDetailTabController.index != 0) _isScrolled = true;
     _clubDetailTabController.addListener(tabChangeListener);
     _scrollController.addListener(scrollListener);
     _getMeeting();
@@ -46,6 +47,7 @@ class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderSta
   tabChangeListener() {
     if(_clubDetailTabController.indexIsChanging) setState(() {
       _scrollController.jumpTo(0);
+      _clubDetailTabController.index != 0 ? _isScrolled = true : _isScrolled = false;
     });
   }
 

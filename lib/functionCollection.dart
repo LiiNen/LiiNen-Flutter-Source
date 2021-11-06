@@ -262,3 +262,19 @@ reloadUserData() async {
 String httpsToHttp(String target) {
   return target.replaceAll('https', 'http');
 }
+
+String timeParser(String target) {
+  var afternoon = false;
+  var temp = target.split('T');
+  var date = temp[0].split('-');
+  var time = temp[1].split('.')[0].split(':');
+  if(int.parse(time[0]) > 12) {
+    afternoon = true;
+    time[0] = '${int.parse(time[0]) - 12}';
+  }
+  if(time[0].length == 1) time[0] = '0${time[0]}';
+  if(time[0] == '00') time[0] = '12';
+  return '${date[0]}년 ${date[1]}월 ${date[2]}일 '
+    + (afternoon ? '오후' : '오전')
+    + ' ${time[0]}:${time[1]}';
+}

@@ -27,7 +27,8 @@ class _ClubSuggestionContainer extends State<ClubSuggestionContainer> {
   }
 
   void _getClubSuggestion() async {
-    _allSuggestionList = await getMeetings();
+    var temp = await getMeetings();
+    if(temp != null) _allSuggestionList = temp;
     _allSuggestionList.shuffle();
     setState(() {
       _clubSuggestionList = _allSuggestionList.take(take).toList();
