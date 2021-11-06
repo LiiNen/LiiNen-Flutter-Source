@@ -44,13 +44,15 @@ class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderSta
   }
 
   tabChangeListener() {
-    if(_clubDetailTabController.indexIsChanging) setState(() {});
+    if(_clubDetailTabController.indexIsChanging) setState(() {
+      _scrollController.jumpTo(0);
+    });
   }
 
   scrollListener() {
     setState(() {
       _scrollPosition = _scrollController.position.pixels;
-      if((_clubDetailTabController.index == 0 && _scrollPosition >= 180) || (_clubDetailTabController.index != 0 && _scrollPosition >= 0)) {
+      if((_clubDetailTabController.index == 0 && _scrollPosition >= 180) || (_clubDetailTabController.index != 0)) {
         _isScrolled = true;
       }
       else {
@@ -84,13 +86,11 @@ class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderSta
       ),
       body: result != null ? Stack(
         children: [
-          _isScrolled ? Positioned(
-            child: ClubDetailTabBar(controller: _clubDetailTabController, isMember: _isMember)
-          ) : Container(),
           SingleChildScrollView(
             controller: _scrollController,
             child: Column(
               children: [
+                _isScrolled ? SizedBox(height: 38) : Container(),
                 _clubDetailTabController.index == 0 ? Container(
                   width: MediaQuery.of(context).size.width,
                   height: 180,
@@ -100,7 +100,10 @@ class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderSta
                 clubDetailTabBarView(controller: _clubDetailTabController, result: result)
               ]
             )
-          )
+          ),
+          _isScrolled ? Positioned(
+            child: ClubDetailTabBar(controller: _clubDetailTabController, isMember: _isMember)
+          ) : Container(),
         ]
       ) : Container(),
       floatingActionButton: _clubDetailTabController.index == 1 ? Container(

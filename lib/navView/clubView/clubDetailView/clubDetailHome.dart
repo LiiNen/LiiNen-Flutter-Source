@@ -16,7 +16,7 @@ class ClubMember {
 class ClubMemberList {
   int currentNum;
   int maxNum;
-  List<ClubMember> member; // member 리스트의 첫번째가 모임 개설자로 되도록 사
+  List<ClubMember> member;
   ClubMemberList({required this.currentNum, required this.maxNum, required this.member});
 }
 

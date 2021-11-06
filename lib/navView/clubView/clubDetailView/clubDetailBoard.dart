@@ -31,13 +31,18 @@ class _ClubDetailBoard extends State<ClubDetailBoard> {
       color: Color(0xff8f9fa),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 21, vertical: 12),
+        padding: EdgeInsets.symmetric(vertical: 12),
         child: SingleChildScrollView(
           child: Column(
             children: [
               boardItemBox(),
               boardItemBox(),
               boardItemBox(),
-              boardItemBox()
+              boardItemBox(),
+              boardItemBox(),
+              boardItemBox(),
+              boardItemBox(),
+              boardItemBox(),
             ]
           )
         )
