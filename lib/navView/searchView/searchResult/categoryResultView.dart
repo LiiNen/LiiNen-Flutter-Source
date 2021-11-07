@@ -25,6 +25,8 @@ class _CategoryResultView extends State<CategoryResultView> {
   void initState() {
     super.initState();
     _searchWithCategory();
+    // hack for default
+    if(_category == '자유주제 ') _category = '자유주제';
   }
 
   void _searchWithCategory() async {
@@ -37,7 +39,6 @@ class _CategoryResultView extends State<CategoryResultView> {
 
   @override
   Widget build(BuildContext context) {
-    _category = _category.replaceAll(' ', '');
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CategoryAppBar(currentCategory: _category,),

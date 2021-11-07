@@ -73,7 +73,7 @@ class _ClubDetailBoard extends State<ClubDetailBoard> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        navigatorPush(context: context, widget: ClubBoardDetailView());
+        navigatorPush(context: context, widget: ClubBoardDetailView(clubBoard['_id']));
       },
       child: Container(
         width: MediaQuery.of(context).size.width,

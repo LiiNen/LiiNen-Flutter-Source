@@ -64,10 +64,6 @@ class _ClubDetailHome extends State<ClubDetailHome> {
           height: 12,
         ),
         _clubCard(child: clubMemberCard(clubMemberList: _clubMemberList!, context: context)),
-        _clubCard(child: clubMemberCard(clubMemberList: _clubMemberList!, context: context)),
-        _clubCard(child: clubMemberCard(clubMemberList: _clubMemberList!, context: context)),
-        _clubCard(child: clubMemberCard(clubMemberList: _clubMemberList!, context: context)),
-        _clubCard(child: clubMemberCard(clubMemberList: _clubMemberList!, context: context)),
 
       ]
     );

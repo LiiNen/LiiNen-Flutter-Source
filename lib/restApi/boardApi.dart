@@ -54,8 +54,10 @@ patchBoardLike({required String postId, required String userId}) async {
   var requestBody = Map();
   requestBody['user_id'] = userId;
 
+  var requestBodyJson = json.encode(requestBody);
+
   var response = await http.patch(Uri.parse('$baseUrl/posts/$postId/likes'),
-    headers: authToken, body: requestBody
+    headers: authToken, body: requestBodyJson
   );
 
   if(response.statusCode == 200) {
