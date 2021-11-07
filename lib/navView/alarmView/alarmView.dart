@@ -5,6 +5,7 @@ import 'package:my_flutter_source/containerCollection.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/navView/alarmView/alarmItemContainer.dart';
 import 'package:my_flutter_source/main.dart';
+import 'package:my_flutter_source/navView/clubView/clubDetailView/clubDetailView.dart';
 import 'package:my_flutter_source/restApi/alarmApi.dart';
 
 class AlarmView extends StatefulWidget {
@@ -12,6 +13,10 @@ class AlarmView extends StatefulWidget {
   State<AlarmView> createState() => _AlarmView();
 }
 class _AlarmView extends State<AlarmView> {
+
+  List<dynamic> alarmList = [];
+  bool isLoaded = false;
+
   @override
   void initState() {
     super.initState();
@@ -20,7 +25,19 @@ class _AlarmView extends State<AlarmView> {
 
   void _getAlarm() async {
     var _temp = await getAlarm(userId: userInfo['_id']);
-    print(_temp);
+    if(_temp != null) {
+      setState(() {
+        alarmList = _temp;
+        print(_temp);
+        isLoaded = true;
+      });
+    }
+    else {
+      showToast('네트워크를 확인해주세요.');
+      setState(() {
+        isLoaded = true;
+      });
+    }
   }
 
   @override
@@ -29,11 +46,11 @@ class _AlarmView extends State<AlarmView> {
       backgroundColor: Colors.white,
       appBar: MainViewAppBar(title: '알림', back: false),
       body: ListView.builder(
-        itemCount: alarmItemList.length * 2,
+        itemCount: alarmList.length * 2,
         itemBuilder: (context, index) {
           if(index%2 == 1) return LineDivider(horizontalMargin: false,);
           var itemIndex = (index/2).floor();
-          final item = alarmItemList[itemIndex];
+          final item = alarmList[itemIndex];
           return Slidable(
             key: UniqueKey(),
             direction: Axis.horizontal,
@@ -55,7 +72,9 @@ class _AlarmView extends State<AlarmView> {
               )
             ],
             child: GestureDetector(
-              onTap: () => {},
+              onTap: () => {
+                navigatorPush(context: context, widget: ClubDetailView(id: item['meeting']))
+              },
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(horizontal: 21 * responsiveScale, vertical: 20),
@@ -65,9 +84,7 @@ class _AlarmView extends State<AlarmView> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(18),
-                      child: item.thumbnailUrl == null
-                        ? Image.asset('asset/loginView/profile.png', width: 36, height: 36,)
-                        : Image.network(item.thumbnailUrl!, width: 36, height: 36, fit: BoxFit.cover,),
+                      child: Image.network(httpsToHttp(item['imageUrl']), width: 36, height: 36, fit: BoxFit.cover,),
                     ),
                     Container(
                       width: maxWidth - 36 - 8 * responsiveScale,
@@ -76,8 +93,8 @@ class _AlarmView extends State<AlarmView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(item.context, style: textStyle(weight: 400, size: 14.0), textAlign: TextAlign.left, overflow: TextOverflow.ellipsis,),
-                          Text(item.time.toString(), style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0), overflow: TextOverflow.ellipsis,)
+                          Text(item['contents'], style: textStyle(weight: 400, size: 14.0), textAlign: TextAlign.left, overflow: TextOverflow.ellipsis,),
+                          Text(timeParser(item['createdAt']), style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0), overflow: TextOverflow.ellipsis,)
                         ],
                       )
                     )
@@ -92,8 +109,12 @@ class _AlarmView extends State<AlarmView> {
   }
 
   removeAlarm(index) async {
-    var result = await deleteAlarm(alarmId: 'alarmId');
-    if(result == true) alarmItemList.removeAt(index);
+    var result = await deleteAlarm(alarmId: alarmList[index]['_id']);
+    if(result == true) {
+      setState(() {
+        alarmItemList.removeAt(index);
+      });
+    }
     else showToast('네트워크 상태를 확인해주세요');
   }
 }

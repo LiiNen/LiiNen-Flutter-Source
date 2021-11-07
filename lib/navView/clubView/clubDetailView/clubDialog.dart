@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:my_flutter_source/functionCollection.dart';
 
-showClubDialog({required BuildContext context, required title, required positiveAction, required negativeAction, dynamic confirmAction}) async {
+showClubDialog({required BuildContext context, required title, required positiveAction, required negativeAction, dynamic confirmAction, String? positiveWord, String? negativeWord}) async {
   return (await showDialog(
     context: context,
-    builder: (context) => ClubDialog(title: title, positiveAction: positiveAction, negativeAction: negativeAction, confirmAction: confirmAction)
+    builder: (context) => ClubDialog(title: title, positiveAction: positiveAction, negativeAction: negativeAction, confirmAction: confirmAction, positiveWord: positiveWord, negativeWord: negativeWord)
   )) ?? false;
 }
 
@@ -14,10 +14,12 @@ class ClubDialog extends StatefulWidget {
   final dynamic positiveAction;
   final dynamic negativeAction;
   final dynamic confirmAction;
-  ClubDialog({required this.title, required this.positiveAction, required this.negativeAction, required this.confirmAction});
+  final String? positiveWord;
+  final String? negativeWord;
+  ClubDialog({required this.title, required this.positiveAction, required this.negativeAction, required this.confirmAction, required this.positiveWord, required this.negativeWord});
 
   @override
-  State<ClubDialog> createState() => _ClubDialog(title: title, positiveAction: positiveAction, negativeAction: negativeAction, confirmAction: confirmAction);
+  State<ClubDialog> createState() => _ClubDialog(title: title, positiveAction: positiveAction, negativeAction: negativeAction, confirmAction: confirmAction, positiveWord: positiveWord, negativeWord: negativeWord);
 }
 
 class _ClubDialog extends State<ClubDialog> {
@@ -25,7 +27,9 @@ class _ClubDialog extends State<ClubDialog> {
   dynamic positiveAction;
   dynamic negativeAction;
   dynamic confirmAction;
-  _ClubDialog({required this.title, required this.positiveAction, required this.negativeAction, required this.confirmAction});
+  String? positiveWord;
+  String? negativeWord;
+  _ClubDialog({required this.title, required this.positiveAction, required this.negativeAction, required this.confirmAction, required this.positiveWord, required this.negativeWord});
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +70,8 @@ class _ClubDialog extends State<ClubDialog> {
       height: 52,
       child: Row(
         children: confirmAction == null ? [
-          selectionBox('아니요', negativeAction),
-          selectionBox('네', positiveAction),
+          selectionBox(negativeWord == null ? '아니요' : negativeWord!, negativeAction),
+          selectionBox(positiveWord == null ? '네' : positiveWord!, positiveAction),
         ] : [
           selectionBox('확인', confirmAction),
         ],

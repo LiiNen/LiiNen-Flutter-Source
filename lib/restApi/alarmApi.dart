@@ -31,7 +31,7 @@ readAlarm({required String userId}) async {
 
 deleteAlarm({required String alarmId}) async {
   String query = '/$alarmId';
-  var response = await http.post(Uri.parse('$baseUrl$pathAlarm$query'), headers: authToken);
+  var response = await http.delete(Uri.parse('$baseUrl$pathAlarm$query'), headers: authToken);
 
   if(response.statusCode == 200) {
     return true;

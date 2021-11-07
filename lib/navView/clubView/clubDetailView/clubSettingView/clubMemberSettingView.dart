@@ -43,7 +43,7 @@ class _ClubMemberSettingView extends State<ClubMemberSettingView> {
         child: Column(
           children: [
             SizedBox(height: 28),
-            clubMemberCard(clubMemberList: _clubMemberList!, isAdmin: true, context: context),
+            clubMemberCard(meetingId: result['_id'], clubMemberList: _clubMemberList!, isAdmin: true, context: context),
           ],
         )
       )

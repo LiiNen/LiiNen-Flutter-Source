@@ -17,7 +17,7 @@ class ClubMemberList {
   int currentNum;
   int maxNum;
   List<ClubMember> member;
-  ClubMemberList({required this.currentNum, required this.maxNum, required this.member});
+  ClubMemberList({this.currentNum=-1, this.maxNum=-1, required this.member});
 }
 
 class ClubDetailHome extends StatefulWidget {
@@ -35,23 +35,28 @@ class _ClubDetailHome extends State<ClubDetailHome> {
   String? _clubTitle;
   String? _clubIntro;
   ClubMemberList? _clubMemberList;
+  ClubMemberList? _waitingList;
 
   @override
   void initState() {
     super.initState();
     _getClubInfo();
   }
+
   void _getClubInfo() {
-    _clubCategory = getCategoryName(result['category']['_id']);
-    _clubTitle = result['name'];
-    _clubIntro = result['introduction'];
-    List<ClubMember> temp = [
-      ClubMember(userId: result['persons']['president']['_id'], imgSrc: result['persons']['president']['imageUrl'], userName: result['persons']['president']['name'], userIntro: result['persons']['president']['introduce'])
-    ];
-    result['persons']['members'].toList().map((e) {
-      temp.add(ClubMember(userId: e['_id'], imgSrc: e['imageUrl'], userName: e['name'], userIntro: e['introduce']));
+    setState(() {
+      _clubCategory = getCategoryName(result['category']['_id']);
+      _clubTitle = result['name'];
+      _clubIntro = result['introduction'];
+      List<ClubMember> temp = [
+        ClubMember(userId: result['persons']['president']['_id'], imgSrc: result['persons']['president']['imageUrl'], userName: result['persons']['president']['name'], userIntro: result['persons']['president']['introduce'])
+      ];
+      for (var e in result['persons']['members']) temp.add(ClubMember(userId: e['_id'], imgSrc: e['imageUrl'], userName: e['name'], userIntro: e['introduce']));
+      _clubMemberList = ClubMemberList(currentNum: result['personsCount'], maxNum: result['maxPerson'], member: temp);
+      temp = [];
+      for (var e in result['persons']['waiting']) temp.add(ClubMember(userId: e['_id'], imgSrc: e['imageUrl'], userName: e['name'], userIntro: e['introduce']));
+      _waitingList = ClubMemberList(member: temp, maxNum: temp.length);
     });
-    _clubMemberList = ClubMemberList(currentNum: result['personsCount'], maxNum: result['maxPerson'], member: temp);
   }
 
   @override
@@ -63,8 +68,9 @@ class _ClubDetailHome extends State<ClubDetailHome> {
           width: MediaQuery.of(context).size.width,
           height: 12,
         ),
-        _clubCard(child: clubMemberCard(clubMemberList: _clubMemberList!, context: context)),
-
+        _clubCard(child: clubMemberCard(meetingId: result['_id'], clubMemberList: _clubMemberList!, context: context)),
+        SizedBox(height: 12),
+        _waitingList!.member.length == 0 ? Container() : _clubCard(child: clubMemberCard(meetingId: result['_id'], isAdmin: userInfo['_id'] == result['persons']['president']['_id'], clubMemberList: _waitingList!, context: context)),
       ]
     );
   }
@@ -166,22 +172,46 @@ class _ClubDetailHome extends State<ClubDetailHome> {
   }
 }
 
-clubMemberCard({required ClubMemberList clubMemberList, isAdmin=false, required BuildContext context}) {
+clubMemberCard({required String meetingId, required ClubMemberList clubMemberList, isAdmin=false, required BuildContext context}) {
   var _temp = clubMemberList.member;
-  List<Widget> memberRowList = List.generate(_temp.length, (index) {
-    return clubMemberRow(member: _temp[index], isHead: (index==0), isAdmin: isAdmin, context: context);
-  });
+  List<Widget> memberRowList = [];
+  if(clubMemberList.currentNum == -1) {
+    memberRowList = List.generate(_temp.length, (index) {
+      return clubMemberRow(meetingId: meetingId, member: _temp[index], isAdmin: isAdmin, isWaiting: true, context: context);
+    });
+  }
+  else {
+    memberRowList = List.generate(_temp.length, (index) {
+      return clubMemberRow(meetingId: meetingId, member: _temp[index], isHead: (index==0), isAdmin: isAdmin, context: context);
+    });
+  }
   return Column(
     mainAxisAlignment: MainAxisAlignment.start,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      Text('모임 멤버 (${clubMemberList.currentNum}명/${clubMemberList.maxNum}명)', style: textStyle(weight: 700, size: 14.0)),
+      clubMemberList.currentNum != -1
+        ? Text('모임 멤버 (${clubMemberList.currentNum}명/${clubMemberList.maxNum}명)', style: textStyle(weight: 700, size: 14.0))
+        : Text('가입 대기중 (${clubMemberList.maxNum}명)', style: textStyle(weight: 700, size: 14.0)),
       SizedBox(height: 14),
     ] + memberRowList
   );
 }
 
-clubMemberRow({required ClubMember member, bool isHead=false, required bool isAdmin, required BuildContext context}) {
+clubMemberRow({required String meetingId, required ClubMember member, bool isHead=false, required bool isAdmin, bool isWaiting=false, required BuildContext context}) {
+
+  acceptUser() async {
+    var response = await actionMeeting(meetingId: meetingId, userId: member.userId, type: 'accept');
+    print(response);
+  }
+  rejectUser() async {
+    var response = await actionMeeting(meetingId: meetingId, userId: member.userId, type: 'reject');
+    print(response);
+  }
+
+  kickUser() {
+
+  }
+
   List<Widget> _rightElement = [];
   if(isHead) {
     _rightElement = [Expanded(
@@ -193,7 +223,14 @@ clubMemberRow({required ClubMember member, bool isHead=false, required bool isAd
         alignment: Alignment.centerRight,
         child: GestureDetector(
           behavior: HitTestBehavior.translucent,
-          onTap: () {showClubDialog(context: context, title: '${member.userName}님을 강퇴하시겠습니까?', positiveAction: (){}, negativeAction: (){});},
+          onTap: () {
+            if(isWaiting) {
+              showClubDialog(context: context, title: '${member.userName}님을 가입시키겠습니까?', positiveAction: acceptUser, negativeAction: rejectUser, positiveWord: '수락', negativeWord: '거절');
+            }
+            else {
+              showClubDialog(context: context, title: '${member.userName}님을 강퇴하시겠습니까?', positiveAction: () {}, negativeAction: () {});
+            }
+          },
           child: Container(
             width: 42, height: 24,
             decoration: BoxDecoration(
@@ -201,16 +238,12 @@ clubMemberRow({required ClubMember member, bool isHead=false, required bool isAd
               color: Color(0xfff3f3f3)
             ),
             child: Center(
-              child: Text('강퇴', style: textStyle(color: Color(0xff666666), weight: 400, size: 10.0))
+              child: Text(isWaiting ? '처리' : '강퇴', style: textStyle(color: Color(0xff666666), weight: 400, size: 10.0))
             )
           )
         )
       )
     )];
-  }
-
-  kickUser() {
-
   }
 
   return Container(
