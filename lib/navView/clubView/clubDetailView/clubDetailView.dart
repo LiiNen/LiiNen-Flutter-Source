@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:my_flutter_source/functionCollection.dart';
 import 'package:my_flutter_source/main.dart';
@@ -75,6 +76,7 @@ class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderSta
           if (e['_id'] == userInfo['_id']) _isMember = true;
         });
       }
+      print(result);
     });
   }
 
@@ -96,7 +98,7 @@ class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderSta
                 _clubDetailTabController.index == 0 ? Container(
                   width: MediaQuery.of(context).size.width,
                   height: 180,
-                  child: Image.network(httpsToHttp(result['imageUrls'][0]))
+                  child: Image.network(httpsToHttp(result['imageUrls'][0]), fit: BoxFit.cover)
                 ) : Container(),
                 !_isScrolled ? ClubDetailTabBar(controller: _clubDetailTabController, isMember: _isMember) : Container(),
                 clubDetailTabBarView(controller: _clubDetailTabController, result: result)

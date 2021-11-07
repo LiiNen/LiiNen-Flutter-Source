@@ -88,6 +88,6 @@ class _ClubCreationView extends State<ClubCreationView> {
   }
 
   void _nextStep() {
-    if(_selectedCategory != '') Navigator.push(context, MaterialPageRoute(builder: (context) => ClubDetailSetupView(_selectedId)));
+    if(_selectedCategory != '') Navigator.push(context, MaterialPageRoute(builder: (context) => ClubDetailSetupView(id: _selectedId)));
   }
 }

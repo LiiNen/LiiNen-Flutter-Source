@@ -27,7 +27,7 @@ class _ClubSettingView extends State<ClubSettingView> {
         child: Column(
           children: <Widget>[
             SizedBox(height: 28),
-            settingItem(title: '모임정보 수정', route: ClubDetailSetupView('')),
+            settingItem(title: '모임정보 수정', route: ClubDetailSetupView(id: '', result: result)),
             settingItem(title: '멤버 관리', route: ClubMemberSettingView(result)),
           ]
         )

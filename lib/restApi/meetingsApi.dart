@@ -32,6 +32,7 @@ getMeetingById(String id) async {
 postMeetings({required String name, required String introduction, required String category, required String maxPerson, required File clubImage}) async {
 
   var imageUrls = await postImage(image: clubImage, type: 'meetings');
+  print(imageUrls);
 
   var temp = Map();
   temp['name'] = name;
@@ -41,6 +42,7 @@ postMeetings({required String name, required String introduction, required Strin
   temp['imageUrls'] = imageUrls;
 
   var requestBody = json.encode(temp);
+  print(requestBody);
   var headers = authToken;
   headers['Content-type'] = 'application/json';
   var response = await http.post(Uri.parse('$baseUrl$pathMeetings'),
@@ -72,7 +74,7 @@ getMeetingsText({required String text, int page=1, int limit=50}) async {
   }
 }
 
-patchMeetings({required String meetingId, File? clubImage}) async {
+patchMeetings({required String meetingId, required String name, required String introduction, required String maxPerson, File? clubImage}) async {
   var imageUrls = [];
   if(clubImage != null) {
     imageUrls = await postImage(image: clubImage, type: 'meetings');
@@ -81,8 +83,10 @@ patchMeetings({required String meetingId, File? clubImage}) async {
   var query = '/$meetingId';
 
   var requestBody = Map();
-  if(imageUrls != []) requestBody['imageUrls'] = imageUrls;
-
+  if(imageUrls.length != 0) requestBody['imageUrls'] = imageUrls;
+  requestBody['name'] = name;
+  requestBody['introduction'] = introduction;
+  requestBody['maxPerson'] = maxPerson;
   var requestBodyJson = json.encode(requestBody);
 
   var headers = authToken;
