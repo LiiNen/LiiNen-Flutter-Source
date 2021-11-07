@@ -38,7 +38,7 @@ class _FeedCardContainer extends State<FeedCardContainer> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Text(feedObject['meeting'], style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,
+            Text(feedObject['title'], style: textStyle(weight: 700, size: 14.0), textAlign: TextAlign.left,
               overflow: TextOverflow.ellipsis,
             ),
             sizedBox(4),
@@ -47,7 +47,7 @@ class _FeedCardContainer extends State<FeedCardContainer> {
               maxLines: 3,
             ),
             sizedBox(24),
-            Text('${feedObject['meeting']} · ${feedObject['author']}', style: greyStyle,),
+            Text('${feedObject['meeting']['name']} · ${feedObject['author']['name']}', style: greyStyle,),
             sizedBox(4),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,

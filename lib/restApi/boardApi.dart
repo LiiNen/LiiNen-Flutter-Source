@@ -5,14 +5,16 @@ import 'package:my_flutter_source/restApi/imageApi.dart';
 import 'restApi.dart';
 
 getBoard({int page=1, int limit=50, postId=''}) async {
-  var query = '?';
-  if(postId != '') query = query + 'post_id=$postId';
-  else query = query + 'page=$page&limit=$limit';
+  var query = '';
+  if(postId != '') query = query + '/$postId';
+  else query = query + '?page=$page&limit=$limit';
 
   var response = await http.get(Uri.parse('$baseUrl$pathBoard$query'));
 
+  print(query);
   if(response.statusCode == 200) {
     var responseBody = json.decode(response.body);
+    print(responseBody);
     return responseBody;
   } else {
     return null;
@@ -55,6 +57,8 @@ patchBoardLike({required String postId, required String userId}) async {
   requestBody['user_id'] = userId;
 
   var requestBodyJson = json.encode(requestBody);
+  var headers = authToken;
+  headers['Content-type'] = 'application/json';
 
   var response = await http.patch(Uri.parse('$baseUrl/posts/$postId/likes'),
     headers: authToken, body: requestBodyJson
@@ -63,7 +67,7 @@ patchBoardLike({required String postId, required String userId}) async {
   if(response.statusCode == 200) {
     return true;
   }
-  else return false;
+  else return null;
 }
 
 getClubBoard({required String meetingId}) async {

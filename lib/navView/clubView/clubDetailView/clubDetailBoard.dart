@@ -97,7 +97,7 @@ class _ClubDetailBoard extends State<ClubDetailBoard> {
               SizedBox(height: 4),
               Text(clubBoard['contents'], style: textStyle(weight: 400, size: 10.0)),
               SizedBox(height: 24),
-              Text(clubBoard['author'], style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0)),
+              Text(clubBoard['author']['name'], style: textStyle(color: Color(0xff8a8a8a), weight: 400, size: 10.0)),
               SizedBox(height: 4),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

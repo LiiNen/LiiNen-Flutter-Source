@@ -30,8 +30,7 @@ class _ClubBoardDetailView extends State<ClubBoardDetailView> {
     if(temp == null) showToast('네트워크 상태를 확인해주세요');
     else {
       setState(() {
-        boardInfo = temp[0];
-        print(boardInfo);
+        boardInfo = temp;
       });
     }
   }
@@ -80,13 +79,12 @@ class _ClubBoardDetailView extends State<ClubBoardDetailView> {
       children: [
         Row(
           children: [
-            // todo: image url when api modified
-            // ClipRRect(
-            //   borderRadius: BorderRadius.circular(18),
-            //   child: item.thumbnailUrl == null
-            //     ? Image.asset('asset/loginView/profile.png', width: 36, height: 36,)
-            //     : Image.network(item.thumbnailUrl!, width: 36, height: 36, fit: BoxFit.cover,),
-            // ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(18),
+              child: boardInfo['author']['imageUrl'] == ''
+                ? Image.asset('asset/loginView/profile.png', width: 36, height: 36,)
+                : Image.network(boardInfo['author']['imageUrl'], width: 36, height: 36, fit: BoxFit.cover,),
+            ),
             SizedBox(width: 8),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -177,7 +175,7 @@ class _ClubBoardDetailView extends State<ClubBoardDetailView> {
     if(response == true) {
       _getBoard();
     }
-    else if(response != true) {
+    else {
       showToast('네트워크 상태를 확인해주세요');
     }
   }
