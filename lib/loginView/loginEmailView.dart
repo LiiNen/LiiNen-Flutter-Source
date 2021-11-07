@@ -133,7 +133,6 @@ class _LoginEmailView extends State<LoginEmailView> {
     super.dispose();
   }
 
-  //TODO : login implements
   void _loginAction() async {
     loadingDialog(context);
     var response = await signInApi(email: emailController.text, password: passwordController.text);

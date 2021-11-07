@@ -31,6 +31,7 @@ class _ClubDetailHome extends State<ClubDetailHome> {
   dynamic result;
   _ClubDetailHome(this.result);
 
+  bool isWaiting = false;
   String? _clubCategory;
   String? _clubTitle;
   String? _clubIntro;
@@ -54,7 +55,10 @@ class _ClubDetailHome extends State<ClubDetailHome> {
       for (var e in result['persons']['members']) temp.add(ClubMember(userId: e['_id'], imgSrc: e['imageUrl'], userName: e['name'], userIntro: e['introduce']));
       _clubMemberList = ClubMemberList(currentNum: result['personsCount'], maxNum: result['maxPerson'], member: temp);
       temp = [];
-      for (var e in result['persons']['waiting']) temp.add(ClubMember(userId: e['_id'], imgSrc: e['imageUrl'], userName: e['name'], userIntro: e['introduce']));
+      for (var e in result['persons']['waiting']) {
+        if(e['_id'] == userInfo['_id']) isWaiting = true;
+        temp.add(ClubMember(userId: e['_id'], imgSrc: e['imageUrl'], userName: e['name'], userIntro: e['introduce']));
+      }
       _waitingList = ClubMemberList(member: temp, maxNum: temp.length);
     });
   }
@@ -112,9 +116,12 @@ class _ClubDetailHome extends State<ClubDetailHome> {
   }
 
   _clubInOutButton(bool isMember) {
-    Color boxColor = (!isMember && (_clubMemberList!.currentNum < _clubMemberList!.maxNum) ? Color(0xff0958c5) : Color(0xffd1d5d9));
+    Color boxColor = (!isWaiting && !isMember && (_clubMemberList!.currentNum < _clubMemberList!.maxNum) ? Color(0xff0958c5) : Color(0xffd1d5d9));
     String boxContent;
-    if(result['persons']['president']['_id'] == userInfo['_id']) boxContent = '모임 삭제';
+    if(isWaiting) {
+      boxContent = '가입 대기중';
+    }
+    else if(result['persons']['president']['_id'] == userInfo['_id']) boxContent = '모임 삭제';
     else if(!isMember) {
       if(_clubMemberList!.currentNum < _clubMemberList!.maxNum) boxContent = '가입하기';
       else boxContent = '모집마감';
@@ -123,7 +130,10 @@ class _ClubDetailHome extends State<ClubDetailHome> {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        if(boxContent == '가입하기') {showClubDialog(context: context, title: '모임에 가입하시겠습니까?', positiveAction: joinClub, negativeAction: (){});}
+        if(boxContent == '가입 대기중') {
+          // do nothing
+        }
+        else if(boxContent == '가입하기') {showClubDialog(context: context, title: '모임에 가입하시겠습니까?', positiveAction: joinClub, negativeAction: (){});}
         else if(boxContent == '모임탈퇴') {showClubDialog(context: context, title: '모임을 나가시겠습니까?', positiveAction: quitClub, negativeAction: (){});}
         else if(boxContent == '모집마감') {
           // do nothing

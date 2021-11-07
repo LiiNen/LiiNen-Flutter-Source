@@ -72,6 +72,7 @@ class _AlarmView extends State<AlarmView> {
               )
             ],
             child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: () => {
                 navigatorPush(context: context, widget: ClubDetailView(id: item['meeting']))
               },
@@ -112,17 +113,9 @@ class _AlarmView extends State<AlarmView> {
     var result = await deleteAlarm(alarmId: alarmList[index]['_id']);
     if(result == true) {
       setState(() {
-        alarmItemList.removeAt(index);
+        alarmList.removeAt(index);
       });
     }
     else showToast('네트워크 상태를 확인해주세요');
   }
 }
-
-List<AlarmItemObject> alarmItemList = [
-  AlarmItemObject(alarmId: '1', context: '모각까가가가가가가ㅏ가가가가가가가가ㅏ모각까가가가가가가ㅏ가가가가가가가가ㅏ모각까가가가가가가ㅏ가가가가가가가가ㅏ모각까가가가가가가ㅏ가가가가가가가가ㅏ', time: 60),
-  AlarmItemObject(alarmId: '1', context: '모각까가가가가가가ㅏ가가가가가가가가ㅏ', time: 60),
-  AlarmItemObject(alarmId: '1', context: '모각까가가가가가가ㅏ가가가가가가가가ㅏ', time: 60),
-  AlarmItemObject(alarmId: '1', context: '모각까가가가가가가ㅏ가가가가가가가가ㅏ', time: 60),
-  AlarmItemObject(alarmId: '1', context: '모각까가가가가가가ㅏ가가가가가가가가ㅏ', time: 60),
-];

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../functionCollection.dart';
 import 'clubDetailBoard.dart';
-import 'clubDetailCalendar.dart';
+import 'clubDetailQuest.dart';
 import 'clubDetailChat.dart';
 import 'clubDetailHome.dart';
 
@@ -11,7 +11,7 @@ clubDetailTabBarView({required TabController controller, required dynamic result
     child: [
       ClubDetailHome(result),
       ClubDetailBoard(result),
-      ClubDetailCalendar(),
+      ClubDetailQuest(result),
       ClubDetailChat(),
     ][controller.index],
   );

@@ -43,8 +43,8 @@ class _ClubDetailBoard extends State<ClubDetailBoard> {
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 21, vertical: 12),
         padding: EdgeInsets.symmetric(vertical: 12),
-        child: isLoaded ?
-          (clubBoardList.length != 0 ?
+        child: isLoaded ? (
+          clubBoardList.length != 0 ?
             SingleChildScrollView(
               child: Column(
                 children: List.generate(clubBoardList.length, (index) {

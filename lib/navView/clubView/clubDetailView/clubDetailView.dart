@@ -7,6 +7,7 @@ import 'package:my_flutter_source/navView/clubView/clubDetailView/clubDetailBoar
 import 'package:my_flutter_source/restApi/meetingsApi.dart';
 
 import 'clubDetailAppBar.dart';
+import 'clubDetailQuest/clubQuestAddView.dart';
 import 'clubDetailTabBar.dart';
 
 class ClubDetailView extends StatefulWidget {
@@ -110,10 +111,13 @@ class _ClubDetailView extends State<ClubDetailView> with SingleTickerProviderSta
           ) : Container(),
         ]
       ) : Container(),
-      floatingActionButton: _clubDetailTabController.index == 1 ? Container(
+      floatingActionButton: (_clubDetailTabController.index == 1 || _clubDetailTabController.index == 2) ? Container(
         width: 48, height: 48,
         child: FloatingActionButton(
-          onPressed: () => {Navigator.push(context, MaterialPageRoute(builder: (context) => ClubBoardAddView(result)))},
+          onPressed: () {
+            if(_clubDetailTabController.index == 1) Navigator.push(context, MaterialPageRoute(builder: (context) => ClubBoardAddView(result)));
+            if(_clubDetailTabController.index == 2) Navigator.push(context, MaterialPageRoute(builder: (context) => ClubQuestAddView(result)));
+          },
           backgroundColor: Color(0xff0958c5),
           child: SvgPicture.asset('asset/image/icoPlus.svg', width: 20, height: 20),
         )
