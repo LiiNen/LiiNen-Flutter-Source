@@ -40,9 +40,6 @@ class _ClubDetailQuest extends State<ClubDetailQuest> {
     else {
       setState(() {
         _questList = _temp;
-        print('퀘스트');
-        print(_questList[1]['_id']);
-        print(_questList[0]['_id']);
         for (var quest in _questList) {
           if(quest['isActive'] == false) _doneList.add(quest);
           else {
@@ -63,9 +60,6 @@ class _ClubDetailQuest extends State<ClubDetailQuest> {
             }
           }
         }
-        print(_doneList);
-        print(_ongoingList);
-        print(_completeList);
       });
     }
   }
