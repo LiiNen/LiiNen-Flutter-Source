@@ -1,13 +1,9 @@
 <h1 align='center'> SW Maestro 12 Team B2K <br> 목표 달성을 위한 모임 연결 및 관리 플랫폼 '이건모임' </h1>
 <h3 align='center'>Repository of App Application Developer (김정훈)</h3>
-<div align='center'><table><tr><td align='center' width="30%">Github</td><td align='center'>Contact to</td><td align='center' width="30%">Portfolio</td></tr><tr><td align='center'><a href="https://github.com/LiiNen"><img src="http://img.shields.io/badge/LiiNen-655ced?style=social&logo=github"/></a></td><td><a href="mailto:kjeonghoon065@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=kjeonghoon065@gmail.com&color=green&style=flat-square&logo=gmail"></a></td><td align='center'><a href="https://liinen.github.io">⭐🌟😊🌟⭐</a></td></tr></table></div>
-
-<div align='center'>
-  <img src="https://img.shields.io/badge/macOS 11.4-000000?style=flat-square&logo=MACOS&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=FLUTTER&logoColor=white"/>
+<div align='center'><table align='center'><tr><td align='center'>THIS PROJECT ABOUT..</td><td align='center'>Github</td><td align='center'>Contact to</td><td align='center'>Portfolio</td></tr><tr><td align='center'><img src="https://img.shields.io/badge/macOS 11.4-000000?style=flat-square&logo=MACOS&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=FLUTTER&logoColor=white"/><br>
   <img src="https://img.shields.io/badge/Android Studio-3DDC84?style=flat-square&logo=ANDROIDSTUDIO&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Xcode-147EFB?style=flat-square&logo=XCODE&logoColor=white"/>
-</div>
+  <img src="https://img.shields.io/badge/Xcode-147EFB?style=flat-square&logo=XCODE&logoColor=white"/></td><td align='center'><a href="https://github.com/LiiNen"><img src="http://img.shields.io/badge/LiiNen-655ced?style=social&logo=github"/></a></td><td><a href="mailto:kjeonghoon065@gmail.com"><img src="https://img.shields.io/static/v1?label=&message=kjeonghoon065@gmail.com&color=green&style=flat-square&logo=gmail"></a></td><td align='center'><a href="https://liinen.github.io">⭐🌟😊🌟⭐</a></td></tr></table></div>
 
 <br>
 
